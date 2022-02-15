@@ -2,15 +2,49 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createTheme, ThemeProvider } from '@mui/material';
+
+
+const theme = createTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#b5e853',
+      // main: '#b12122',
+      dark: '##b5e853',
+      light: '#000000',
+    },
+    secondary: {
+      main: '#b5e853',
+    },
+    background: {
+      default: '#151515',
+      paper: '#151515',
+    },
+    text: {
+      primary: '#b5e853',
+      secondary: '#b5e853',
+    },
+  },
+  outlinedInput: {
+    "&:hover .MuiInputAdornment-root .MuiSvgIcon-root": {
+      color: "#b5e853"
+    },
+    "&.Mui-focused .MuiInputAdornment-root .MuiSvgIcon-root": {
+      color: "#b5e853"
+    }
+  }
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 reportWebVitals();
