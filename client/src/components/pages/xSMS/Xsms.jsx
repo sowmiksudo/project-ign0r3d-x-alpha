@@ -1,13 +1,12 @@
 import { useState, useRef } from 'react';
-import Button from "../utilities/Button";
+import Button from "../../utilities/Button";
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { createStyles } from '@mui/material';
-import Header from "../layouts/Header";
-import Footer from "../layouts/Footer";
+import Header from "../../layouts/Header";
+import Footer from "../../layouts/Footer";
 import { useSnackbar } from 'notistack';
 
 
@@ -29,7 +28,7 @@ export default function Main() {
         vertical: 'bottom',
         horizontal: 'center'
       }
-    })    
+    })
   }
 
 
@@ -40,7 +39,7 @@ export default function Main() {
       timer.current = window.setTimeout(() => {
         setSuccess(true);
         setLoading(false);
-        Toastify("Register to be member", "info")
+        Toastify("API metadata fetched!", "success")
       }, 2000);
     }
   };
@@ -53,16 +52,6 @@ export default function Main() {
       message: data.get('message'),
     });
   };
-
-
-  const styles = createStyles({
-    border: {
-      borderColor: 'green'
-    },
-    TextField: {
-      color: 'white'
-    }
-  });
 
 
   return (
@@ -81,7 +70,9 @@ export default function Main() {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                style={styles.border}
+                style={{
+                  borderColor: 'green'
+                }}
                 required
                 fullWidth
                 id="number"
@@ -109,7 +100,9 @@ export default function Main() {
                 id="message"
                 autoComplete='off'
                 placeholder="Hey there, xSMS has got you!"
-                sx={styles.TextField}
+                sx={{
+                  color: 'white'
+                }}
                 inputProps={{
                   maxLength: 150
                 }}

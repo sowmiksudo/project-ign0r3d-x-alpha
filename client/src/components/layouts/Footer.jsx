@@ -1,23 +1,12 @@
 import React from 'react'
 import Typography from '@mui/material/Typography';
 import { Link, IconButton, Box } from '@mui/material';
-import { createStyles } from '@mui/material';
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TelegramIcon from "@mui/icons-material/Telegram";
 
 function Footer(props) {
 
-  const styles = createStyles({
-    socialLogo: {
-      color: '#b5e853'
-    },
-    iconsContainer: {
-      marginTop: 2,
-      display: 'flex',
-      justifyContent: "center"
-    }
-  });
 
   return (
     <>
@@ -26,19 +15,29 @@ function Footer(props) {
           &copy; IGN0R3DH4X0R
         </Link>
       </Typography>
-      <Box sx={styles.iconsContainer}>
+      <Box sx={{
+        marginTop: 2,
+        display: 'flex',
+        justifyContent: "center"
+      }}>
         <a href="https://github.com/Ign0r3dh4x0r">
-          <IconButton sx={styles.socialLogo} aria-label="">
+          <IconButton sx={{
+            color: '#b5e853'
+          }} aria-label="">
             <GitHubIcon />
           </IconButton>
         </a>
         <a href="https://web.facebook.com/groups/team.x.official.community">
-          <IconButton sx={styles.socialLogo} aria-label="">
+          <IconButton sx={{
+            color: '#b5e853'
+          }} aria-label="">
             <FacebookIcon />
           </IconButton>
         </a>
         <a href="https://t.me/teamx1337official">
-          <IconButton sx={styles.socialLogo} aria-label="">
+          <IconButton sx={{
+            color: '#b5e853'
+          }} aria-label="">
             <TelegramIcon />
           </IconButton>
         </a>

@@ -2,29 +2,11 @@ import React, { useEffect } from 'react';
 import { Avatar, Typography } from '@mui/material';
 import MessageIcon from '@mui/icons-material/Message';
 import Typed from "typed.js";
-import { createStyles } from '@mui/material';
 
 function Header() {
 
     const el = React.useRef(null);
     const typed = React.useRef(null);
-
-    const styles = createStyles({
-        logo: {
-            m: 1, 
-            bgcolor: 'secondary.main', 
-            width: 60, 
-            height: 60,
-            animationName: "spin",
-            animationTimingFunction: "linear",
-            animationIterationCount: "infinite",
-            animationDuration: "5s",
-            WebkitAnimationName: "spin",
-            WebkitAnimationTimingFunction: "linear",
-            WebkitAnimationIterationCount: "infinite",
-            WebkitAnimationDuration: "5s"
-        }
-    });
 
 
     useEffect(() => {
@@ -34,7 +16,7 @@ function Header() {
                 '<strong><small>X</small>SMS</strong> <small>U<x-small>NLIMITED</x-small> B<x-small>ALANCE</x-small></small>',
                 '<strong><small>X</small>SMS</strong> <small>No L<x-small>OGIN</x-small></small>',
                 '<strong><small>X</small>SMS</strong> <small>No R<x-small>EGISTRATION</x-small></small>',
-                '<strong><small>X</small>SMS</strong> <x-small>FROM</x-small><small> TEAM X 1337</small>', 
+                '<strong><small>X</small>SMS</strong> <x-small>FROM</x-small><small> TEAM X 1337</small>',
             ],
             typeSpeed: 30,
             backSpeed: 10,
@@ -52,7 +34,20 @@ function Header() {
 
     return (
         <>
-            <Avatar sx={styles.logo} >
+            <Avatar sx={{
+                m: 1,
+                bgcolor: 'secondary.main',
+                width: 60,
+                height: 60,
+                animationName: "spin",
+                animationTimingFunction: "linear",
+                animationIterationCount: "infinite",
+                animationDuration: "5s",
+                WebkitAnimationName: "spin",
+                WebkitAnimationTimingFunction: "linear",
+                WebkitAnimationIterationCount: "infinite",
+                WebkitAnimationDuration: "5s"
+            }} >
                 <MessageIcon sx={{ width: 30, height: 30 }} />
             </Avatar>
             <Typography component="h1" variant="h5" sx={{ textShadow: "0 0 10px 0 lime" }}>

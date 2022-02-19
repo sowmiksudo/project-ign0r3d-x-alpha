@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createTheme, ThemeProvider } from '@mui/material';
+import { store } from './components/redux/CreateStore';
+import { Provider } from 'react-redux';
 
 
 const theme = createTheme({
@@ -11,7 +13,7 @@ const theme = createTheme({
     primary: {
       main: '#b5e853',
       // main: '#b12122',
-      dark: '##b5e853',
+      dark: '#b5e853',
       light: '#000000',
     },
     secondary: {
@@ -36,12 +38,14 @@ const theme = createTheme({
   }
 });
 
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ThemeProvider>
-
   </React.StrictMode>,
   document.getElementById('root')
 );

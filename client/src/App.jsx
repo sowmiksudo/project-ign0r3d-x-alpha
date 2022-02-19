@@ -1,19 +1,20 @@
-import Main from "./components/pages/Main";
-import "./styles/App.css";
+import { BrowserRouter } from "react-router-dom";
+import Routes from "./Routes";
 import React from 'react';
 import { SnackbarProvider } from 'notistack';
 import { Grow } from "@mui/material"
-
-
-
+import Page from "./components/layouts/Page";
 
 function App() {
   return (
-    <SnackbarProvider maxSnack={3} TransitionComponent={Grow} autoHideDuration={3000} >
-      <div className="overlay">
-        <Main />
-      </div>
-    </SnackbarProvider>
+    <BrowserRouter>
+      <Page>
+        <SnackbarProvider maxSnack={3} TransitionComponent={Grow} autoHideDuration={3000} >
+          <Routes />
+        </SnackbarProvider>
+      </Page>
+
+    </BrowserRouter>
   );
 }
 
