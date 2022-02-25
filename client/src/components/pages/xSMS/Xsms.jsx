@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import Header from "../../layouts/Header";
 import Footer from "../../layouts/Footer";
 import { useSnackbar } from 'notistack';
+import SendIcon from '@mui/icons-material/Send';
 
 
 
@@ -109,7 +110,7 @@ export default function Main() {
               />
             </Grid>
           </Grid>
-          <Button loading={loading} success={success} handleButtonClick={handleButtonClick} timer={timer} />
+          <Button loading={loading} success={success} handleButtonClick={handleButtonClick} timer={timer} text="SEND SMS" icon={<SendIcon />} />
         </Box>
       </Box>
       <Footer sx={{ mt: 5 }} />

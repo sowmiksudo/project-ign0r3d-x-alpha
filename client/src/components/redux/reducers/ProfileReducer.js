@@ -7,7 +7,7 @@ const ProfileReducer = (state = initState, action) => {
         case ActionTypes.LOADING:
             return {
                 ...state,
-                userProfile: "loading...",
+                userProfile: "loading",
             };
         case ActionTypes.LOAD_PROFILE_SUCCESS:
             return {

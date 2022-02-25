@@ -5,21 +5,18 @@ import Register from "./components/pages/Register";
 import PrivateRoute from './PrivateRoute';
 import { Guard } from './Guard';
 import "./styles/App.css";
-import Xsms from "./components/pages/xSMS/Xsms";
+import { Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-import Home from "./components/pages/Home";
-import Profile from "./components/pages/Profile";
 
 function RouteList() {
     return (
         <Box className="overlay">
             <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route exact path="/x-sms" element={<Xsms />} />
                 <Route path="/user/login" element={<Login />} />
                 <Route path="/user/register" element={<Register />} />
-                <Route path="/user" element={<Profile />} />
-                <Route path="/user/*" element={<Guard token="user-token" routeNavigate="/login" component={PrivateRoute} />} /> 
+                <Route path="/*" element={<Guard token="user-token" routeNavigate="/login" component={PrivateRoute} />} /> 
+                <Route exact path="/" element={<Navigate to="/user/login" />} /> 
+                <Route element={<Navigate to="/user/login" />} />
             </Routes>
         </Box>
     );

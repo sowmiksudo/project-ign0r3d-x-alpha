@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from "react";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,13 +9,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Avatar } from '@mui/material';
+import { SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Avatar, Backdrop, CircularProgress } from '@mui/material';
 import HomeIcon from "@mui/icons-material/Home"
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Link } from "react-router-dom";
 import { LogoutAction } from "../redux/actions/AuthActions";
-import { useDispatch } from "react-redux";
+import { LoadProfileAction } from "../redux/actions/ProfileActions"
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
 
 
 const themeColor = '#b5e853';
@@ -35,6 +38,13 @@ export default function Page({ children }) {
         setAnchorEl(null);
     };
 
+    const profileResponse = useSelector(state => state.userDetails.userProfile);
+    useEffect(() => {
+        dispatch(LoadProfileAction());
+        return () => {
+        };
+    }, [])
+
     const toggleDrawer = (event) => {
         if (
             event &&
@@ -48,7 +58,8 @@ export default function Page({ children }) {
     };
 
     const logOut = () => {
-        console.log("Logged out!");
+        dispatch(LogoutAction());
+        navigate("/user/login");
     }
 
     const list = () => {
@@ -59,8 +70,12 @@ export default function Page({ children }) {
                 onClick={toggleDrawer}
                 onKeyDown={toggleDrawer}
             >
-
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
+                <Backdrop
+                    open={profileResponse === 'loading'}
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                >
+                    <CircularProgress sx={{ color: themeColor }} />
+                </Backdrop>
                 <Avatar sx={{ bgcolor: themeColor, m: 'auto' }}>X</Avatar>
 
                 <List>
@@ -69,16 +84,22 @@ export default function Page({ children }) {
                             {
                                 name: "Home",
                                 icon: <HomeIcon />,
-                                path: "/"
+                                path: "/",
                             },
-                            {
+                            ...profileResponse.success ? [{
                                 name: "Profile",
                                 icon: <AccountBoxIcon />,
-                                path: '/profile'
-                            }
-                        ].map((item) => (
-                            <Link to={item.path} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                <ListItem button key={item.name}>
+                                path: '/user',
+                            }] : [],
+                            ...!profileResponse.success ? [{
+                                name: "Login",
+                                icon: <LoginIcon />,
+                                path: "/user/login",
+                            }] : []
+                        ].map((item) => {
+                            return (
+                            <Link to={item.path} style={{ textDecoration: 'none', color: 'inherit' }} key={item.name}>
+                                <ListItem button>
                                     <ListItemIcon>
                                         <Box sx={{ color: themeColor }}>
                                             {item.icon}
@@ -87,7 +108,7 @@ export default function Page({ children }) {
                                     <ListItemText primary={item.name} />
                                 </ListItem>
                             </Link>
-                        ))}
+                        )})}
                 </List>
             </Box>
         );
@@ -109,10 +130,10 @@ export default function Page({ children }) {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={()=>{navigate("/")}}>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => { navigate("/") }}>
                             IGN0R3D x ALPHA
                         </Typography>
-                        {auth && (
+                        {profileResponse !== 'loading' && profileResponse.success && (
                             <div>
                                 <IconButton
                                     size="large"
@@ -139,7 +160,7 @@ export default function Page({ children }) {
                                     open={Boolean(anchorEl)}
                                     onClose={handleClose}
                                 >
-                                    <MenuItem onClick={()=>{navigate('/user')}}>Profile</MenuItem>
+                                    <MenuItem onClick={() => { navigate('/user') }}>Profile</MenuItem>
                                     <MenuItem onClick={logOut}>Logout</MenuItem>
                                 </Menu>
                             </div>

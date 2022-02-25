@@ -12,7 +12,7 @@ const AuthReducer = (state = initState, action) => {
         case ActionTypes.LOADING:
             return {
                 ...state,
-                authResponse: "loading...",
+                authResponse: "loading",
             };
         case ActionTypes.SIGNUP_SUCCESS:
             return {

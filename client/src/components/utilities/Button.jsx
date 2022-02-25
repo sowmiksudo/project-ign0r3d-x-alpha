@@ -3,9 +3,8 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 
-export default function CircularIntegration({ loading, handleButtonClick }) {
+export default function CircularIntegration({ loading, handleButtonClick, text, icon }) {
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
@@ -14,7 +13,7 @@ export default function CircularIntegration({ loading, handleButtonClick }) {
                 fullWidth
                 disabled={loading}
                 onClick={handleButtonClick}
-                startIcon={<SendIcon />}
+                startIcon={icon}
                 type="submit"
             >
                 {loading ? (
@@ -25,7 +24,7 @@ export default function CircularIntegration({ loading, handleButtonClick }) {
                             margin: 'auto',
                         }}
                     />
-                ) : "SEND SMS"}
+                ) : text}
             </Button>
         </Box>
     );

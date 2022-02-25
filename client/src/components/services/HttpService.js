@@ -11,7 +11,16 @@ export default class HttpService {
         const token = await localStorage.getItem(tokenId);
         const requestOptions = this.getRequestOptions(token);
         return fetch(this.url + "/" + added_url, requestOptions).then(
-            response => response.json()
+            (response) => {
+                if (response.status !== 200) {
+                    throw {
+                        "success": false,
+                        "error": "Status not OK."
+                    }
+                } else {
+                    return response.json()
+                }
+            }
         )
     }
     getRequestOptions = (token) => {

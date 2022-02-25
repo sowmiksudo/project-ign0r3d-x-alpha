@@ -24,7 +24,7 @@ export const LoginAction = (credentials, navigate) => {
             if (res.hasOwnProperty('success') && res.success === true) {
                 localStorage.setItem('user-token', res.token)
                 dispatch({ type: ActionTypes.LOGIN_SUCCESS });
-                navigate('/user');
+                navigate('/');
             } else if (res.hasOwnProperty('success') && res.success === false) {
                 dispatch({ type: ActionTypes.LOGIN_ERROR, res });
             }
