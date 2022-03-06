@@ -1,20 +1,17 @@
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import Routes from "./Routes";
 import React from 'react';
 import { SnackbarProvider } from 'notistack';
 import { Grow } from "@mui/material"
-import Page from "./components/layouts/Page";
+import "./styles/App.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Page>
-        <SnackbarProvider maxSnack={3} TransitionComponent={Grow} autoHideDuration={3000} >
-          <Routes />
-        </SnackbarProvider>
-      </Page>
-
-    </BrowserRouter>
+    <SnackbarProvider maxSnack={3} TransitionComponent={Grow} autoHideDuration={3000} >
+      <HashRouter>
+        <Routes />
+      </HashRouter>
+    </SnackbarProvider>
   );
 }
 

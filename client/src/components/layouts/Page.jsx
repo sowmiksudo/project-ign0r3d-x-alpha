@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Avatar, Backdrop, CircularProgress } from '@mui/material';
+import { Button, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Avatar, Backdrop, CircularProgress, Container, CssBaseline } from '@mui/material';
 import HomeIcon from "@mui/icons-material/Home"
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Link } from "react-router-dom";
@@ -18,6 +18,7 @@ import { LoadProfileAction } from "../redux/actions/ProfileActions"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
+import { Navigate } from "react-router"
 
 
 const themeColor = '#b5e853';
@@ -26,8 +27,7 @@ export default function Page({ children }) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    const auth = true;
+    const [isLoggedOutEventFired, setIsLoggedOutEventFired] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
 
@@ -38,12 +38,6 @@ export default function Page({ children }) {
         setAnchorEl(null);
     };
 
-    const profileResponse = useSelector(state => state.userDetails.userProfile);
-    useEffect(() => {
-        dispatch(LoadProfileAction());
-        return () => {
-        };
-    }, [])
 
     const toggleDrawer = (event) => {
         if (
@@ -57,10 +51,20 @@ export default function Page({ children }) {
         setDrawerOpen(!drawerOpen);
     };
 
-    const logOut = () => {
-        dispatch(LogoutAction());
-        navigate("/user/login");
+    const auth = useSelector(state => state.auth)
+    const LogOutUser = () => {
+        dispatch(LogoutAction())
+        setTimeout(() => {
+            window.location.reload()
+        }, 5000);
     }
+
+    const user = useSelector(state => state.user);
+    useEffect(() => {
+        dispatch(LoadProfileAction());
+        return () => {
+        };
+    }, []);
 
     const list = () => {
         return (
@@ -70,12 +74,6 @@ export default function Page({ children }) {
                 onClick={toggleDrawer}
                 onKeyDown={toggleDrawer}
             >
-                <Backdrop
-                    open={profileResponse === 'loading'}
-                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                >
-                    <CircularProgress sx={{ color: themeColor }} />
-                </Backdrop>
                 <Avatar sx={{ bgcolor: themeColor, m: 'auto' }}>X</Avatar>
 
                 <List>
@@ -86,29 +84,30 @@ export default function Page({ children }) {
                                 icon: <HomeIcon />,
                                 path: "/",
                             },
-                            ...profileResponse.success ? [{
+                            ...user.success ? [{
                                 name: "Profile",
                                 icon: <AccountBoxIcon />,
                                 path: '/user',
                             }] : [],
-                            ...!profileResponse.success ? [{
+                            ...!user.success ? [{
                                 name: "Login",
                                 icon: <LoginIcon />,
                                 path: "/user/login",
                             }] : []
                         ].map((item) => {
                             return (
-                            <Link to={item.path} style={{ textDecoration: 'none', color: 'inherit' }} key={item.name}>
-                                <ListItem button>
-                                    <ListItemIcon>
-                                        <Box sx={{ color: themeColor }}>
-                                            {item.icon}
-                                        </Box>
-                                    </ListItemIcon>
-                                    <ListItemText primary={item.name} />
-                                </ListItem>
-                            </Link>
-                        )})}
+                                <Link to={item.path} style={{ textDecoration: 'none', color: 'inherit' }} key={item.name}>
+                                    <ListItem button>
+                                        <ListItemIcon>
+                                            <Box sx={{ color: themeColor }}>
+                                                {item.icon}
+                                            </Box>
+                                        </ListItemIcon>
+                                        <ListItemText primary={item.name} />
+                                    </ListItem>
+                                </Link>
+                            )
+                        })}
                 </List>
             </Box>
         );
@@ -117,7 +116,16 @@ export default function Page({ children }) {
 
     return (
         <div>
+            {/* {
+                !auth.loading && auth.success && !auth.response.success && <Navigate to="/user/login" />
+            } */}
             <Box sx={{ flexGrow: 1 }}>
+                <Backdrop
+                    open={user.loading}
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
                 <AppBar position="fixed">
                     <Toolbar variant="dense" >
                         <IconButton
@@ -125,46 +133,51 @@ export default function Page({ children }) {
                             edge="start"
                             color="inherit"
                             aria-label="menu"
-                            sx={{ mr: 2 }}
+
                             onClick={toggleDrawer}
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => { navigate("/") }}>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1, cursor: 'pointer' }} onClick={() => { navigate("/") }}>
                             IGN0R3D x ALPHA
                         </Typography>
-                        {profileResponse !== 'loading' && profileResponse.success && (
-                            <div>
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleMenu}
-                                    color="inherit"
-                                >
-                                    <AccountCircle />
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={Boolean(anchorEl)}
-                                    onClose={handleClose}
-                                >
-                                    <MenuItem onClick={() => { navigate('/user') }}>Profile</MenuItem>
-                                    <MenuItem onClick={logOut}>Logout</MenuItem>
-                                </Menu>
-                            </div>
-                        )}
+                        {!user.loading && <div>
+                            {user.success ?
+                                <Box>
+                                    <IconButton
+                                        size="large"
+                                        aria-label="account of current user"
+                                        aria-controls="menu-appbar"
+                                        aria-haspopup="true"
+                                        onClick={handleMenu}
+                                        color="inherit"
+                                    >
+                                        <AccountCircle />
+                                    </IconButton>
+                                    <Menu
+                                        id="menu-appbar"
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={Boolean(anchorEl)}
+                                        onClose={handleClose}
+                                    >
+                                        <MenuItem onClick={() => { navigate('/user/profile'); setAnchorEl(null) }}>Profile</MenuItem>
+                                        <MenuItem onClick={() => { navigate('/user'); setAnchorEl(null) }}>Dashboard</MenuItem>
+                                        <MenuItem onClick={() => { LogOutUser(); setAnchorEl(null) }}>Logout</MenuItem>
+                                    </Menu>
+                                </Box> :
+                                <Box>
+                                    <Button variant="contained" onClick={() => { navigate("/user/login") }}>LOGIN</Button>
+                                </Box>}
+                        </div>}
                     </Toolbar>
                 </AppBar>
                 <SwipeableDrawer
@@ -176,7 +189,10 @@ export default function Page({ children }) {
                     {list()}
                 </SwipeableDrawer>
             </Box>
-            {children}
+            <Container maxWidth="xs" component="main" sx={{ mt: '48px' }}>
+                <CssBaseline />
+                {children}
+            </Container>
         </div>
     );
 }

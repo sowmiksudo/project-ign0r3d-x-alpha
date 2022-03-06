@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 
-export default function CircularIntegration({ loading, handleButtonClick, text, icon }) {
+export default function CustomButton({ loading, handleButtonClick, text, icon }) {
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>

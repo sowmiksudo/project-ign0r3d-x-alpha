@@ -8,8 +8,8 @@ import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDiss
 import { useSnackbar } from "notistack"
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useNavigate, Link } from "react-router-dom";
-import "./../../styles/App.css";
 import styled from '@emotion/styled';
+import { LOAD_PROFILE_SUCCESS } from '../redux/ActionTypes';
 
 
 const themeColor = "#b5e853";
@@ -28,8 +28,7 @@ const ExpandMore = styled((props) => {
 export default function Profile() {
   const [expanded, setExpanded] = React.useState(true);
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const divRef = React.useRef();
+  const divRef = React.useRef(null);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -39,44 +38,43 @@ export default function Profile() {
   }
 
   const dispatch = useDispatch();
-  const profileResponse = useSelector(state => state.userDetails.userProfile);
+  const user = useSelector(state => state.user);
+  const profile = !user.loading ? user.profile.data : null
   useEffect(() => {
-    if(profileResponse !== 'loading'){
-      if(!profileResponse.success){
+    if (!user.loading) {
+      if (!user.profile.success) {
         goToLogin();
       }
     }
-    dispatch(LoadProfileAction());
-    setAnchorEl(divRef.current)
+    // dispatch(LoadProfileAction());
     return () => {
     };
   }, [divRef]);
 
   return (
-    <Container maxWidth="xs" component="main" sx={{ height: '100%' }}>
-      <CssBaseline />
+    <Box sx={{ height: '100%' }}>
       <Backdrop
-        open={profileResponse === 'loading'}
+        open={user.loading}
         sx={{ color: '#fff', zIndex: 100210201201 }}
       >
         <CircularProgress sx={{ color: themeColor }} />
       </Backdrop>
       <Box sx={{ height: '100%', display: 'flex', justifyContents: 'center', alignItems: 'center' }}>
-        {profileResponse.success &&
+        {!user.loading &&
           <Card sx={{ maxWidth: 345 }}>
             <CardHeader
               avatar={
                 <Avatar sx={{ bgcolor: themeColor }} aria-label="recipe">
-                  {profileResponse.data.name.split("")[0].toUpperCase()}
+                  {profile.name.split("")[0].toUpperCase()}
                 </Avatar>
               }
-              action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon sx={{ color: themeColor }} />
-                </IconButton>
-              }
-              title={profileResponse.data.name}
-              subheader={profileResponse.data.email}
+              // action={
+              //   <IconButton aria-label="settings">
+              //     <MoreVertIcon sx={{ color: themeColor }} />
+              //   </IconButton>
+              // }
+              title={profile.name}
+              subheader={profile.email}
             />
 
             <CardContent>
@@ -106,9 +104,9 @@ export default function Profile() {
                 <Typography paragraph>Follow <Link to="https://t.me/TeamX1337Official">THIS</Link> telegram post to know the procedure.</Typography>
               </CardContent>
             </Collapse>
-          </Card>          
+          </Card>
         }
       </Box>
-    </Container>
+    </Box>
   );
 }

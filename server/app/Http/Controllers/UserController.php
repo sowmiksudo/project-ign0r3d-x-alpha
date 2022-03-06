@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware("auth:api", ["except" => ["login", "register"]]);
+        $this->middleware("auth:api", ["except" => ["login", "register" ]]);
         $this->user = new User;
     }
 
@@ -23,14 +23,15 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'email' => 'required|string|unique:users',
+            'email' => 'required|email|unique:users',
+            'number'=>'required|numeric|digits:11',
             'password' => 'required|min:6|confirmed',
         ]);
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => $validator->messages()->toArray()
-            ], 500);
+            ], 200);
         }
         $data = [
             "name" => $request->name,
@@ -38,7 +39,7 @@ class UserController extends Controller
             "password" => Hash::make($request->password)
         ];
         $this->user->create($data);
-        $responseMessage = "Registration Successful";
+        $responseMessage = "Registration Successful, login to continue.";
         return response()->json([
             'success' => true,
             'message' => $responseMessage
@@ -54,7 +55,7 @@ class UserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => $validator->messages()->toArray()
-            ], 500);
+            ], 200);
         }
         $credentials = $request->only(["email", "password"]);
         $user = User::where('email', $credentials['email'])->first();
@@ -63,9 +64,8 @@ class UserController extends Controller
                 $responseMessage = "Invalid username or password";
                 return response()->json([
                     "success" => false,
-                    "message" => $responseMessage,
-                    "error" => $responseMessage
-                ], 422);
+                    "message" => $responseMessage
+                ], 200);
             }
             $accessToken = auth()->user()->createToken('authToken')->accessToken;
             $responseMessage = "Login Successful";
@@ -75,8 +75,7 @@ class UserController extends Controller
             return response()->json([
                 "success" => false,
                 "message" => $responseMessage,
-                "error" => $responseMessage
-            ], 422);
+            ], 200);
         }
     }
     public function viewProfile()
@@ -95,7 +94,7 @@ class UserController extends Controller
         $user->revoke();
         $responseMessage = "Successfully logged out";
         return response()->json([
-            'success' => true,
+            'success' => false,
             'message' => $responseMessage
         ], 200);
     }

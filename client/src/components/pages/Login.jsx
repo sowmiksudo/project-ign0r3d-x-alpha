@@ -1,19 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { TextField, Container, CssBaseline, Grid } from "@mui/material";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { TextField, Grid, Typography } from "@mui/material";
 import { useDispatch } from 'react-redux';
 import { LoginAction } from '../redux/actions/AuthActions';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { useSelector } from 'react-redux';
-import { LoadProfileAction } from '../redux/actions/ProfileActions';
 import { CircularProgress, Box, Backdrop } from '@mui/material';
 import { useSnackbar } from "notistack";
 import Button from "./../utilities/Button"
+import LoginIcon from '@mui/icons-material/Login';
+import { LoadProfileAction } from '../redux/actions/ProfileActions';
+
+
+const themeColor = "#b5e853";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { enqueueSnackbar } = useSnackbar();
   const timer = useRef()
 
@@ -28,20 +31,13 @@ function Login() {
     })
   }
 
-  const profileResponse = useSelector(state => state.userDetails.userProfile);
+  const user = useSelector(state => state.user);
+
   useEffect(() => {
-    dispatch(LoadProfileAction());
-    if (profileResponse !== "loading") {
-      if (profileResponse.success) {
-        navigate("/user")
-        Toastify("You are already logged in!", "info")
-      }
-    }
+    dispatch(LoadProfileAction())
     return () => {
     };
-  }, [Toastify, navigate, dispatch])
-
-
+  }, [])
 
   const [fields, setState] = useState({
     email: "",
@@ -54,78 +50,104 @@ function Login() {
     })
   }
 
-  const authResponse = useSelector(state => state.userAuth.authResponse);
+
+
+  const auth = useSelector(state => state.auth);
+  useEffect(() => {
+    if (!auth.loading) {
+      if (!auth.response.success) {
+        if (typeof auth.response.message == 'string') {
+          Toastify(auth.response.message, "error")
+        } else {
+          const errors = auth.response.message
+          for (const error in errors) {
+            errors[error].map(error => {
+              Toastify(error, "error")
+            })
+          }
+        }
+      } else {
+        Toastify(auth.response.message, "success")
+        dispatch(LoadProfileAction())
+        if(!user.loading){
+          if(user.profile.success){
+            navigate("/user")
+          }
+        }
+      }
+    }
+  }, [auth])
 
   const UserLogin = (e) => {
     e.preventDefault();
-    dispatch(LoginAction(fields, navigate));
-    console.table(authResponse)
-    if (authResponse !== "" && authResponse !== 'loading') {
-      if (!authResponse.success) {
-        Toastify(authResponse.message, "error");
-      } else {
-        Toastify(authResponse.message, "success");
-      }
+    if (fields.email === "" | fields.password === "") {
+      Toastify("You must fillup all the boxes.", "warning")
+      return
     }
+
+    dispatch(LoginAction(fields, navigate));
   };
 
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }} >
-      <CssBaseline />
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }} >
+      {!user.loading && user.profile && user.profile.success && <Navigate to="/user" />}
       <Backdrop
-        open={profileResponse === 'loading'}
+        open={user.loading && auth.loading}
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      {profileResponse !== 'loading' &&
-        <Box component="form" noValidate onSubmit={UserLogin} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                style={{
-                  borderColor: 'green'
-                }}
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                name="email"
-                autoComplete='off'
-                placeholder='example@example.domain'
-                value={fields.email}
-                onChange={handleFieldChange}
-              />
+      {(!user.loading || !auth.loading) &&
+        <Box>
+          <Box component="form" noValidate onSubmit={UserLogin} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  style={{
+                    borderColor: 'green'
+                  }}
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  name="email"
+                  autoComplete='off'
+                  placeholder='example@example.domain'
+                  value={fields.email}
+                  onChange={handleFieldChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete='off'
+                  sx={{
+                    color: 'white'
+                  }}
+                  value={fields.password}
+                  onChange={handleFieldChange}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete='off'
-                sx={{
-                  color: 'white'
-                }}
-                value={fields.password}
-                onChange={handleFieldChange}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            loading={profileResponse === 'loading'}
-            handleButtonClick={UserLogin}
-            timer={timer}
-            text="LOGIN"
-            icon={<AccountCircleIcon />} />
+            <Button
+              loading={user.loading}
+              handleButtonClick={UserLogin}
+              timer={timer}
+              text="LOGIN"
+              icon={<LoginIcon />} />
+          </Box>
+          <Typography align="right" sx={{ mt: 2 }}>
+            <Link to="/user/register">Don't have an account? Register now!</Link>
+          </Typography>
         </Box>
-
-
       }
-    </Container >
+    </Box>
   )
 }
 export default Login;
