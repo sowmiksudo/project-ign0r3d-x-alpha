@@ -7,11 +7,13 @@ import "./styles/App.css";
 
 function App() {
   return (
-    <SnackbarProvider maxSnack={3} TransitionComponent={Grow} autoHideDuration={3000} >
-      <HashRouter>
-        <Routes />
-      </HashRouter>
-    </SnackbarProvider>
+    <div className="overlay">
+      <SnackbarProvider maxSnack={3} TransitionComponent={Grow} autoHideDuration={3000} >
+        <HashRouter>
+          <Routes />
+        </HashRouter>
+      </SnackbarProvider>
+    </div>
   );
 }
 

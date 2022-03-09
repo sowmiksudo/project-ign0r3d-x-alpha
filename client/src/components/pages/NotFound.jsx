@@ -11,8 +11,7 @@ function NotFound() {
                 <Typography color="#b5e853">
                     PAGE NOT FOUND
                 </Typography>
-                <a href="/">HOME</a>
-                {/* <Link to="/">HOME</Link> */}
+                <Link to="/">HOME</Link>
             </Box>
         </Container>
     )

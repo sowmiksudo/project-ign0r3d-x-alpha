@@ -12,7 +12,6 @@ export default function CustomButton({ loading, handleButtonClick, text, icon })
                 variant="contained"
                 fullWidth
                 disabled={loading}
-                onClick={handleButtonClick}
                 startIcon={icon}
                 type="submit"
             >

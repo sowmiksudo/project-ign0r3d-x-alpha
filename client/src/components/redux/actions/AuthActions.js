@@ -39,7 +39,7 @@ export const LogoutAction = () => {
     return (dispatch) => {
         dispatch({ type: ActionTypes.RESTART_AUTH_RESPONSE });
         LogOutUserService().then((res) => {
-            if(res.data.success){
+            if(!res.data.success){
                 dispatch({ type: ActionTypes.LOGOUT_SUCCESS, res:res.data.data })
             }  else {
                 dispatch({ type: ActionTypes.LOGOUT_ERROR, res: res.data })

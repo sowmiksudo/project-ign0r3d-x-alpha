@@ -35,6 +35,9 @@ const theme = createTheme({
     "&.Mui-focused .MuiInputAdornment-root .MuiSvgIcon-root": {
       color: "#b5e853"
     }
+  },
+  '& .MuiSvgIcon-root': {
+    htmlColor: "#b5e853"
   }
 });
 

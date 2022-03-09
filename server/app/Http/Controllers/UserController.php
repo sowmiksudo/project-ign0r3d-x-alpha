@@ -24,7 +24,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'number'=>'required|numeric|digits:11',
+            'number'=>'required|numeric|digits:11|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
         if ($validator->fails()) {
@@ -36,8 +36,10 @@ class UserController extends Controller
         $data = [
             "name" => $request->name,
             "email" => $request->email,
+            "number" => $request->number,
             "password" => Hash::make($request->password)
         ];
+        // dd($data);
         $this->user->create($data);
         $responseMessage = "Registration Successful, login to continue.";
         return response()->json([
@@ -98,4 +100,38 @@ class UserController extends Controller
             'message' => $responseMessage
         ], 200);
     }
+
+    public function saveName(Request $request){
+        $validator = Validator::make($request->all(), [
+            "name"=>"required"
+        ]);
+
+        if($validator->fails()){
+            return [
+                "success"=>false,
+                "message"=>$validator->messages()->toArray()
+            ];
+        }
+
+        $id = Auth::guard("api")->user()->id;
+
+        $user = User::find($id);
+
+        $user->name = $request->name;
+
+        $saved = $user->save();
+
+        if($saved){
+
+            $user = User::find($id);
+
+            return [
+                "success"=>true,
+                "message"=>"Profile updated successfully.",
+                "profile"=>$user
+            ];
+        }
+
+    }
 }
+

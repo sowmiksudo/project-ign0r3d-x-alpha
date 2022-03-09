@@ -7,9 +7,10 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import MessageIcon from '@mui/icons-material/Message';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { Button, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Avatar, Backdrop, CircularProgress, Container, CssBaseline } from '@mui/material';
+import { Button, ButtonGroup, SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, Avatar, Backdrop, CircularProgress, Container, CssBaseline } from '@mui/material';
 import HomeIcon from "@mui/icons-material/Home"
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Link } from "react-router-dom";
@@ -19,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
 import { Navigate } from "react-router"
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 
 const themeColor = '#b5e853';
@@ -54,10 +56,20 @@ export default function Page({ children }) {
     const auth = useSelector(state => state.auth)
     const LogOutUser = () => {
         dispatch(LogoutAction())
-        setTimeout(() => {
-            window.location.reload()
-        }, 5000);
+        setIsLoggedOutEventFired(true)
+        // setTimeout(() => {
+        //     window.location.reload()
+        // }, 5000);
     }
+
+    useEffect(() => {
+        if (!isLoggedOutEventFired) return;
+        if (!auth.loading) {
+            if (auth.success) {
+                window.location.reload()
+            }
+        }
+    }, [auth])
 
     const user = useSelector(state => state.user);
     useEffect(() => {
@@ -88,7 +100,13 @@ export default function Page({ children }) {
                                 name: "Profile",
                                 icon: <AccountBoxIcon />,
                                 path: '/user',
-                            }] : [],
+                            },
+                            {
+                                name: "Xsms",
+                                icon: <MessageIcon />,
+                                path: "/x-sms"
+                            }
+                        ] : [],
                             ...!user.success ? [{
                                 name: "Login",
                                 icon: <LoginIcon />,
@@ -116,9 +134,6 @@ export default function Page({ children }) {
 
     return (
         <div>
-            {/* {
-                !auth.loading && auth.success && !auth.response.success && <Navigate to="/user/login" />
-            } */}
             <Box sx={{ flexGrow: 1 }}>
                 <Backdrop
                     open={user.loading}
@@ -175,7 +190,13 @@ export default function Page({ children }) {
                                     </Menu>
                                 </Box> :
                                 <Box>
-                                    <Button variant="contained" onClick={() => { navigate("/user/login") }}>LOGIN</Button>
+
+                                    <ButtonGroup variant="outlined" size="small">
+                                        <Button variant="contained" onClick={() => { navigate("/user/login") }} startIcon={<LoginIcon />}>
+                                        </Button>
+                                        <Button variant="contained" onClick={() => { navigate("/user/register") }} startIcon={<HowToRegIcon />}>
+                                        </Button>
+                                    </ButtonGroup>
                                 </Box>}
                         </div>}
                     </Toolbar>

@@ -13,9 +13,9 @@ function Header() {
         const options = {
             strings: [
                 '<strong><small>X</small>SMS</strong> <small>F<x-small>REE</x-small> S<x-small>MS</x-small> S<x-small>ENDER</x-small></small>',
-                '<strong><small>X</small>SMS</strong> <small>U<x-small>NLIMITED</x-small> B<x-small>ALANCE</x-small></small>',
-                '<strong><small>X</small>SMS</strong> <small>No L<x-small>OGIN</x-small></small>',
-                '<strong><small>X</small>SMS</strong> <small>No R<x-small>EGISTRATION</x-small></small>',
+                '<strong><small>X</small>SMS</strong> <small>No C<x-small>REDITS</x-small></small>',
+                '<strong><small>X</small>SMS</strong> <small>No P<x-small>OINTS</x-small></small>',
+                '<strong><small>X</small>SMS</strong> <small>No C<x-small>OST</x-small></small>',
                 '<strong><small>X</small>SMS</strong> <x-small>FROM</x-small><small> TEAM X 1337</small>',
             ],
             typeSpeed: 30,

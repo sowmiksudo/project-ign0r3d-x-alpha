@@ -34,6 +34,9 @@ function Home() {
           <Button variant="contained" onClick={e => navigate('/x-sms')}
             size="large" color="primary">Xsms
           </Button>
+          <Button variant="contained" onClick={e => navigate('/bomber')}
+            size="large" color="primary">IgnoredBomber
+          </Button>
         </Box>
       }
     </Box>

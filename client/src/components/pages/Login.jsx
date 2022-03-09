@@ -34,7 +34,7 @@ function Login() {
   const user = useSelector(state => state.user);
 
   useEffect(() => {
-    dispatch(LoadProfileAction())
+    // dispatch(LoadProfileAction())
     return () => {
     };
   }, [])
@@ -93,7 +93,7 @@ function Login() {
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }} >
       {!user.loading && user.profile && user.profile.success && <Navigate to="/user" />}
       <Backdrop
-        open={user.loading && auth.loading}
+        open={(user.loading && auth.loading)}
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <CircularProgress color="inherit" />

@@ -11,7 +11,7 @@ const ProfileReducer = (state = initState, action) => {
         case ActionTypes.PROFILE_LOADING:
             return {
                 ...state,
-                loading:true
+                loading: true
             };
         case ActionTypes.LOAD_PROFILE_SUCCESS:
             return {
@@ -33,6 +33,21 @@ const ProfileReducer = (state = initState, action) => {
                 loading: false,
                 success: false,
                 profile: "Something went wrong!"
+            };
+
+        case ActionTypes.UPDATE_PROFILE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                profile: action.res.profile
+            };
+        case ActionTypes.UPDATE_PROFILE_ERROR:
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                profile: action.res
             };
         default:
             return state;

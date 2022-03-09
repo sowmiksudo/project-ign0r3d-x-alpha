@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Button from "../../utilities/Button";
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,16 +9,17 @@ import Header from "../../layouts/Header";
 import Footer from "../../layouts/Footer";
 import { useSnackbar } from 'notistack';
 import SendIcon from '@mui/icons-material/Send';
-
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { LoadConfigAction, SendMessageAction } from "./../../redux/actions/XsmsActions";
 
 export default function Main() {
-
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const dispatch = useDispatch();
   const timer = useRef();
   const { enqueueSnackbar } = useSnackbar();
+  const [fields, setFields] = useState({
+    number: "",
+    message: ""
+  });
 
 
   const Toastify = (message, variant) => {
@@ -32,32 +33,52 @@ export default function Main() {
     })
   }
 
+  const handleFieldChange = e => {
+    setFields({
+      ...fields,
+      [e.target.id]: e.target.value
+    })
+  }
 
-  const handleButtonClick = () => {
-    if (!loading) {
-      setSuccess(false);
-      setLoading(true);
-      timer.current = window.setTimeout(() => {
-        setSuccess(true);
-        setLoading(false);
-        Toastify("API metadata fetched!", "success")
-      }, 2000);
+  const user = useSelector(state => state.user);
+  const xsms = useSelector(state => state.xsms)
+  useEffect(() => {
+    dispatch(LoadConfigAction());
+  }, [])
+
+  useEffect(() => {
+    if(!xsms.loading){
+      if(xsms.success){
+        if(xsms.response){
+            Toastify(xsms.response.message, "success")
+        }
+      } else {
+        if(xsms.response) {
+          if (typeof xsms.response.message == 'string') {
+            Toastify(xsms.response.message, "error")
+          } else {
+            const errors = xsms.response.message
+            for (const error in errors) {
+              errors[error].map(error => {
+                Toastify(error, "error")
+                return null;
+              })
+            }
+          }
+        }
+      }
     }
-  };
+  }, [xsms])
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      number: data.get('number'),
-      message: data.get('message'),
-    });
+    dispatch(SendMessageAction(fields));
   };
 
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Box>
+      {/* <CssBaseline /> */}
       <Box
         sx={{
           marginTop: 8,
@@ -86,6 +107,8 @@ export default function Main() {
                   maxLength: 11
                 }}
                 autoFocus
+                value={fields.number}
+                onChange={handleFieldChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -107,13 +130,15 @@ export default function Main() {
                 inputProps={{
                   maxLength: 150
                 }}
+                value={fields.message}
+                onChange={handleFieldChange}
               />
             </Grid>
           </Grid>
-          <Button loading={loading} success={success} handleButtonClick={handleButtonClick} timer={timer} text="SEND SMS" icon={<SendIcon />} />
+          <Button loading={xsms.loading} success={xsms.success} timer={timer} text="SEND SMS" icon={<SendIcon />} />
         </Box>
       </Box>
       <Footer sx={{ mt: 5 }} />
-    </Container>
+    </Box>
   );
 }
