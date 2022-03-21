@@ -11,10 +11,11 @@ use App\Models\Message;
 use App\Models\API;
 use App\Models\Bombing;
 use App\Models\Blacklist;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -37,7 +38,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'email_verified_at',
-        'updated_at'
+        'updated_at',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+        'verified_at',
+        'deleted_at'
     ];
 
     /**
@@ -53,8 +58,8 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
-    public function api(){
-        return $this->hasOne(API::class);
+    public function apis(){
+        return $this->hasMany(API::class);
     }
 
     public function bombings(){

@@ -12,10 +12,21 @@ class API extends Model
     use HasFactory;
 
 
+    public $fillable = [
+        "config",
+        "name",
+        "ip",
+        "userAgent"
+    ];
+
+    public $hidden = [
+        "ip",
+        "userAgent"
+    ];
+
     public function user(){
         return $this->BelongsTo(User::class);
     }
-
 
     public function bombings(){
         return $this->belongsToMany(Bombing::class);

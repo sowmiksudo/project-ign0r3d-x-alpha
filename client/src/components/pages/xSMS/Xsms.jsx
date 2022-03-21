@@ -11,10 +11,12 @@ import { useSnackbar } from 'notistack';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from "react-redux";
 import { LoadConfigAction, SendMessageAction } from "./../../redux/actions/XsmsActions";
+import { useNavigate } from 'react-router';
 
 export default function Main() {
   const dispatch = useDispatch();
   const timer = useRef();
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [fields, setFields] = useState({
     number: "",
@@ -37,14 +39,27 @@ export default function Main() {
     setFields({
       ...fields,
       [e.target.id]: e.target.value
-    })
+    });
   }
 
   const user = useSelector(state => state.user);
-  const xsms = useSelector(state => state.xsms)
+  const xsms = useSelector(state => state.xsms);
+  const app = useSelector(state => state.app);
+
   useEffect(() => {
     dispatch(LoadConfigAction());
   }, [])
+
+  useEffect(()=>{
+    if(!app.loading){
+      if(app.success){
+        if(app.app.settings.is_sms_sender_active !== 1){
+          navigate("/user");
+          Toastify("SMS sender is currently not available.", "warning")
+        }
+      }
+    }
+  }, [app])
 
   useEffect(() => {
     if(!xsms.loading){
@@ -78,7 +93,6 @@ export default function Main() {
 
   return (
     <Box>
-      {/* <CssBaseline /> */}
       <Box
         sx={{
           marginTop: 8,

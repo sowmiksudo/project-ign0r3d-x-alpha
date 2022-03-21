@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\XsmsController;
 use App\Http\Controllers\BomberController;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AppController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +14,8 @@ use App\Http\Controllers\BomberController;
 */
 
 
-Route::group(["middleware" => "CORS"], function () {
+Route::group(["middleware" => "CORS", "as" => "api."], function () {
+    Route::get("batchInfo", [AppController::class, 'show']);
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', [UserController::class, 'viewProfile'])->name('profile');
         Route::post('register', [UserController::class, 'register'])->name('register');
@@ -33,11 +36,18 @@ Route::group(["middleware" => "CORS"], function () {
     });
 
 
-    Route::group(["prefix"=>"bomber"], function(){
-        Route::get("getApi", [BomberController::class, "api"]);
+    Route::group(["prefix" => "bomber"], function () {
         Route::get("getProfile", [BomberController::class, "profile"]);
+        Route::get("getHistory", [BomberController::class, "history"]);
         Route::post("bombing", [BomberController::class, "add"]);
-        Route::post("checkMsisdn", [BomberController::class, "check"]);
+        Route::get("blacklists", [BomberController::class, "showBlacklist"]);
         Route::post("blacklist", [BomberController::class, "addBlacklist"]);
+        Route::get("blacklist/delete/{id}", [BomberController::class, "deleteBlacklist"]);
+        Route::group(['prefix'=>'api'], function(){
+            Route::get("get", [ApiController::class, "get"]);
+            Route::post("add", [ApiController::class, 'add']);
+            Route::post("save", [ApiController::class, 'save']);
+            Route::get("delete/{id}", [ApiController::class, 'delete']);
+        });
     });
 });

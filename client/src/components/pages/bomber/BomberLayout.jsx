@@ -2,13 +2,44 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import HistoryIcon from '@mui/icons-material/History';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
+import Menu from '@mui/material/Menu';
+import Button from '@mui/material/Button'
+import MenuItem from '@mui/material/MenuItem';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import AddLinkIcon from "@mui/icons-material/AddLink";
+import CancelIcon from '@mui/icons-material/Cancel';
+import HomeIcon from '@mui/icons-material/Home';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export default function SimpleBottomNavigation({ children }) {
+export default function BottomNav({ children }) {
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const BasicMenu = () => {
+    return (
+      <div>
+        <Button
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+        >
+          Dashboard
+        </Button>
+      </div>
+    );
+  }
+
   const location = useLocation();
   const page = location.pathname.split("/").slice(-1)[0]
   const [value, setValue] = React.useState(page);
@@ -19,43 +50,93 @@ export default function SimpleBottomNavigation({ children }) {
 
   return (
     <Box>
-        {children}
-        <Box>
-          <BottomNavigation
-            sx={{ 
-                width:'100%',
-                position:'fixed',
-                bottom: 0,
-                left:0,
-                right:0
-             }}
-            value={value}
-            onChange={handleChange}
-          >
+      {children}
+      <Box>
+        <BottomNavigation
+          sx={{
+            width: '100%',
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0
+          }}
+          value={value}
+          onChange={handleChange}
+          showLabels
+        >
 
-            <BottomNavigationAction 
+          <BottomNavigationAction
+            component={Link}
+            to="/user"
+            label="HOME"
+            value="home"
+            icon={<HomeIcon />}
+          />
+          <BottomNavigationAction
             component={Link}
             to="/bomber"
-            label="BOMBER" 
+            label="BOMBER"
             value="bomber"
-            icon={<LocalFireDepartmentIcon />} 
-            />
-            <BottomNavigationAction 
+            icon={<LocalFireDepartmentIcon />}
+          />
+          {/* <BottomNavigationAction
             component={Link}
-            to="/x-sms/history"
-            label="Bombing History" 
+            to="/bomber/history"
+            label="History"
             value="history"
-            icon={<HistoryIcon />} 
-            />
-            <BottomNavigationAction 
+            icon={<HistoryIcon />}
+          /> */}
+          <BottomNavigationAction
             component={Link}
-            to="/x-sms/dashboard"
-            label="Bomber Profile" 
+            to="/bomber/api"
+            label="API"
+            value="api"
+            icon={<AddLinkIcon />}
+          />
+          <BottomNavigationAction
+            component={Link}
+            to="/bomber/blacklist"
+            label="BLACKLIST"
+            value="blacklist"
+            icon={<CancelIcon />}
+          />
+          {/* <BottomNavigationAction
+            component={Link}
+            to="/bomber/dashboard"
+            label="Profile"
             value="dashboard"
-            icon={<DashboardIcon />} 
-            />
-          </BottomNavigation>
-        </Box>
+            icon={<DashboardIcon />}
+          /> */}
+          <BottomNavigationAction
+            // component={Menu}
+            label="More"
+            value="more"
+            id="basic-menu"
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+            icon={<MoreVertIcon />}
+          />
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <Link to="/bomber/dashboard" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+            </Link>
+            <Link to="/bomber/history" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <MenuItem onClick={handleClose}>History</MenuItem>
+            </Link>
+            {/* <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+          </Menu>
+        </BottomNavigation>
+      </Box>
     </Box>
   );
 }

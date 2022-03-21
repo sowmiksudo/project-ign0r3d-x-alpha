@@ -40,7 +40,8 @@ class UserController extends Controller
             "password" => Hash::make($request->password)
         ];
         // dd($data);
-        $this->user->create($data);
+        $user = User::create($data);
+        $user->assignRole("User");
         $responseMessage = "Registration Successful, login to continue.";
         return response()->json([
             'success' => true,
@@ -60,9 +61,17 @@ class UserController extends Controller
             ], 200);
         }
         $credentials = $request->only(["email", "password"]);
-        $user = User::where('email', $credentials['email'])->first();
+        $user = User::withTrashed()->where('email', $credentials['email'])->first();
         if ($user) {
             if (!auth()->attempt($credentials)) {
+
+                if($user->trashed()){
+                    return response()->json([
+                        "success"=>false,
+                        "message"=>"You have been banned for violating usage."
+                    ]);
+                }
+
                 $responseMessage = "Invalid username or password";
                 return response()->json([
                     "success" => false,

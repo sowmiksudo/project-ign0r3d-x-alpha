@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
+import Divider from "@mui/material/Divider";
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HistoryIcon from '@mui/icons-material/History';
 import SmsIcon from '@mui/icons-material/Sms';
@@ -20,49 +21,50 @@ export default function SimpleBottomNavigation({ children }) {
 
   return (
     <Box>
-        {children}
-        <Box>
-          <BottomNavigation
-            sx={{ 
-                width:'100%',
-                position:'fixed',
-                bottom: 0,
-                left:0,
-                right:0
-             }}
-            value={value}
-            onChange={handleChange}
-          >
-            <BottomNavigationAction 
+      {children}
+      <Box>
+        <BottomNavigation
+          sx={{
+            width: '100%',
+            position: 'fixed',
+            bottom: 0, // 56px
+            left: 0,
+            right: 0
+          }}
+          value={page}
+          onChange={handleChange}
+          showLabels
+        >
+          <BottomNavigationAction
             component={Link}
-            to="/"
-            label="HOME" 
+            to="/user/"
+            label="HOME"
             value="home"
-            icon={<HomeIcon />} 
-            />
-            <BottomNavigationAction 
+            icon={<HomeIcon />}
+          />
+          <BottomNavigationAction
             component={Link}
             to="/x-sms"
-            label="XSMS" 
+            label="XSMS"
             value="x-sms"
-            icon={<SmsIcon />} 
-            />
-            <BottomNavigationAction 
+            icon={<SmsIcon />}
+          />
+          <BottomNavigationAction
             component={Link}
             to="/x-sms/history"
-            label="History" 
+            label="History"
             value="history"
-            icon={<HistoryIcon />} 
-            />
-            <BottomNavigationAction 
+            icon={<HistoryIcon />}
+          />
+          <BottomNavigationAction
             component={Link}
             to="/x-sms/dashboard"
-            label="XSMS PROFILE" 
+            label="DASHBOARD"
             value="dashboard"
-            icon={<DashboardIcon />} 
-            />
-          </BottomNavigation>
-        </Box>
+            icon={<DashboardIcon />}
+          />
+        </BottomNavigation>
+      </Box>
     </Box>
   );
 }

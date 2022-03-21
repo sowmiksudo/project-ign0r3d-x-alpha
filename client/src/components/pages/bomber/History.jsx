@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from "react-redux";
-import { LoadHistoryAction } from "../../redux/actions/XsmsActions";
+import { LoadBombingHistoryAction } from "../../redux/actions/BomberActions";
 
 const themeColor = "#b5e853";
 
@@ -36,38 +36,38 @@ function History() {
   }));
 
   useEffect(() => {
-    dispatch(LoadHistoryAction());
+    dispatch(LoadBombingHistoryAction());
   }, [])
 
   const [rows, setRows] = useState([]);
 
-  const xsms = useSelector(state => state.xsms)
+  const bomber = useSelector(state => state.bomber)
 
   useEffect(() => {
-    if (!xsms.loading) {
-      if (xsms.history_success) {
-        setRows(xsms.history.data.reverse())
+    if (!bomber.loading) {
+      if (bomber.history_success) {
+        setRows(bomber.history.bombings.reverse())
       }
     }
-  }, [xsms])
+  }, [bomber])
 
   return (
     <Box>
       <Backdrop
-        open={xsms.loading}
+        open={bomber.loading}
         sx={{ color: '#fff', zIndex: 100210201201 }}
       >
         <CircularProgress sx={{ color: themeColor }} />
       </Backdrop>
       <Typography align="center" variant="h4">HISTORY</Typography>
-      {!xsms.loading &&
+      {!bomber.loading &&
         <Box>
           {(rows.length !== 0) ? <TableContainer component={Paper}>
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
                   <StyledTableCell align="left">Number</StyledTableCell>
-                  <StyledTableCell align="left">Message</StyledTableCell>
+                  <StyledTableCell align="left">Amount</StyledTableCell>
                   <StyledTableCell align="left">Time</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -77,7 +77,7 @@ function History() {
                     <StyledTableCell component="th" scope="row">
                       {row.number}
                     </StyledTableCell>
-                    <StyledTableCell align="left">{row.message}</StyledTableCell>
+                    <StyledTableCell align="left">{row.amount}</StyledTableCell>
                     <StyledTableCell align="left">{row.created_at}</StyledTableCell>
                   </StyledTableRow>
                 ))}

@@ -3,76 +3,128 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blacklist;
+use App\Models\API;
+use App\Models\PublicApi;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Bombing;
 use Illuminate\Support\Facades\Validator;
 
 class BomberController extends Controller
 {
 
-    public function api(Request $request){
-        $user = Auth::guard("api")->user();
-        $apis = json_decode($user->api->apis);
-
-        return [
-            "success"=>true,
-            "user"=>$user,
-            "api_json"=>$apis
-        ];
+    public function __construct()
+    {
+        $this->middleware("auth:api");
+        $this->user = Auth::guard("api")->user();
     }
 
 
-    public function profile(Request $request){
-        $user = Auth::guard("api")->user();
+    public function profile(Request $request)
+    {
+        $user = $this->user;
         $bombings = $user->bombings;
 
         $total_bombing_sessions = $bombings->count();
 
-        // dd($total_bombing);
+        return [
+            "success" => true,
+            "total_bombing_sessions" => $total_bombing_sessions,
+            "profile" => $user
+        ];
+    }
 
+    public function add(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "number" => "required|digits:10",
+            "amount" => "required|integer|max:500",
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                "success" => false,
+                "message" => $validator->messages()->toArray()
+            ];
+        }
+
+        if (Blacklist::where("number", $request->number)->first() !== null) {
+            return [
+                "success" => false,
+                "message" => "The number is blacklisted."
+            ];
+        }
+
+
+        $count = $this->user->apis->count() + PublicApi::all()->count();
+
+        $inserted = $this->user->bombings()->create([
+            "number" => $request->number,
+            "amount"=> $request->amount,
+            "total_api_available" => $count,
+            "ip" => $request->ip(),
+            "userAgent" => $request->userAgent()
+        ]);
+
+        return $inserted ? [
+            "success" => true,
+            "message" => "Bombing started!"
+        ] : [
+            "success" => false,
+            "message" => "Something went wrong on our side."
+        ];
+    }
+
+
+    public function addBlacklist(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "number" => "required|digits:10|unique:blacklists",
+            "note"=>"required|max:50"
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                "success" => false,
+                "message" => $validator->messages()->toArray()
+            ];
+        }
+
+        $added = $this->user->blacklists()->create([
+            "number" => $request->number,
+            "note"=>$request->note
+        ]);
+
+        return $added ? [
+            "success" => true,
+            "message" => "Number successfully added to blacklist."
+        ] :  [
+            "success" => false,
+            "message" => "Something went wrong on our side."
+        ];
+    }
+
+
+    public function history(Request $request){
         return [
             "success"=>true,
-            "total_bombing_sessions"=>$total_bombing_sessions,
-            "profile"=>$user
+            "bombings"=>$this->user->bombings
         ];
-
     }
 
-    public function add(Request $request){
-        $validator = Validator::make([
-            "number"=>"required|digits:11|unique:blacklists"
-        ]);
-
-        if($validator->fails()){
-            return [
-                "success"=>false,
-                "message"=>$validator->messages()->toArray()
-            ];
-        }
+    public function showBlacklist(){
+        return [
+            "success"=>true,
+            "blacklists"=>$this->user->blacklists
+        ];
     }
 
-
-    public function addBlacklist(Request $request){
-        $validator = Validator::make([
-            "number"=>"required|digits:11|unique:blacklists"
-        ]);
-
-        if($validator->fails()){
-            return [
-                "success"=>false,
-                "message"=>$validator->messages()->toArray()
-            ];
-        }
-
-        $user = Auth::guard("api")->user()->blacklists()->create([
-            "number"=>$request->number
-        ]);
-
-        return $user->blacklists;
-
+    public function deleteBlacklist(Request $request){
+        $entry = Blacklist::find($request->id);
+        $deleted = $entry->delete();
+        return [
+            "success"=>true,
+            "message"=>"Deleted successfully."
+        ];
     }
-
 }

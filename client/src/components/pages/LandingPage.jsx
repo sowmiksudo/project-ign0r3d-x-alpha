@@ -13,16 +13,16 @@ function LandingPage() {
     if (!user.loading) {
       if (!user.success) {
         navigate("/user/login");
+      } else {
+        navigate("/user")
       }
     }
-    return () => {
-    };
-  }, [])
+  }, [user])
 
   return (
     <Box>
-      <Typography color="white" variant="h1" align="center">INDEX</Typography>
-      {!user.loading && user.success && <Button variant="contained" onClick={() => { navigate("/user") }}>Dashboard</Button>}
+      {/* <Typography color="white" variant="h1" align="center">INDEX</Typography>
+      {!user.loading && user.success && <Button variant="contained" onClick={() => { navigate("/user") }}>Dashboard</Button>} */}
     </Box>
   )
 }

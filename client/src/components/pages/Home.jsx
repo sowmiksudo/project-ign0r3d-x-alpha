@@ -27,15 +27,15 @@ function Home() {
       </Backdrop>
       {
         !user.loading && user.profile.success &&
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           <Button variant="contained" onClick={e => navigate('/')}
-            size="large" color="primary">Home
+            size="large" color="primary" sx={{ m:3 }}>Home
           </Button>
           <Button variant="contained" onClick={e => navigate('/x-sms')}
-            size="large" color="primary">Xsms
+            size="large" color="primary" sx={{ m:3 }}>Xsms
           </Button>
           <Button variant="contained" onClick={e => navigate('/bomber')}
-            size="large" color="primary">IgnoredBomber
+            size="large" color="primary" sx={{ m:3 }}>FieryBomber
           </Button>
         </Box>
       }

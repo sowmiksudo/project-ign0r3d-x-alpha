@@ -17,7 +17,7 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->integer("daily_limit_non_verified")->default(5);
             $table->integer("daily_limit_verified")->default(20);
-            $table->text("verify_notice")->nullable();
+            $table->text("verify_link");
             $table->boolean("can_send_feedback")->default(true);
             $table->boolean("is_under_maintanance")->default(false);
             $table->boolean("is_sms_sender_active")->default(true);

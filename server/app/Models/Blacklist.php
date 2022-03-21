@@ -10,9 +10,15 @@ class Blacklist extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        "number",
+        "note"
+    ];
 
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+
 
 }

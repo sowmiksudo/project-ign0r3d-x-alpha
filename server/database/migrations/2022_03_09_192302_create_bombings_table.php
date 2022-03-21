@@ -16,6 +16,7 @@ class CreateBombingsTable extends Migration
         Schema::create('bombings', function (Blueprint $table) {
             $table->id();
             $table->string("number");
+            $table->integer("amount");
             $table->foreignId("user_id")->constrained();
             $table->string("total_api_available");
             $table->string("ip");

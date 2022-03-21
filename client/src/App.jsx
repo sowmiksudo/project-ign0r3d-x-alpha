@@ -7,7 +7,7 @@ import "./styles/App.css";
 
 function App() {
   return (
-    <div className="overlay">
+    <div className="">
       <SnackbarProvider maxSnack={3} TransitionComponent={Grow} autoHideDuration={3000} >
         <HashRouter>
           <Routes />

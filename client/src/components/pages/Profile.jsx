@@ -25,12 +25,12 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function Profile() {
-  const isVerified = false;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const divRef = React.useRef(null);
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isVerified, setIsVerified] = useState(true);
   const [expanded, setExpanded] = useState(true);
 
   const handleExpandClick = () => {
@@ -46,6 +46,7 @@ export default function Profile() {
   }
 
   const user = useSelector(state => state.user);
+  const app = useSelector(state => state.app);
   const profile = !user.loading ? user.profile.data : null
   useEffect(() => {
     if (!user.loading) {
@@ -57,6 +58,14 @@ export default function Profile() {
     };
   }, [divRef]);
 
+  useEffect(()=>{
+      if(!user.loading){
+        if(user.profile.success){
+          setIsVerified(user.profile.data.is_verified ===1);
+        }
+      }
+  }, [user])
+
   return (
     <Box>
       <Backdrop
@@ -66,8 +75,8 @@ export default function Profile() {
         <CircularProgress sx={{ color: themeColor }} />
       </Backdrop>
       <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-        {!user.loading &&
-          <div>
+        {(!user.loading && !app.loading) &&
+          <div style={{ height: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
             {!isVerified && <Alert
               sx={{ my: 2 }}
               severity="warning"
@@ -86,14 +95,13 @@ export default function Profile() {
               </DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                  Verify your account to increase daily sms sending limits and to get an awesome verified badge.
+                  Verify your account to increase daily sms sending limits, use private APIs and to get an awesome verified badge.
                   <br /><br />
                   In order to verify your account, click on the button bellow to learn more. Follow the announcement and submit google form accordingly. We'll mark your account as verified within 48 hours.
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                {/* <Button onClick={toggleDialog}>Disagree</Button> */}
-                <MuiLink href="https://google.com">
+                <MuiLink href={app.app.settings.verify_link}>
                   <Button autoFocus>
                     ANNOUNCEMENT
                   </Button>
@@ -131,10 +139,10 @@ export default function Profile() {
               </CardActions>
               <Collapse in={expanded} timeout="auto" unmountOnExit key="hi">
                 <CardContent>
-                  <Typography variant="h6">You are not verified! <SentimentVeryDissatisfiedIcon /></Typography>
+                  {/* <Typography variant="h6">You are not verified! <SentimentVeryDissatisfiedIcon /></Typography>
                   <Typography paragraph>Verified accounts never get blocked. You will be totally anonymouse. Verified profiles also get <i>LIMITLESS</i> messaging!</Typography>
                   <Typography variant="h6">How to verify your account?</Typography>
-                  <Typography paragraph>Follow <Link to="https://t.me/TeamX1337Official">THIS</Link> telegram post to know the procedure.</Typography>
+                  <Typography paragraph>Follow <Link to="https://t.me/TeamX1337Official">THIS</Link> telegram post to know the procedure.</Typography> */}
                 </CardContent>
               </Collapse>
             </Card>

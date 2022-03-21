@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 
 const theme = createTheme({
   palette: {
-    type: 'dark',
+    type: 'light',
     primary: {
       main: '#b5e853',
       // main: '#b12122',

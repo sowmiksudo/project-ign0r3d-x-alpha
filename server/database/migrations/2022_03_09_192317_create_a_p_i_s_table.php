@@ -15,8 +15,8 @@ class CreateAPISTable extends Migration
     {
         Schema::create('a_p_i_s', function (Blueprint $table) {
             $table->id();
-            $table->json("apis");
-            $table->string("api_count");
+            $table->json("config");
+            $table->string("name");
             $table->foreignId("user_id")->constrained();
             $table->string("ip");
             $table->string("userAgent");

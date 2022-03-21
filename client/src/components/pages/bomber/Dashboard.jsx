@@ -12,7 +12,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import { LoadBomberProfileAction } from "../../redux/actions/BomberActions";
+import { LoadBomberProfileAction, LoadApiAction } from "../../redux/actions/BomberActions";
 import { useDispatch, useSelector } from "react-redux";
 import { red } from "@mui/material/colors";
 
@@ -29,7 +29,7 @@ function Dashboard() {
   const [rows, setRows] = useState([]);
   const bomber = useSelector(state => state.bomber);
   useEffect(() => {
-    dispatch(LoadBomberProfileAction())
+    dispatch(LoadBomberProfileAction());
   }, [])
 
   const toggleOpen = () => {
@@ -41,14 +41,11 @@ function Dashboard() {
       if (bomber.profile_success) {
         let profile = bomber.profile;
         setRows({
-          "Total SMS sent alltime": profile.total_sent,
-          "Total SMS sent today": profile.sms_sent_today,
-          "Free SMS left today":profile.sms_left_today,
-          "Daily total free SMS": profile.total_daily_sms
+          "TOTAL BOMBING": profile.total_bombing_sessions,
         });
       }
     }
-  }, [bomber])
+  }, [bomber]);
 
 
   const handleShare = (e) => {
@@ -69,7 +66,7 @@ function Dashboard() {
       </Backdrop>
 
       {!bomber.loading && bomber.profile_success && bomber.profile.profile && <Box>
-        <Typography variant="h4" align="center" sx={{ my: 1 }}>XSMS PROFILE</Typography>
+        <Typography variant="h4" align="center" sx={{ my: 1 }}>BOMBER PROFILE</Typography>
         <Card sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
           <CardActionArea>
             <CardMedia sx={{ mt: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -77,12 +74,12 @@ function Dashboard() {
             </CardMedia>
             <CardContent>
               <Typography variant="h5" component="div" align="center">
-                {bomber.profile.profile.name} {bomber.profile.is_verified && <CheckCircleIcon sx={{ fill: red[800], fontSize: 'medium' }} />}
+                {bomber.profile.profile.name} {bomber.profile.profile.is_verified && <CheckCircleIcon sx={{ fill: red[800], fontSize: 'medium' }} />}
               </Typography>
               <Typography variant="body2" color="text.secondary" align="center" sx={{ fontStyle: 'italic' }}>
                 {`${bomber.profile.profile.email} | ${bomber.profile.profile.number}`}
               </Typography>
-              {bomber.profile.is_verified && <Box>
+              {(bomber.profile.profile.is_verified === 1) && <Box>
                 <Divider variant="middle" sx={{ width: '100%' }} />
                 <br />
                 <Typography variant="body2" align="center">Congratulations! You are a verified user of IGN0R3DxALPHA. Share with your friends and inspire us to make more cool stuffs.</Typography>
@@ -118,9 +115,6 @@ function Dashboard() {
         </Card>
         <EditDialog open={open} toggleOpen={toggleOpen} profile={bomber.profile.profile} />
       </Box>}
-
-
-
     </Box>
   )
 }

@@ -1,6 +1,6 @@
 import { LoadProfile, UpdateProfile } from '../../services/ProfileServices';
 import * as ActionTypes from '../ActionTypes';
-export const LoadProfileAction = () => {
+export const LoadProfileAction = (navigate) => {
     return (dispatch) => {
         dispatch({ type: ActionTypes.PROFILE_LOADING });
         LoadProfile().then((res) => {

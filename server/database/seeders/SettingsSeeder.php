@@ -16,7 +16,7 @@ class SettingsSeeder extends Seeder
     public function run()
     {
         DB::table('settings')->insert([
-            "verify_notice" => "You are not verified! Verify for more interesting",
+            "verify_link" => "https://google.com",
             "created_at"=>Carbon::now(),
             "updated_at"=>Carbon::now()
         ]);

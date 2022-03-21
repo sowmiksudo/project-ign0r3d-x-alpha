@@ -1,14 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
 import Button from "../../utilities/Button";
 import TextField from '@mui/material/TextField';
+import { Backdrop, CircularProgress } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Header from "../../layouts/Header";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Header from "./Header";
 import Footer from "../../layouts/Footer";
+import BomberDialog from './BomberDialog';
 import { useSnackbar } from 'notistack';
-import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from "react-redux";
-import { LoadConfigAction, SendMessageAction } from "../../redux/actions/XsmsActions";
+import { LoadApiAction, CheckMsisdnAction } from "../../redux/actions/BomberActions";
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -16,8 +24,20 @@ export default function Main() {
   const { enqueueSnackbar } = useSnackbar();
   const [fields, setFields] = useState({
     number: "",
-    message: ""
+    amount: "",
   });
+
+  const [publicApis, setPublicApis] = useState([]);
+  const [privateApis, setPrivateApis] = useState([]);
+  const [publicChecked, setpublicChecked] = useState(true);
+  const [hasBombingClicked, setHasBombingClicked] = useState(false);
+  const [privateChecked, setPrivateChecked] = useState(false);
+  const selectedApi = [
+    ...(publicChecked ? publicApis : []),
+    ...(privateChecked ? privateApis : [])
+  ];
+
+  const [dialogOpen, setDialogOpen] = useState(false);
 
 
   const Toastify = (message, variant) => {
@@ -39,23 +59,23 @@ export default function Main() {
   }
 
   const user = useSelector(state => state.user);
-  const xsms = useSelector(state => state.xsms)
+  const bomber = useSelector(state => state.bomber)
   useEffect(() => {
-    dispatch(LoadConfigAction());
-  }, [])
+    dispatch(LoadApiAction());
+  }, []);
 
   useEffect(() => {
-    if(!xsms.loading){
-      if(xsms.success){
-        if(xsms.response){
-            Toastify(xsms.response.message, "success")
+    if (!bomber.loading) {
+      if (bomber.check_success) {
+        if (bomber.check_response) {
+          Toastify(bomber.check_response.message, "success")
         }
       } else {
-        if(xsms.response) {
-          if (typeof xsms.response.message == 'string') {
-            Toastify(xsms.response.message, "error")
+        if (bomber.check_response) {
+          if (typeof bomber.check_response.message == 'string') {
+            Toastify(bomber.check_response.message, "error")
           } else {
-            const errors = xsms.response.message
+            const errors = bomber.check_response.message
             for (const error in errors) {
               errors[error].map(error => {
                 Toastify(error, "error")
@@ -66,18 +86,76 @@ export default function Main() {
         }
       }
     }
-  }, [xsms])
+  }, [bomber])
+
+
+  useEffect(() => {
+    if (!bomber.loading) {
+      if (bomber.api_success) {
+        let apis = bomber.apis.api_json;
+        setPrivateApis(apis.private)
+        setPublicApis(apis.public)
+      }
+    }
+  }, [bomber]);
+
+
+  const togglePublicCheck = (e) => {
+    setpublicChecked(!publicChecked);
+  }
+  const togglePrivateCheck = (e) => {
+    setPrivateChecked(!privateChecked);
+  }
+
+
+  const [mode, setMode] = useState('extreme');
+
+  const handleChange = (event) => {
+    setMode(event.target.value);
+  };
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(SendMessageAction(fields));
+    if (fields.number === "" || fields.number.length !== 10) {
+      Toastify("Please enter a valid number.", "error")
+      return
+    } if (fields.amount === "") {
+      Toastify("Please enter a valid amount.", "error")
+      return
+    }
+
+    if(selectedApi.length === 0){
+      Toastify("No API selected.", "error")
+      return
+    }
+
+    dispatch(CheckMsisdnAction(fields));
+    setHasBombingClicked(true);
+    console.log(selectedApi)
   };
+
+
+  useEffect(() => {
+    if (!bomber.loading) {
+      if (bomber.check_success) {
+        setDialogOpen(true);
+      }
+    }
+  }, [bomber.check_response])
+
 
 
   return (
     <Box>
-      {/* <CssBaseline /> */}
-      <Box
+      <Backdrop
+        open={bomber.loading}
+        sx={{ color: '#fff', zIndex: 100210201201 }}
+      >
+        <CircularProgress sx={{ color: 'inherit' }} />
+      </Backdrop>
+      {!user.loading && bomber.api_success && bomber.apis && <Box
         sx={{
           marginTop: 8,
           display: 'flex',
@@ -88,7 +166,7 @@ export default function Main() {
         <Header />
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <TextField
                 style={{
                   borderColor: 'green'
@@ -99,44 +177,62 @@ export default function Main() {
                 label="Number"
                 name="number"
                 autoComplete='off'
-                placeholder='01xxxxxxxxx'
-                multiline
+                placeholder='1819400400'
                 inputProps={{
-                  maxLength: 11
+                  maxLength: 10
                 }}
                 autoFocus
                 value={fields.number}
                 onChange={handleFieldChange}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <TextField
+                style={{
+                  borderColor: 'green'
+                }}
                 required
                 fullWidth
-                multiline
-                minRows={4}
-                maxRows={10}
-                name="message"
-                label="Message"
-                type="text"
-                id="message"
+                id="amount"
+                label="Amount"
+                name="amount"
                 autoComplete='off'
-                placeholder="Hey there, xSMS has got you!"
-                sx={{
-                  color: 'white'
-                }}
-                inputProps={{
-                  maxLength: 150
-                }}
-                value={fields.message}
+                placeholder='500'
+                value={fields.amount}
                 onChange={handleFieldChange}
               />
             </Grid>
+            <Grid item xs={8}>
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControlLabel disabled={user.profile.data.is_verified === 0} control={<Checkbox checked={privateChecked} onChange={togglePrivateCheck} />} label="PRIVATE" />
+                <FormControlLabel control={<Checkbox checked={publicChecked} onChange={togglePublicCheck} />} label="PUBLIC" />
+              </Box>
+            </Grid>
+            <Grid item xs={4}>
+              <Box>
+                <FormControl fullWidth>
+                  <InputLabel id="bombing-mode-id">MODE</InputLabel>
+                  <Select
+                    labelId="bombing-mode-id"
+                    id="bombing-mode-id"
+                    value={mode}
+                    label="Mode"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="extreme">Extreme</MenuItem>
+                    <MenuItem value="relaxed">Relaxed</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
           </Grid>
-          <Button loading={xsms.loading} success={xsms.success} timer={timer} text="SEND SMS" icon={<SendIcon />} />
+          <Button loading={bomber.loading} success={bomber.success} timer={timer} text="START BOMBING" icon={<LocalFireDepartmentIcon />} />
         </Box>
-      </Box>
-      <Footer sx={{ mt: 5 }} />
+        <Footer sx={{ mt: 5 }} />
+
+        {dialogOpen && hasBombingClicked && <BomberDialog open={dialogOpen} setOpen={setDialogOpen} apis={selectedApi} fields={fields} mode={mode} />}
+
+      </Box>}
     </Box>
   );
 }
