@@ -9,32 +9,32 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import { LoadSmsProfileAction } from "./../../redux/actions/XsmsActions";
 import { useDispatch, useSelector } from "react-redux";
 import { red } from "@mui/material/colors";
+import { useNavigate } from "react-router";
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import EditDialog from "./EditDialog";
 
 const themeColor = '#b5e853';
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   const xsms = useSelector(state => state.xsms);
+ 
   useEffect(() => {
     dispatch(LoadSmsProfileAction())
   }, [])
 
   const toggleOpen = () => {
-    setOpen(!open);
+    navigate("/user/profile");
   }
 
   useEffect(() => {
@@ -54,9 +54,9 @@ function Dashboard() {
 
   const handleShare = (e) => {
     navigator.share({
-      url: "https://alphasowmik.xyz",
-      title: "Test title",
-      text: "Test Text"
+      title:"Project IGN0R3DxALPHA",
+      url:"https://alphasowmik.xyz",
+      text:"Hi! I'm inviting you to join the hidden universe of Ign0r3dH4x0r! Send free SMS, Do SMS Bombing with own API and many more tools are waiting for you."
     });
   }
 
@@ -117,11 +117,7 @@ function Dashboard() {
             </Table>
           </TableContainer>
         </Card>
-        <EditDialog open={open} toggleOpen={toggleOpen} profile={xsms.profile.profile} />
       </Box>}
-
-
-
     </Box>
   )
 }

@@ -9,3 +9,13 @@ export const fetchApp = () => {
         return error;
     });
 }
+
+export const postFeedback = (fields) => {
+    const http = new HttpService();
+    const url = "feedback"
+    return http.post(fields, url).then(data => {
+        return data;    
+    }).catch((error) => {
+        return error;
+    });
+}

@@ -4,15 +4,14 @@ import { Link, IconButton, Box } from '@mui/material';
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TelegramIcon from "@mui/icons-material/Telegram";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function Footer(props) {
-
-
   return (
     <>
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         <Link sx={{ textDecoration: 'none', }} href="https://ign0r3dh4x0r.github.io/linktree.html">
-          &copy; IGN0R3DH4X0R
+          MADE WITH <FavoriteIcon sx={{ pt:1.5 }} />BY IGN0R3DH4X0R
         </Link>
       </Typography>
       <Box sx={{

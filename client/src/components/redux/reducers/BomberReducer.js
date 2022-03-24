@@ -13,7 +13,9 @@ const init = {
     delete: null,
     blacklist: null,
     add_blacklist: null,
-    delete_blacklist: null
+    delete_blacklist: null,
+    add_api:null,
+    import:null
 }
 
 const XsmsReducer = (state = init, action) => {
@@ -116,8 +118,8 @@ const XsmsReducer = (state = init, action) => {
                 loading: false,
                 add_blacklist: action.res
             };
-        
-            case ActionTypes.DELETE_BLACKLIST_SUCCESS:
+
+        case ActionTypes.DELETE_BLACKLIST_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -128,6 +130,30 @@ const XsmsReducer = (state = init, action) => {
                 ...state,
                 loading: false,
                 delete_blacklist: action.res
+            };
+        case ActionTypes.ADD_API_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                add_api: action.res
+            };
+        case ActionTypes.ADD_API_ERROR:
+            return {
+                ...state,
+                loading: false,
+                add_api: action.res
+            };
+        case ActionTypes.IMPORT_API_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                import: action.res
+            };
+        case ActionTypes.IMPORT_API_ERROR:
+            return {
+                ...state,
+                loading: false,
+                import: action.res
             };
 
         case ActionTypes.CODE_ERROR:

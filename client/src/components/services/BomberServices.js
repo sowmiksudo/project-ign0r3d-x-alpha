@@ -79,3 +79,23 @@ export const deleteBlacklist = (id) => {
         return err;
     });
 }
+
+export const addApi = (fields) => {
+    const http = new HttpService();
+    const url = "bomber/api/add"
+    return http.post(fields, url).then(data=>{
+        return data;
+    }).catch(err=>{
+        return err;
+    });
+}
+
+export const importApi = (config) => {
+    const http = new HttpService();
+    const url = "bomber/api/import"
+    return http.post(config, url).then(data=>{
+        return data;
+    }).catch(err=>{
+        return err;
+    });
+}

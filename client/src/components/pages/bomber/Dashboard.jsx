@@ -15,16 +15,17 @@ import Paper from '@mui/material/Paper';
 import { LoadBomberProfileAction, LoadApiAction } from "../../redux/actions/BomberActions";
 import { useDispatch, useSelector } from "react-redux";
 import { red } from "@mui/material/colors";
+import { useNavigate } from 'react-router-dom';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import EditDialog from "./../xSMS/EditDialog";
 
 const themeColor = '#b5e853';
 
 function Dashboard() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [rows, setRows] = useState([]);
   const bomber = useSelector(state => state.bomber);
@@ -33,7 +34,7 @@ function Dashboard() {
   }, [])
 
   const toggleOpen = () => {
-    setOpen(!open);
+    navigate("/user/profile");
   }
 
   useEffect(() => {
@@ -41,7 +42,8 @@ function Dashboard() {
       if (bomber.profile_success) {
         let profile = bomber.profile;
         setRows({
-          "TOTAL BOMBING": profile.total_bombing_sessions,
+          "TOTAL BOMBING SESSIONS": profile.total_bombing_sessions,
+          "TOTAL OTP SENT": profile.total_otp_sent
         });
       }
     }
@@ -50,23 +52,22 @@ function Dashboard() {
 
   const handleShare = (e) => {
     navigator.share({
-      url: "https://alphasowmik.xyz",
-      title: "Test title",
-      text: "Test Text"
+      title:"Project IGN0R3DxALPHA",
+      url:"https://alphasowmik.xyz",
+      text:"Hi! I'm inviting you to join the hidden universe of Ign0r3dH4x0r! Send free SMS, Do SMS Bombing with own API and many more tools are waiting for you."
     });
   }
 
   return (
-    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'space-evenly', }}>
+    <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', }}>
       <Backdrop
         open={bomber.loading}
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-
       {!bomber.loading && bomber.profile_success && bomber.profile.profile && <Box>
-        <Typography variant="h4" align="center" sx={{ my: 1 }}>BOMBER PROFILE</Typography>
+        <Typography variant="h5" align="center" sx={{ my: 1 }}>DASHBOARD</Typography>
         <Card sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
           <CardActionArea>
             <CardMedia sx={{ mt: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -113,7 +114,6 @@ function Dashboard() {
             </Table>
           </TableContainer>
         </Card>
-        <EditDialog open={open} toggleOpen={toggleOpen} profile={bomber.profile.profile} />
       </Box>}
     </Box>
   )

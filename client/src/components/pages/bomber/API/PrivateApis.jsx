@@ -41,7 +41,7 @@ export default function MultiActionAreaCard({ apis }) {
     useEffect(()=>{
         if(!bomber.loading){
             if(bomber.delete !== null){
-                Toastify(bomber.delete.message, "success");
+                Toastify(bomber.delete.message, bomber.delete.success?"success":"error");
             }
         }
     }, [bomber.delete])

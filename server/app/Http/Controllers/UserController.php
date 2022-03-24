@@ -64,7 +64,6 @@ class UserController extends Controller
         $user = User::withTrashed()->where('email', $credentials['email'])->first();
         if ($user) {
             if (!auth()->attempt($credentials)) {
-
                 if($user->trashed()){
                     return response()->json([
                         "success"=>false,
@@ -137,10 +136,36 @@ class UserController extends Controller
             return [
                 "success"=>true,
                 "message"=>"Profile updated successfully.",
-                "profile"=>$user
+                "data"=>$user
             ];
         }
 
+    }
+
+    public function change(Request $request){
+        $validator = Validator::make($request->all(), [
+            "old_pass"=>"required",
+            "new_pass"=>"required|min:6"
+        ]);
+        if($validator->fails()){
+            return [
+                'success'=>false,
+                "message"=>$validator->messages()->toArray()
+            ];
+        }
+
+        $user = User::find(auth()->user()->id);
+        if(!Hash::check($request->old_pass, $user->password)){
+            return [
+                "success"=>false,
+                "message"=>"Invalid password."
+            ];
+        }
+        $user->update(["password"=>Hash::make($request->new_pass)]);
+        return [
+            "success"=>true,
+            "message"=>"Password changed successfully."
+        ];
     }
 }
 

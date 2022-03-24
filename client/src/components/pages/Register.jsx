@@ -9,9 +9,7 @@ import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { Navigate, useNavigate } from "react-router";
 import { CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
-import { LoadProfileAction } from "../redux/actions/ProfileActions";
 
-const themeColor = "#b5e853";
 function RegisterComponent() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -40,6 +38,7 @@ function RegisterComponent() {
           for (const error in errors) {
             errors[error].map(error => {
               Toastify(error, "error")
+              return null;
             });
           }
         }
@@ -68,7 +67,7 @@ function RegisterComponent() {
   const UserRegister = (e) => {
     e.preventDefault();
     if (fields.name === "" || fields.email === "" || fields.password === "" || fields.password_confirmation === "") {
-      Toastify("You must fill in all the inputs.");
+      Toastify("You must fill in all the inputs.", "info");
       return;
     }
     if (fields.password !== fields.password_confirmation) {
@@ -95,6 +94,7 @@ function RegisterComponent() {
       </Backdrop>
       {
         <Box component="form" noValidate onSubmit={UserRegister} sx={{ mt: 3 }}>
+          <Typography variant="h4" align="center" sx={{ mb:2 }}>REGISTER</Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField

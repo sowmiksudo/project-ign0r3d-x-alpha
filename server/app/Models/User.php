@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Message;
 use App\Models\API;
 use App\Models\Bombing;
+use App\Models\Feedback;
 use App\Models\Blacklist;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -68,6 +69,10 @@ class User extends Authenticatable
 
     public function blacklists(){
         return $this->hasMany(Blacklist::class);
+    }
+
+    public function feedbacks(){
+        return $this->hasMany(Feedback::class);
     }
 
 }

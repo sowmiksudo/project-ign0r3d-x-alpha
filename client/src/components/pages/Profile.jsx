@@ -1,41 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, CardActions, CardMedia, Avatar, Divider, Typography, Collapse, IconButton, Button, CircularProgress, Backdrop, Box, bottomNavigationClasses, Alert } from '@mui/material';
+import { Card, Typography, CardActions, Avatar, IconButton, Button, CircularProgress, Backdrop, Box, Alert } from '@mui/material';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ShareIcon from "@mui/icons-material/Share"
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import { useSnackbar } from "notistack"
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import MuiLink from '@mui/material/Link';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { useNavigate, Link } from "react-router-dom";
-import styled from '@emotion/styled';
+import KeyIcon from '@mui/icons-material/Key';
+import EditDialog from './EditDialog'
+import ChangePassword from './ChangePassword';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import { useNavigate } from "react-router-dom";
+import Confetti from 'react-confetti'
+
 
 
 const themeColor = "#b5e853";
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(0deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 export default function Profile() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const divRef = React.useRef(null);
-  
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isPassChangedOpen, setIsPassChangedOpen] = useState(false);
   const [isVerified, setIsVerified] = useState(true);
-  const [expanded, setExpanded] = useState(true);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const shareApp = () => {
+    navigator.share({
+      title:"Project IGN0R3DxALPHA",
+      url:"https://alphasowmik.xyz",
+      text:"Hi! I'm inviting you to join the hidden universe of Ign0r3dH4x0r! Send free SMS, Do SMS Bombing with own API and many more tools are waiting for you."
+    });
+  }
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const toggleOpen = () => {
+    setIsEditOpen(!isEditOpen);
+  }
+
+  const togglePassChanger = () => {
+    setIsPassChangedOpen(!isPassChangedOpen);
+  }
 
   const goToLogin = () => {
     navigate("/user/login");
@@ -47,7 +50,6 @@ export default function Profile() {
 
   const user = useSelector(state => state.user);
   const app = useSelector(state => state.app);
-  const profile = !user.loading ? user.profile.data : null
   useEffect(() => {
     if (!user.loading) {
       if (!user.profile.success) {
@@ -58,12 +60,12 @@ export default function Profile() {
     };
   }, [divRef]);
 
-  useEffect(()=>{
-      if(!user.loading){
-        if(user.profile.success){
-          setIsVerified(user.profile.data.is_verified ===1);
-        }
+  useEffect(() => {
+    if (!user.loading) {
+      if (user.profile.success) {
+        setIsVerified(user.profile.data.is_verified === 1);
       }
+    }
   }, [user])
 
   return (
@@ -75,15 +77,21 @@ export default function Profile() {
         <CircularProgress sx={{ color: themeColor }} />
       </Backdrop>
       <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-        {(!user.loading && !app.loading) &&
+        {(!user.loading && !app.loading) && user.success &&
           <div style={{ height: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-            {!isVerified && <Alert
+            {!isVerified ? <Alert
               sx={{ my: 2 }}
               severity="warning"
               action={
                 <Button color="warning" size="small" onClick={toggleDialog}>VERIFY</Button>
               }
-            >Account is not verified!</Alert>}
+            >Account is not verified!</Alert>
+              :
+              <Confetti
+                width={window.innerWidth}
+                height={window.innerHeight}
+              />
+            }
             {isDialogOpen && <Dialog
               open={isDialogOpen}
               onClose={toggleDialog}
@@ -108,43 +116,32 @@ export default function Profile() {
                 </MuiLink>
               </DialogActions>
             </Dialog>}
-            <Card>
-              <CardHeader
-                avatar={
-                  <Avatar sx={{ bgcolor: themeColor }} aria-label="recipe">
-                    {profile.name.split("")[0].toUpperCase()}
-                  </Avatar>
-                }
-                title={profile.name}
-                subheader={profile.email}
-              />
-              <CardContent>
-                <Typography paragraph>
-                  This website is still under regular development we're pushing new patch everyday. Give us suggestion about what can be added to make this website better.
-                </Typography>
-              </CardContent>
-              <Divider />
-              <CardActions disableSpacing>
-                <IconButton aria-label="Share">
+            <Card sx={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column', mt: 9, minWidth:'90vw' }}>
+              <Avatar sx={{ bgcolor: themeColor, mt: 2 }} aria-label="recipe">
+                {user.profile.data.name.split("")[0].toUpperCase()}
+              </Avatar>
+              <Typography variant="h6">{user.profile.data.name} {isVerified && <CheckCircleIcon sx={{ pt:1, color:'cyan' }} /> }</Typography>
+              <Typography variant="body">{user.profile.data.email}</Typography>
+              <Typography variant="body">{user.profile.data.number}</Typography>
+              <Typography variant="body2">{user.profile.data.created_at}</Typography>
+
+              <CardActions disableSpacing sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+                <IconButton aria-label="Share" onClick={shareApp}>
                   <ShareIcon sx={{ color: themeColor }} />
                 </IconButton>
-                <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more"
-                >
-                  <CheckCircleOutlineIcon sx={{ color: themeColor }} />
-                </ExpandMore>
+                <IconButton onClick={toggleOpen} aria-label="Edit">
+                  <ModeEditIcon sx={{ color: themeColor }} />
+                </IconButton>
+                <IconButton onClick={togglePassChanger} aria-label="Change Password">
+                  <KeyIcon sx={{ color: themeColor }} />
+                </IconButton>
               </CardActions>
-              <Collapse in={expanded} timeout="auto" unmountOnExit key="hi">
-                <CardContent>
-                  {/* <Typography variant="h6">You are not verified! <SentimentVeryDissatisfiedIcon /></Typography>
-                  <Typography paragraph>Verified accounts never get blocked. You will be totally anonymouse. Verified profiles also get <i>LIMITLESS</i> messaging!</Typography>
-                  <Typography variant="h6">How to verify your account?</Typography>
-                  <Typography paragraph>Follow <Link to="https://t.me/TeamX1337Official">THIS</Link> telegram post to know the procedure.</Typography> */}
-                </CardContent>
-              </Collapse>
+              {!user.loading && user.success &&
+                <Box>
+                  <EditDialog open={isEditOpen} toggleOpen={toggleOpen} profile={user.profile.data} />
+                  <ChangePassword open={isPassChangedOpen} toggleOpen={togglePassChanger} />
+                </Box>
+              }
             </Card>
           </div>
         }

@@ -7,10 +7,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { LoadProfileAction, UpdateProfileAction } from "./../../redux/actions/ProfileActions";
+import { LoadProfileAction, UpdateProfileAction } from "../redux/actions/ProfileActions";
 import { useSnackbar } from 'notistack';
 
-export default function FormDialog({ open, toggleOpen, profile }) {
+export default function EditDialog({ open, toggleOpen, profile }) {
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.user)

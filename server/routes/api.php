@@ -16,12 +16,15 @@ use App\Http\Controllers\AppController;
 
 Route::group(["middleware" => "CORS", "as" => "api."], function () {
     Route::get("batchInfo", [AppController::class, 'show']);
+    Route::post("feedback", [AppController::class, 'feedback']);
+    Route::get("feedback", [AppController::class, 'showFeedback']);
+
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', [UserController::class, 'viewProfile'])->name('profile');
         Route::post('register', [UserController::class, 'register'])->name('register');
         Route::post('login', [UserController::class, 'login'])->name('login');
+        Route::post("change", [UserController::class, 'change'])->name('change');
         Route::get('logout', [UserController::class, 'logout'])->name('logout');
-
         Route::group(["prefix" => "profile"], function () {
             Route::get('/', [UserController::class, 'viewProfile'])->name('profile');
             Route::post('saveName', [UserController::class, 'saveName'])->name('profile.saveName');
@@ -46,7 +49,7 @@ Route::group(["middleware" => "CORS", "as" => "api."], function () {
         Route::group(['prefix'=>'api'], function(){
             Route::get("get", [ApiController::class, "get"]);
             Route::post("add", [ApiController::class, 'add']);
-            Route::post("save", [ApiController::class, 'save']);
+            Route::post("import", [ApiController::class, 'import']);
             Route::get("delete/{id}", [ApiController::class, 'delete']);
         });
     });

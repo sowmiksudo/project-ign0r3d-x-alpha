@@ -19,3 +19,14 @@ export const UpdateProfile = (body) => {
         return error;
     });
 }
+
+
+export const ChangePassword = (body) => {
+    const http = new HttpService();
+    let url = "user/change";
+    return http.post(body, url).then(data => {
+        return data;    
+    }).catch((error) => {
+        return error;
+    });
+}

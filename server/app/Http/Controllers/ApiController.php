@@ -67,7 +67,8 @@ class ApiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "name" => "required|max:20",
-            "config" => "required"
+            "url" => "required",
+            "method" => "required"
         ]);
 
         if ($validator->fails()) {
@@ -78,28 +79,27 @@ class ApiController extends Controller
         }
 
 
-        if (gettype($request->config) !== "array") {
-            return [
-                "success" => false,
-                "message" => "Given API config is invalid."
-            ];
-        }
-        if ($this->getArrayType($request->config)) {
-            return [
-                "success" => false,
-                "message" => "Given API config is invalid."
-            ];
-        }
+        // if (gettype($request->config) !== "array") {
+        //     return [
+        //         "success" => false,
+        //         "message" => "Given API config is invalid."
+        //     ];
+        // }
+        // if ($this->getArrayType($request->config)) {
+        //     return [
+        //         "success" => false,
+        //         "message" => "Given API config is invalid."
+        //     ];
+        // }
 
-        $config = $request->config;
 
         $success = $this->user->apis()->create([
             "name" => $request->name,
             "config" => json_encode([
-                "url" => $config["url"] ?? "",
-                "method" => $config["method"] ?? "get",
-                "headers" => $config["headers"] ?? json_decode("{}"),
-                "body" => $config["body"] ?? ""
+                "url" => $request->url ?? "",
+                "method" => $request->method ?? "get",
+                "headers" => json_decode($request->headers) ?? json_decode("{}"),
+                "body" => $request->body ?? ""
             ]),
             "ip" => $request->ip(),
             "userAgent" => $request->userAgent()
@@ -117,6 +117,14 @@ class ApiController extends Controller
 
     public function delete(Request $request)
     {
+        $item = API::find($request->id);
+        if($item === null){
+            return [
+                "success"=>false,
+                "message"=>"NOT FOUND"
+            ];
+        }
+
         $deleted = API::findOrFail($request->id)->delete();
         return [
             "success" => true,
@@ -192,5 +200,33 @@ class ApiController extends Controller
                 "private" => $private
             ]
         ];
+    }
+
+    public function import(Request $request)
+    {
+        if (!$this->getArrayType($request->all())) {
+            return [
+                "success" => false,
+                "message" => "Given API array is invalid."
+            ];
+        }
+        foreach ($request->all() as $api) {
+            $config = $api["config"];
+            $this->user->apis()->create([
+                "name" => $api["name"],
+                "config" => json_encode([
+                    "url" => $config["url"] ?? "",
+                    "method" => $config["method"] ?? "get",
+                    "headers" => $config["headers"] ? json_decode($config["headers"]) : json_decode("{}"),
+                    "body" => $config["body"] ?? ""
+                ]),
+                "ip" => $request->ip(),
+                "userAgent" => $request->userAgent()
+            ]);
+            return [
+                "success" => true,
+                "message" => "Config imported successfully!"
+            ];
+        }
     }
 }

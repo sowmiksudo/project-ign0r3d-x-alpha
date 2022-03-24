@@ -3,7 +3,8 @@ import * as ActionTypes from '../ActionTypes';
 const initState = {
     loading: true,
     success: false,
-    profile: null
+    profile: null,
+    change:null,
 }
 
 const ProfileReducer = (state = initState, action) => {
@@ -40,7 +41,7 @@ const ProfileReducer = (state = initState, action) => {
                 ...state,
                 loading: false,
                 success: true,
-                profile: action.res.profile
+                profile: action.res
             };
         case ActionTypes.UPDATE_PROFILE_ERROR:
             return {
@@ -48,6 +49,19 @@ const ProfileReducer = (state = initState, action) => {
                 loading: false,
                 success: false,
                 profile: action.res
+            };
+
+        case ActionTypes.CHANGE_PASSWORD_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                change: action.res
+            };
+        case ActionTypes.CHANGE_PASSWORD_ERROR:
+            return {
+                ...state,
+                loading: false,
+                change: action.res
             };
         default:
             return state;

@@ -10,6 +10,7 @@ import Profile from "./components/pages/Profile";
 import Home from "./components/pages/Home";
 import NotFound from "./components/pages/NotFound";
 import LandingPage from "./components/pages/LandingPage";
+import Feedback from "./components/pages/Feedback";
 
 import Xsms from "./components/pages/xSMS/Xsms";
 import Layout from "./components/pages/xSMS/Layout";
@@ -38,6 +39,7 @@ function RouteList() {
                             <Route index element={<Home />} />
                             <Route path="profile" element={<Profile />} />
                         </Route>
+                        <Route path="/feedback" element={<Feedback />} />
                         <Route path="/x-sms">
                             <Route index element={<Layout><Xsms /></Layout>} />
                             <Route path="history" element={<Layout><History /></Layout>} />

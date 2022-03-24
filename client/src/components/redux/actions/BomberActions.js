@@ -1,4 +1,4 @@
-import { addBlacklist, deleteBlacklist, fetchApi, checkMsisdn, fetchHistory, fetchProfile, deleteApi, fetchBlacklists } from "./../../services/BomberServices"
+import { importApi, addApi, addBlacklist, deleteBlacklist, fetchApi, checkMsisdn, fetchHistory, fetchProfile, deleteApi, fetchBlacklists } from "./../../services/BomberServices"
 import * as ActionTypes from '../ActionTypes';
 import { useDispatch } from "react-redux";
 
@@ -94,7 +94,7 @@ export const LoadBlacklistedAction = () => {
             }
         }, error => {
             dispatch({ type: ActionTypes.CODE_ERROR, res: error });
-        })    
+        })
     }
 }
 
@@ -109,7 +109,7 @@ export const AddBlacklistedAction = (fields) => {
             }
         }, error => {
             dispatch({ type: ActionTypes.CODE_ERROR, res: error });
-        })    
+        })
     }
 }
 
@@ -124,6 +124,37 @@ export const DeleteBlacklistedAction = (id) => {
             }
         }, error => {
             dispatch({ type: ActionTypes.CODE_ERROR, res: error });
-        })    
+        })
+    }
+}
+
+export const AddApiAction = (fields) => {
+    return (dispatch) => {
+        dispatch({ type: ActionTypes.BOMBER_LOADING });
+        addApi(fields).then(res => {
+            if (res.data.success) {
+                dispatch({ type: ActionTypes.ADD_API_SUCCESS, res: res.data });
+            } else {
+                dispatch({ type: ActionTypes.ADD_API_ERROR, res: res.data });
+            }
+        }, error => {
+            dispatch({ type: ActionTypes.CODE_ERROR, res: error });
+        })
+    }
+}
+
+
+export const ImportApiAction = (config) => {
+    return (dispatch) => {
+        dispatch({ type: ActionTypes.BOMBER_LOADING });
+        importApi(config).then(res => {
+            if (res.data.success) {
+                dispatch({ type: ActionTypes.IMPORT_API_SUCCESS, res: res.data });
+            } else {
+                dispatch({ type: ActionTypes.IMPORT_API_ERROR, res: res.data });
+            }
+        }, error => {
+            dispatch({ type: ActionTypes.CODE_ERROR, res: error });
+        })
     }
 }

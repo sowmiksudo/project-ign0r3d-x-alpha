@@ -235,7 +235,7 @@ export default function Page({ children }) {
                             ...user.success ? [{
                                 name: "Profile",
                                 icon: <AccountBoxIcon />,
-                                path: '/user',
+                                path: '/user/profile',
                             },
                             {
                                 name: "Xsms",
@@ -343,6 +343,7 @@ export default function Page({ children }) {
                                     >
                                         <MenuItem onClick={() => { navigate('/user/profile'); setAnchorEl(null) }}>Profile</MenuItem>
                                         <MenuItem onClick={() => { navigate('/user'); setAnchorEl(null) }}>Dashboard</MenuItem>
+                                        <MenuItem onClick={() => { navigate("/feedback"); setAnchorEl(null) }}>Feedback</MenuItem>
                                         <MenuItem onClick={() => { LogOutUser(); setAnchorEl(null) }}>Logout</MenuItem>
                                     </Menu>
                                 </Box> :

@@ -26,10 +26,12 @@ class BomberController extends Controller
         $bombings = $user->bombings;
 
         $total_bombing_sessions = $bombings->count();
+        $total_sent = $bombings->sum('amount');
 
         return [
             "success" => true,
             "total_bombing_sessions" => $total_bombing_sessions,
+            "total_otp_sent" => $total_sent,
             "profile" => $user
         ];
     }
@@ -121,6 +123,13 @@ class BomberController extends Controller
 
     public function deleteBlacklist(Request $request){
         $entry = Blacklist::find($request->id);
+        if($entry === null){
+            return [
+                "success"=>false,
+                "message"=>"NOT FOUND"
+            ];
+        }
+
         $deleted = $entry->delete();
         return [
             "success"=>true,

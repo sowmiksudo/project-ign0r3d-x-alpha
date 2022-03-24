@@ -10,6 +10,7 @@ import { useSnackbar } from "notistack";
 import Button from "./../utilities/Button"
 import LoginIcon from '@mui/icons-material/Login';
 import { LoadProfileAction } from '../redux/actions/ProfileActions';
+import { LoadAppAction } from '../redux/actions/AppActions';
 
 
 const themeColor = "#b5e853";
@@ -63,12 +64,14 @@ function Login() {
           for (const error in errors) {
             errors[error].map(error => {
               Toastify(error, "error")
+              return null;
             })
           }
         }
       } else {
         Toastify(auth.response.message, "success")
         dispatch(LoadProfileAction())
+        dispatch(LoadAppAction());
         if(!user.loading){
           if(user.profile.success){
             navigate("/user")
@@ -101,6 +104,7 @@ function Login() {
       {(!user.loading || !auth.loading) &&
         <Box>
           <Box component="form" noValidate onSubmit={UserLogin} sx={{ mt: 3 }}>
+            <Typography variant="h2" align="center">LOGIN</Typography>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -142,7 +146,7 @@ function Login() {
               text="LOGIN"
               icon={<LoginIcon />} />
           </Box>
-          <Typography align="right" sx={{ mt: 2 }}>
+          <Typography align="right" sx={{ mt: 2, color:themeColor + '!important' }}>
             <Link to="/user/register">Don't have an account? Register now!</Link>
           </Typography>
         </Box>

@@ -22,7 +22,7 @@ small {
     font-size: small;
 }
 
-.overlay {
+/* .overlay {
     position: absolute;
     width   : 100%;
     height  : 100%;
@@ -43,6 +43,45 @@ small {
     width: 100%;
     height: 100%; 
     background-image: linear-gradient(0deg,
+            transparent 0%,
+            rgba(32, 128, 32, 0.2) 2%,
+            rgba(32, 128, 32, 0.8) 3%,
+            rgba(32, 128, 32, 0.2) 3%,
+            transparent 100%);
+    background-repeat: no-repeat;
+    animation: scan 7.5s linear 0s infinite;
+} */
+
+
+
+
+.overlay {
+    pointer-events: all;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0) 0,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0) 100%);
+    background-size: auto 4px;
+    z-index: 1;
+}
+
+.overlay::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+            0deg,
             transparent 0%,
             rgba(32, 128, 32, 0.2) 2%,
             rgba(32, 128, 32, 0.8) 3%,
