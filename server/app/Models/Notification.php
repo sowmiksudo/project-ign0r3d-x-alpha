@@ -13,4 +13,8 @@ class Notification extends Model
         "action_link",
         "message"
     ];
+
+    protected $casts = [
+        'has_action_link'
+    ];
 }

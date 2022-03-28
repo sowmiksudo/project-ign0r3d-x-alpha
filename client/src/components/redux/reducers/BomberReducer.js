@@ -15,7 +15,8 @@ const init = {
     add_blacklist: null,
     delete_blacklist: null,
     add_api:null,
-    import:null
+    import:null,
+    edit:null,
 }
 
 const XsmsReducer = (state = init, action) => {
@@ -154,6 +155,18 @@ const XsmsReducer = (state = init, action) => {
                 ...state,
                 loading: false,
                 import: action.res
+            };
+        case ActionTypes.EDIT_API_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                edit: action.res
+            };
+        case ActionTypes.EDIT_API_ERROR:
+            return {
+                ...state,
+                loading: false,
+                edit: action.res
             };
 
         case ActionTypes.CODE_ERROR:

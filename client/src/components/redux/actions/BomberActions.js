@@ -1,4 +1,4 @@
-import { importApi, addApi, addBlacklist, deleteBlacklist, fetchApi, checkMsisdn, fetchHistory, fetchProfile, deleteApi, fetchBlacklists } from "./../../services/BomberServices"
+import { importApi, editApi, addApi, addBlacklist, deleteBlacklist, fetchApi, checkMsisdn, fetchHistory, fetchProfile, deleteApi, fetchBlacklists } from "./../../services/BomberServices"
 import * as ActionTypes from '../ActionTypes';
 import { useDispatch } from "react-redux";
 
@@ -136,6 +136,21 @@ export const AddApiAction = (fields) => {
                 dispatch({ type: ActionTypes.ADD_API_SUCCESS, res: res.data });
             } else {
                 dispatch({ type: ActionTypes.ADD_API_ERROR, res: res.data });
+            }
+        }, error => {
+            dispatch({ type: ActionTypes.CODE_ERROR, res: error });
+        })
+    }
+}
+
+export const EditApiAction = (fields, id) => {
+    return (dispatch) => {
+        dispatch({ type: ActionTypes.BOMBER_LOADING });
+        editApi(fields, id).then(res => {
+            if (res.data.success) {
+                dispatch({ type: ActionTypes.EDIT_API_SUCCESS, res: res.data });
+            } else {
+                dispatch({ type: ActionTypes.EDIT_API_ERROR, res: res.data });
             }
         }, error => {
             dispatch({ type: ActionTypes.CODE_ERROR, res: error });

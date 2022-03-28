@@ -31,7 +31,7 @@ export default function FormDialog({ open, setOpen }) {
         url: "",
         method: "get",
         body: "",
-        headers: "{}"
+        req_headers: "{}"
     });
     const handleFieldChange = (e) => {
         setFields({
@@ -66,7 +66,7 @@ export default function FormDialog({ open, setOpen }) {
             return
         }
         try {
-            JSON.parse(fields.headers);
+            JSON.parse(fields.req_headers);
         } catch (e) {
             Toastify("Invalid headers JSON", "error");
             return
@@ -139,7 +139,7 @@ export default function FormDialog({ open, setOpen }) {
                         />
                         <TextField
                             margin="dense"
-                            name="headers"
+                            name="req_headers"
                             label="API Headers in JSON Format"
                             type="text"
                             fullWidth

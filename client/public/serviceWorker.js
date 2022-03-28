@@ -1,33 +1,34 @@
 let CACHE_NAME = 'project-ign0r3dxalpha-cache-v1';
 const urlsToCache = [
-    '/index.html'
+    '/index.html',
+    '/offline.html'
 ];
-self.addEventListener('install', function (event){
+self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(function (cache) {
-                return cache.addAll(urlsToCache);
-            })
-    );
-});
-
-self.addEventListener('fetch', function (event) {
-    event.respondWith(caches.match(event.request)
-        .then(function (response) {
-            if (response) {
-                return response;
-            }
-            return fetch(event.request);
+        .then(function(cache) {
+            return cache.addAll(urlsToCache);
         })
     );
 });
 
-self.addEventListener('install', function (event) {
+self.addEventListener('fetch', function(event) {
+    event.respondWith(caches.match(event.request)
+        .then(function(response) {
+            if (response) {
+                return response;
+            }
+            return fetch(event.request)
+        })
+    );
+});
+
+self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(function (cache) {
-                return cache.addAll(urlsToCache);
-            })
+        .then(function(cache) {
+            return cache.addAll(urlsToCache);
+        })
     );
     self.skipWaiting();
 });

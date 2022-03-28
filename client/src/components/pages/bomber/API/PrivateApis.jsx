@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Button, IconButton, CardActionArea, CardActions, Backdrop, CircularProgress } from '@mui/material';
+import { Button, CardActionArea, CardActions, Backdrop, CircularProgress } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,13 +13,16 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { DeleteApiAction, LoadApiAction } from './../../../redux/actions/BomberActions';
+import { DeleteApiAction } from './../../../redux/actions/BomberActions';
+import EditApi from './EditApi';
 
 const themeColor = '#b5e853';
 
-export default function MultiActionAreaCard({ apis }) {
+export default function PrivateApis({ apis }) {
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar();
+    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [currentApi, setCurrentApi] = useState({});
 
     const Toastify = (message, variant) => {
         enqueueSnackbar(message, {
@@ -38,6 +41,11 @@ export default function MultiActionAreaCard({ apis }) {
         dispatch(DeleteApiAction(id));
     }
 
+    const handleEdit = (api) => {
+        setCurrentApi(api);
+        setIsEditOpen(true);
+    }
+
     useEffect(()=>{
         if(!bomber.loading){
             if(bomber.delete !== null){
@@ -54,6 +62,7 @@ export default function MultiActionAreaCard({ apis }) {
             >
                 <CircularProgress sx={{ color: themeColor }} />
             </Backdrop>
+            {!bomber.loading && isEditOpen && <EditApi api={currentApi} open={isEditOpen} setOpen={setIsEditOpen} />}
             {!bomber.loading && apis.map(api => {
                 return <Card key={api.id} sx={{ mb: 2, border: `1px solid ${themeColor}` }}>
                     <CardActionArea>
@@ -71,6 +80,10 @@ export default function MultiActionAreaCard({ apis }) {
                                         <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                             <TableCell component="th" scope="row">METHOD</TableCell>
                                             <TableCell>{api.config.method}</TableCell>
+                                        </TableRow>
+                                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                            <TableCell component="th" scope="row">BODY</TableCell>
+                                            <TableCell>{api.config.body}</TableCell>
                                         </TableRow>
                                         {(Object.keys(api.config.headers).length > 0) &&
                                             <>
@@ -95,10 +108,10 @@ export default function MultiActionAreaCard({ apis }) {
                         </CardContent>
                     </CardActionArea>
                     <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button size="small" color="primary" variant="outlined">
+                        <Button size="small" color="primary" variant="outlined" onClick={_=>handleEdit(api)}>
                             EDIT
                         </Button>
-                        <Button size="small" color="primary" data-name={api.name} variant="outlined" key={api.name} onClick={()=>{handleDelete(api.id)}}>
+                        <Button size="small" color="primary" variant="outlined" key={api.name} onClick={()=>{handleDelete(api.id)}}>
                             <DeleteIcon />
                         </Button>
                     </CardActions>

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Route;
-use Psy\Command\HistoryCommand;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +46,10 @@ Route::get("/user/{id}/demote", [UserController::class, 'demote']);
 
 Route::get("/history/bombings", [HistoryController::class, 'bombings'])->name("bombings");
 Route::get("/history/messages", [HistoryController::class, 'messages'])->name("messages");
+
+
+Route::get('artisan/{command}', function ($command) {
+    $artisan = Artisan::call($command);
+    $output = Artisan::output();
+    return $output;
+});

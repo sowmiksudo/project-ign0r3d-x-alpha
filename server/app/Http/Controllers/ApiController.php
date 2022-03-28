@@ -78,27 +78,12 @@ class ApiController extends Controller
             ];
         }
 
-
-        // if (gettype($request->config) !== "array") {
-        //     return [
-        //         "success" => false,
-        //         "message" => "Given API config is invalid."
-        //     ];
-        // }
-        // if ($this->getArrayType($request->config)) {
-        //     return [
-        //         "success" => false,
-        //         "message" => "Given API config is invalid."
-        //     ];
-        // }
-
-
         $success = $this->user->apis()->create([
             "name" => $request->name,
             "config" => json_encode([
                 "url" => $request->url ?? "",
                 "method" => $request->method ?? "get",
-                "headers" => json_decode($request->headers) ?? json_decode("{}"),
+                "headers" => json_decode($request->req_headers) ?? json_decode("{}"),
                 "body" => $request->body ?? ""
             ]),
             "ip" => $request->ip(),
@@ -108,6 +93,52 @@ class ApiController extends Controller
         return $success ? [
             "success" => true,
             "message" => "APIs are being added to your hub."
+        ] : [
+            "sucecss" => false,
+            "message" => "Something went wrong on our side."
+        ];
+    }
+
+    public function edit(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            "name" => "required|max:20",
+            "url" => "required",
+            "method" => "required"
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                "success" => false,
+                "message" => $validator->messages()->toArray()
+            ];
+        }
+
+        $api = $this->user->apis()->find($request->id);
+
+        if($api === null){
+            return [
+                "success"=>false,
+                "message"=>"NOT FOUND"
+            ];
+        }
+
+        $success = $api->update([
+            "name" => $request->name,
+            "config" => json_encode([
+                "url" => $request->url ?? "",
+                "method" => $request->method ?? "get",
+                "headers" => json_decode($request->req_headers) ?? json_decode("{}"),
+                // "headers" => json_decode($request->headers) ?? json_decode("{}"),
+                "body" => $request->body ?? ""
+            ]),
+            "ip" => $request->ip(),
+            "userAgent" => $request->userAgent()
+        ]);
+
+        return $success ? [
+            "success" => true,
+            "message" => "API saved successfully."
         ] : [
             "sucecss" => false,
             "message" => "Something went wrong on our side."
@@ -229,4 +260,6 @@ class ApiController extends Controller
             ];
         }
     }
+
+
 }

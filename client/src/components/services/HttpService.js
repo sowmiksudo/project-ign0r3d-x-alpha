@@ -1,15 +1,15 @@
 import axios from "axios";
 
 export default class HttpService {
-    url = "http://localhost:8000/api";
+    url = "https://api.alphasowmik.xyz/api";
 
     getHeaders = () => {
         const token = localStorage.getItem("user-token");
-            return {
-                "Authorization": "Bearer " + token,
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            }
+        return {
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        }
     }
 
     post = (item, endpoint) => {
@@ -21,7 +21,7 @@ export default class HttpService {
         })
     }
 
-    get = async (endpoint) => {
+    get = async(endpoint) => {
         return axios({
             method: 'GET',
             url: `${this.url}/${endpoint}`,

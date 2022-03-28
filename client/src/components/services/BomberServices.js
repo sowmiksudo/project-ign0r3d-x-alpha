@@ -90,6 +90,16 @@ export const addApi = (fields) => {
     });
 }
 
+export const editApi = (fields, id) => {
+    const http = new HttpService();
+    const url = "bomber/api/edit/"+id
+    return http.post(fields, url).then(data=>{
+        return data;
+    }).catch(err=>{
+        return err;
+    });
+}
+
 export const importApi = (config) => {
     const http = new HttpService();
     const url = "bomber/api/import"

@@ -49,6 +49,7 @@ Route::group(["middleware" => "CORS", "as" => "api."], function () {
         Route::group(['prefix'=>'api'], function(){
             Route::get("get", [ApiController::class, "get"]);
             Route::post("add", [ApiController::class, 'add']);
+            Route::post("edit/{id}", [ApiController::class, 'edit']);
             Route::post("import", [ApiController::class, 'import']);
             Route::get("delete/{id}", [ApiController::class, 'delete']);
         });

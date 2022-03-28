@@ -24,6 +24,8 @@ class API extends Model
         "userAgent"
     ];
 
+
+
     public function user(){
         return $this->BelongsTo(User::class);
     }

@@ -58,7 +58,7 @@ export default function AlertDialogSlide({ open, setOpen, apis, fields, mode, ha
     let newConfig = {
       url: config.url.replace("_MSISDN_", number),
       headers: replace_all_headers(config.headers, number),
-      body: config.body.replace("_MSISDN_", number),
+      data: config.body.replace("_MSISDN_", number),
       method: config.method
     }
 

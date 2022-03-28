@@ -1,41 +1,75 @@
-[
-    {
+[{
         "name": "BookFlix",
         "config": {
             "url": "https://bookflix.com.bd/api/v1/get-user-verification-otp?phone_no=0_MSISDN_",
             "method": "get",
-            "headers":{},
-            "body":""
+            "headers": {},
+            "body": ""
         }
     },
     {
         "name": "SalaryBox",
-        "config":{
+        "config": {
             "url": "https://api.salaryboxapp.com/prod/v1/auth/check?pn=_MSISDN_&dc=880",
-            "method":"get",
-            "headers":{},
-            "body":""
+            "method": "get",
+            "headers": {},
+            "body": ""
         }
     },
     {
-        "name":"Shwapno GV",
-        "config":{
-            "url":"https://www.shwapno.com/WebAPI/CRMActivation/Validate?Channel=W&otpCRMrequired=false&otpeCOMrequired=true&smssndcnt=8&otpBasedLogin=false&LoyaltyProvider=&MobileNO=0_MSISDN_&countryPhoneCode=%2B88",
-            "method":"get",
-            "body":"",
-            "headers":{}
+        "name": "Shwapno GV",
+        "config": {
+            "url": "https://www.shwapno.com/WebAPI/CRMActivation/Validate?Channel=W&otpCRMrequired=false&otpeCOMrequired=true&smssndcnt=8&otpBasedLogin=false&LoyaltyProvider=&MobileNO=0_MSISDN_&countryPhoneCode=%2B88",
+            "method": "get",
+            "body": "",
+            "headers": {}
         }
-    }, 
+    },
     {
-        "name":"Shudokkho",
-        "config":{
-            "url":"http://lpin.dev.mpower-social.com:6001/usermodule/otp_mobile/?mobile_no=0_MSISDN_&email=xbomber_public%40gmail.com&verification_type=registration",
-            "method":"get",
-            "headers":{
-                "content-type":"application/x-www-form-urlencoded",
-                "accept":"application/json"
+        "name": "Shudokkho",
+        "config": {
+            "url": "http://lpin.dev.mpower-social.com:6001/usermodule/otp_mobile/?mobile_no=0_MSISDN_&email=xbomber_public%40gmail.com&verification_type=registration",
+            "method": "get",
+            "headers": {
+                "content-type": "application/x-www-form-urlencoded",
+                "accept": "application/json"
             },
-            "body":""
+            "body": ""
+        }
+    },
+    {
+        "name": "AjkerDeal",
+        "config": {
+            "url": "https://api.ajkerdeal.com/Recover/RetrivePassword/customersignup",
+            "method": "post",
+            "body": "{\"CustomerId\": \"01833268701\",\"MobileOrEmail\": \"'+number+'\",\"Type\": 2}",
+            "headers": {
+                "content-type": "application/json",
+                "accept": "application/json"
+            }
+        }
+    },
+    {
+        "name": "SELF",
+        "config": {
+            "url": "https://www.self-shopping.com/java/old/api/register.php",
+            "method": "post",
+            "body": "{\"number\":0_MSISDN_}",
+            "headers": {
+                "content-type": "application/json"
+            }
+        }
+    },
+    {
+        "name": "Agora",
+        "config": {
+            "url": "https://agorasuperstores.com/customers/send_sms",
+            "method": "post",
+            "body": "mobile_number=0_MSISDN_",
+            "headers": {
+                "content-type": "application/x-www-form-urlencoded"
+            }
         }
     }
+
 ]
