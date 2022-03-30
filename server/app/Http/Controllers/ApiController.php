@@ -116,10 +116,10 @@ class ApiController extends Controller
 
         $api = $this->user->apis()->find($request->id);
 
-        if($api === null){
+        if ($api === null) {
             return [
-                "success"=>false,
-                "message"=>"NOT FOUND"
+                "success" => false,
+                "message" => "NOT FOUND"
             ];
         }
 
@@ -149,10 +149,10 @@ class ApiController extends Controller
     public function delete(Request $request)
     {
         $item = API::find($request->id);
-        if($item === null){
+        if ($item === null) {
             return [
-                "success"=>false,
-                "message"=>"NOT FOUND"
+                "success" => false,
+                "message" => "NOT FOUND"
             ];
         }
 
@@ -248,18 +248,16 @@ class ApiController extends Controller
                 "config" => json_encode([
                     "url" => $config["url"] ?? "",
                     "method" => $config["method"] ?? "get",
-                    "headers" => $config["headers"] ? json_decode($config["headers"]) : json_decode("{}"),
+                    "headers" => $config["headers"] ?? "{}",
                     "body" => $config["body"] ?? ""
                 ]),
                 "ip" => $request->ip(),
                 "userAgent" => $request->userAgent()
             ]);
-            return [
-                "success" => true,
-                "message" => "Config imported successfully!"
-            ];
         }
+        return [
+            "success" => true,
+            "message" => "Config imported successfully!"
+        ];
     }
-
-
 }

