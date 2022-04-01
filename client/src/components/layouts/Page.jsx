@@ -105,7 +105,6 @@ const NotificationDialog = ({ open, setOpen, notifications }) => {
     return (
         <div>
             <Dialog
-                fullScreen
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Transition}
@@ -125,9 +124,9 @@ const NotificationDialog = ({ open, setOpen, notifications }) => {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <Box sx={{ display:'flex', justifyContent:'center', flexDirection:'column' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
                     {notifications.map(notification => {
-                        return <Card key={notification.id} sx={{ border: `1px solid ${themeColor}`, borderRadius: '10px', m:1 }}>
+                        return <Card key={notification.id} sx={{ border: `1px solid ${themeColor}`, borderRadius: '5px', m: 1 }}>
                             <CardActionArea>
                                 <CardContent>
                                     <Typography gutterBottom variant="body" component="p" align="center">
@@ -135,26 +134,23 @@ const NotificationDialog = ({ open, setOpen, notifications }) => {
                                         <br />
                                         {notification.created_at}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary" sx={{ mt:2 }}>
+                                    <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
                                         {notification.message}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                            <CardActions sx={{ display:'flex', justifyContent:'center' }}>
-                                {(notification.has_action_link === 1) && 
-                                <MuiLink href={notification.action_link} target="_blank">
-                                    <Button size="small" color="primary" variant="contained">
-                                        GO
-                                    </Button>
-                                </MuiLink>
+                            <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+                                {(notification.has_action_link === 1) &&
+                                    <MuiLink href={notification.action_link} target="_blank">
+                                        <Button size="small" color="primary" variant="contained">
+                                            GO
+                                        </Button>
+                                    </MuiLink>
                                 }
                             </CardActions>
                         </Card>
                     })}
                 </Box>
-                {/* <CardActions >
-                    <Button size="small">Learn More</Button>
-                </CardActions> */}
             </Dialog>
         </div>
     );
@@ -169,6 +165,10 @@ export default function Page({ children }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [notificationsOpen, setNotificationsOpen] = useState(false);
+
+    useEffect(()=>{
+        setNotificationsOpen(true);
+    }, [])
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);

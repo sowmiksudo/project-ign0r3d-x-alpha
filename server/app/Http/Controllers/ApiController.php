@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\API;
+use App\Models\Proxy;
 use App\Models\PublicApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -229,7 +230,8 @@ class ApiController extends Controller
             "api_json" => [
                 "public" => $public,
                 "private" => $private
-            ]
+            ],
+            "proxies"=> Proxy::all()
         ];
     }
 

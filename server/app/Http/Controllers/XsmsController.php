@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlacklistedWords;
 use App\Models\User;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Http;
@@ -60,6 +61,23 @@ class XsmsController extends Controller
                 'message' => $validator->messages()->toArray()
             ], 200);
         }
+
+        $prohibited_words = BlacklistedWords::pluck("word")->toArray();
+        $input = $request->message;
+        $input_array = explode(' ', $input);
+        $intersect = array_intersect($prohibited_words, $input_array);
+        foreach ($intersect as $item) {
+
+            auth()->user()->alerts()->create([
+                "log"=>"message with $item"
+            ]);
+
+            return [
+                "success"=>false,
+                "message"=>"Message contains banned word."
+            ];
+        }
+
 
         $id = Auth::guard("api")->user()->id;
         $user = User::find($id);

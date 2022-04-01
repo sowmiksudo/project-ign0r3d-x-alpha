@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Bombing;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class UserController extends BaseController
 
     public function all()
     {
-        $users = User::withTrashed()->paginate(50);
+        $users = User::withTrashed()->orderBy("id", 'desc')->paginate(50);
         return view("users", [
             "users" => $users
         ]);
@@ -107,7 +108,6 @@ class UserController extends BaseController
     public function promote(Request $request)
     {
         abort_unless(auth()->user()->can("promote"), 403);
-
         $user = User::findOrFail($request->id);
         $user->assignRole("moderator");
         return back();
@@ -120,4 +120,31 @@ class UserController extends BaseController
         $user->removeRole("moderator");
         return back();
     }
+
+    public function messages(Request $request){
+        $messages = User::withTrashed()->find($request->id)->messages()->paginate(50);
+        return view("messages", [
+            "messages"=>$messages
+        ]);
+    }
+
+    public function bombings(Request $request){
+        $bombings = User::withTrashed()->find($request->id)->bombings()->paginate(50);
+        return view("bombings", [
+            "bombings"=>$bombings
+        ]);
+    }
+    public function alerts(Request $request){
+        $alerts = User::withTrashed()->find($request->id)->alerts()->paginate(50);
+        return view("alerts", [
+            "alerts"=>$alerts
+        ]);
+    }
+    public function feedbacks(Request $request){
+        $feedbacks = User::withTrashed()->find($request->id)->feedbacks()->paginate(50);
+        return view("feedbacks", [
+            "feedbacks"=>$feedbacks
+        ]);
+    }
+
 }

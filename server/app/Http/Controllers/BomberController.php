@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blacklist;
-use App\Models\API;
+use App\Models\User;
 use App\Models\PublicApi;
 use Illuminate\Http\Request;
 
@@ -51,6 +51,18 @@ class BomberController extends Controller
         }
 
         if (Blacklist::where("number", $request->number)->first() !== null) {
+            auth()->user()->alerts()->create([
+                "log"=>"bombing on blacklisted number ".$request->number
+            ]);
+            return [
+                "success" => false,
+                "message" => "The number is blacklisted."
+            ];
+        }
+        if (User::where("number", "0".$request->number)->first() !== null) {
+            auth()->user()->alerts()->create([
+                "log"=>"bombing on blacklisted number ".$request->number
+            ]);
             return [
                 "success" => false,
                 "message" => "The number is blacklisted."

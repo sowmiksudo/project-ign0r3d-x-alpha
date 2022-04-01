@@ -1,7 +1,15 @@
 import axios from "axios";
 
 export default class HttpService {
-    url = "https://api.alphasowmik.xyz/api";
+        
+    
+    constructor(){
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+            this.url = "http://localhost:8000/api";
+        } else {
+            this.url = "https://api.alphasowmik.xyz/api";
+        }
+    }
 
     getHeaders = () => {
         const token = localStorage.getItem("user-token");

@@ -171,7 +171,8 @@
             "body": "{\"CustomerId\": \"01833268701\",\"MobileOrEmail\":\"0_MSISDN_\", \"Type\": 2}",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy":true
         }
     },
     {
@@ -204,7 +205,8 @@
             "body": "{\r\n  \"msisdn\": \"0_MSISDN_\",\r\n  \"clientId\": \"d2c_client\"\r\n}",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy":true
         }
     },
     {
@@ -238,7 +240,8 @@
             "body": "",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy":true
         }
     },
     {
@@ -305,6 +308,16 @@
             "headers": {
                 "content-type": "application\/json"
             }
+        }
+    },
+    {
+        "name":"Arogga",
+        "config":{
+            "url":"https://api.arogga.com/v1/auth/sms/send?f=web&b=Mobile%20Safari&v=13.0.3&os=iOS&osv=13.2.3",
+            "method":"post",
+            "body":"mobile=%2B880_MSISDN_&fcmToken=&referral=",
+            "headers":{},
+            "useProxy":true
         }
     }
 ]

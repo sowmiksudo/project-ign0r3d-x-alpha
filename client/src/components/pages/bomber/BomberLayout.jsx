@@ -93,13 +93,13 @@ export default function BottomNav({ children }) {
             value="api"
             icon={<AddLinkIcon />}
           />
-          <BottomNavigationAction
+          {/* <BottomNavigationAction
             component={Link}
             to="/bomber/blacklist"
             label="BLACKLIST"
             value="blacklist"
             icon={<CancelIcon />}
-          />
+          /> */}
           {/* <BottomNavigationAction
             component={Link}
             to="/bomber/dashboard"
@@ -108,7 +108,6 @@ export default function BottomNav({ children }) {
             icon={<DashboardIcon />}
           /> */}
           <BottomNavigationAction
-            // component={Menu}
             label="More"
             value="more"
             id="basic-menu"

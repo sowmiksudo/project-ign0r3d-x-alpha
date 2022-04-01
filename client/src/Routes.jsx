@@ -19,7 +19,7 @@ import Dashboard from "./components/pages/xSMS/Dashboard";
 
 import Bomber from "./components/pages/bomber/Bomber";
 import BomberDashboard from "./components/pages/bomber/Dashboard";
-import Blacklist from "./components/pages/bomber/Blacklist";
+// import Blacklist from "./components/pages/bomber/Blacklist";
 import BomberHistory from "./components/pages/bomber/History";
 import APIs from "./components/pages/bomber/API/APIs";
 import BomberLayout from "./components/pages/bomber/BomberLayout";
@@ -50,7 +50,7 @@ function RouteList() {
                             <Route path="history" element={<BomberLayout><BomberHistory /></BomberLayout>} />
                             <Route path="dashboard" element={<BomberLayout><BomberDashboard /></BomberLayout>} />
                             <Route path="api" element={<BomberLayout><APIs /></BomberLayout>} />
-                            <Route path="blacklist" element={<BomberLayout><Blacklist /></BomberLayout>} />
+                            {/* <Route path="blacklist" element={<BomberLayout><Blacklist /></BomberLayout>} /> */}
                         </Route>
                     </Route>
                     <Route path="*" element={<NotFound />} />

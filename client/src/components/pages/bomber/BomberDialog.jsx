@@ -23,14 +23,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide({ open, setOpen, apis, fields, mode, hasClicked }) {
+export default function AlertDialogSlide({ open, setOpen, apis, fields, mode, proxies }) {
   const [totalSent, setTotalSent] = React.useState(0);
   const [isRunning, setIsRunning] = React.useState(true);
   const [isDone, setIsDone] = React.useState(false);
   const [currApi, setCurrApi] = React.useState("");
-  const sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
   const handleDialogClose = () => {
     setOpen(false);
     setIsRunning(false);
@@ -54,14 +51,14 @@ export default function AlertDialogSlide({ open, setOpen, apis, fields, mode, ha
       }
       return headers;
     }
-
+    let newUrl = config.url.replace("_MSISDN_", number);
+    let randProxy = proxies[Math.floor(Math.random()*proxies.length)].url
     let newConfig = {
-      url: config.url.replace("_MSISDN_", number),
-      headers: replace_all_headers(config.headers, number),
+      url: config.useProxy ? randProxy + newUrl : newUrl,
+      headers: config.headers,
       data: config.body.replace("_MSISDN_", number),
       method: config.method
     }
-
     return newConfig;
   }
 

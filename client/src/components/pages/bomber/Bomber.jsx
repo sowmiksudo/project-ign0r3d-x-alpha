@@ -230,7 +230,7 @@ export default function Main() {
         </Box>
         <Footer sx={{ mt: 5 }} />
 
-        {dialogOpen && hasBombingClicked && <BomberDialog open={dialogOpen} setOpen={setDialogOpen} apis={selectedApi} fields={fields} mode={mode} />}
+        {dialogOpen && hasBombingClicked && <BomberDialog open={dialogOpen} setOpen={setDialogOpen} apis={selectedApi} fields={fields} mode={mode} proxies={bomber.apis.proxies} />}
 
       </Box>}
     </Box>

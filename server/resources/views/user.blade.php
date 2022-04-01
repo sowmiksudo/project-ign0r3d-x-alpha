@@ -17,6 +17,14 @@
                         <p class="text-center text-danger">BANNED</p>
                         @endif
                         <p class="card-text">
+                            @can("view user stat")
+                        <div class="d-flex justify-content-center">
+                                <a class="mx-1" href="/user/{{ $user->id }}/messages">MESSAGES</a>
+                                <a class="mx-1" href="/user/{{ $user->id }}/bombings">BOMBINGS</a>
+                                <a class="mx-1" href="/user/{{ $user->id }}/alerts">ALERTS</a>
+                                <a class="mx-1" href="/user/{{ $user->id }}/feedbacks">FEEDBACKS</a>
+                        </div>
+                        @endcan
                         <div class="d-flex justify-content-center mb-2">
                             @can("demote")
                             <a href="/user/{{ $user->id }}/promote" class="card-link"><button
@@ -39,6 +47,14 @@
                                 <tr>
                                     <td>TOTAL BOMBING</td>
                                     <td>{{ $user->bombings->count() }}</td>
+                                </tr>
+                                <tr>
+                                    <td>TOTAL ALERT</td>
+                                    <td>{{ $user->alerts->count() }}</td>
+                                </tr>
+                                <tr>
+                                    <td>TOTAL FEEDBACKS</td>
+                                    <td>{{ $user->feedbacks->count() }}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -23,7 +23,7 @@ class AppController extends Controller
         return response()->json([
             "success"=>true,
             "settings"=>Setting::all()->first(),
-            "notifications"=>Notification::all()
+            "notifications"=>Notification::orderBy("id", "desc")->get()
         ]);
     }
 

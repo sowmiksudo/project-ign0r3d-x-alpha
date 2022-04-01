@@ -76,4 +76,8 @@ class User extends Authenticatable
         return $this->hasMany(Feedback::class);
     }
 
+    public function alerts(){
+        return $this->hasMany(Alert::class);
+    }
+
 }

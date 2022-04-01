@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -26,7 +25,6 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset("images/logo.svg") }}" class="rounded pb-1" alt="logo" width="20px">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -62,6 +60,28 @@
                         <li class="nav-item">
                             <a class="nav-link {{ Route::is("messages") ? 'active' : '' }}" href="/history/messages">
                                 Messages
+                            </a>
+                        </li>
+                        @endcan
+                        @can('view sms stat')
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is("feedbacks") ? 'active' : '' }}" href="/feedbacks">
+                                Feedbacks
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is("alerts") ? 'active' : '' }}" href="/alerts">
+                                Alerts
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is("banned") ? 'active' : '' }}" href="/banned">
+                                Banned Words
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::is("notifications") ? 'active' : '' }}" href="/notifications">
+                                Notifications
                             </a>
                         </li>
                         @endcan
@@ -101,9 +121,41 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 container-sm">
+            @auth
+            <h3 class="text-center mt-4">SEARCH USER</h3>
+            <hr>
+            <div class="d-flex flex-row justify-content-between">
+                <div class="">
+                    <form method="POST" action="/user/search">
+                        @csrf
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Search by Email</label>
+                            <input type="hidden" name="searchBy" value="email">
+                            <input type="email" name="email" class="form-control" id="email"
+                                aria-describedby="emailHelp" placeholder="someone@gmail.com">
+                        </div>
+                        <button type="submit" class="btn btn-primary mx-auto">SEARCH</button>
+                    </form>
+                </div>
+                <div class="">
+                    <form method="POST" action="/user/search">
+                        @csrf
+                        <div class="mb-2">
+                            <input type="hidden" name="searchBy" value="number">
+                            <label for="number" class="form-label">Search by Number</label>
+                            <input type="phone" name="number" class="form-control" id="number"
+                                placeholder="01xxxxxxxxx">
+                        </div>
+                        <button type="submit" class="btn btn-primary mx-auto">SEARCH</button>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            @endauth
             @yield('content')
         </main>
+
     </div>
 </body>
 

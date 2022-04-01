@@ -14,38 +14,9 @@
                     @endif
                     <p>Welcome {{ auth()->user()->name }}! ( @foreach (auth()->user()->getRoleNames() as $role)
                         {{ $role }}
-                    @endforeach )</p>
+                        @endforeach )</p>
                 </div>
             </div>
-
-            <h3 class="text-center mt-4">SEARCH USER</h3>
-            <hr>
-            <div class="d-flex flex-row justify-content-between">
-                <div class="">
-                    <form method="POST" action="/user/search">
-                        @csrf
-                        <div class="mb-2">
-                            <label for="email" class="form-label">Search by Email</label>
-                            <input type="hidden" name="searchBy" value="email">
-                            <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
-                                placeholder="someone@gmail.com">
-                        </div>
-                        <button type="submit" class="btn btn-primary mx-auto">SEARCH</button>
-                    </form>
-                </div>
-                <div class="">
-                    <form method="POST" action="/user/search">
-                        @csrf
-                        <div class="mb-2">
-                            <input type="hidden" name="searchBy" value="number">
-                            <label for="number" class="form-label">Search by Number</label>
-                            <input type="phone" name="number" class="form-control" id="number" placeholder="01xxxxxxxxx">
-                        </div>
-                        <button type="submit" class="btn btn-primary mx-auto">SEARCH</button>
-                    </form>
-                </div>
-            </div>
-            <hr>
 
             @can("view user stat")
             <section class="stats">
@@ -77,11 +48,24 @@
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                         <div class="card">
+                            <h6 class="text-center text-muted mt-2">TOTAL BOMBINGS AMOUNT</h6>
+                            <h1 class="text-center" style="font-size: 500%">{{ $amount }}</h1>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                        <div class="card">
                             <h6 class="text-center text-muted mt-2">TOTAL MESSAGE SENT</h6>
                             <h1 class="text-center" style="font-size: 500%">{{ $total_sms }}</h1>
                         </div>
                     </div>
-
+                    @can("view user stat")
+                    <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                        <div class="card">
+                            <h6 class="text-center text-muted mt-2">FEEDBACKS</h6>
+                            <h1 class="text-center" style="font-size: 500%">{{ $feedbacks }}</h1>
+                        </div>
+                    </div>
+                    @endcan
                 </div>
             </section>
             @endcan

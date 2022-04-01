@@ -5,14 +5,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useSnackbar } from 'notistack';
 import MuiLink from '@mui/material/Link';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
 
 export default function EditDialog({ open, toggleOpen }) {
     const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -20,18 +16,7 @@ export default function EditDialog({ open, toggleOpen }) {
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index);
     };
-    const { enqueueSnackbar } = useSnackbar();
 
-    const Toastify = (message, variant) => {
-        enqueueSnackbar(message, {
-            variant: variant,
-            preventDuplicate: true,
-            anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'center'
-            }
-        })
-    }
 
     return (
         <div>
