@@ -26,7 +26,8 @@
                 "content-type": "application/x-www-form-urlencoded",
                 "accept": "application/json"
             },
-            "body": ""
+            "body": "",
+            "useProxy": false
         }
     },
     {
@@ -59,7 +60,8 @@
             "body": "{\r\n  \"mobileNumber\":\"0_MSISDN_\"\r\n}",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy": true
         }
     },
     {
@@ -70,7 +72,8 @@
             "body": "{\"mobile\":\"0_MSISDN_\"}",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy": false
         }
     },
     {
@@ -81,7 +84,8 @@
             "body": "",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy": true
         }
     },
     {
@@ -104,7 +108,8 @@
             "headers": {
                 "content-type": "application\/x-www-form-urlencoded",
                 "Authorization": "Bearer ef9d4e34ba990125803cef38460d2d3fa86db5691397013f03fca316c3705090f27125f4e4cf34ef7921f2862023881ab4c3"
-            }
+            },
+            "useProxy": true
         }
     },
     {
@@ -160,7 +165,8 @@
             "headers": {
                 "content-type": "application\/json",
                 "app-key": "sV+WD2bDZ|FAg7Pcx"
-            }
+            },
+            "useProxy": true
         }
     },
     {
@@ -172,7 +178,7 @@
             "headers": {
                 "content-type": "application\/json"
             },
-            "useProxy":true
+            "useProxy": true
         }
     },
     {
@@ -194,7 +200,8 @@
             "body": "",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy": false
         }
     },
     {
@@ -206,7 +213,7 @@
             "headers": {
                 "content-type": "application\/json"
             },
-            "useProxy":true
+            "useProxy": true
         }
     },
     {
@@ -241,7 +248,7 @@
             "headers": {
                 "content-type": "application\/json"
             },
-            "useProxy":true
+            "useProxy": true
         }
     },
     {
@@ -311,13 +318,38 @@
         }
     },
     {
-        "name":"Arogga",
-        "config":{
-            "url":"https://api.arogga.com/v1/auth/sms/send?f=web&b=Mobile%20Safari&v=13.0.3&os=iOS&osv=13.2.3",
-            "method":"post",
-            "body":"mobile=%2B880_MSISDN_&fcmToken=&referral=",
-            "headers":{},
-            "useProxy":true
+        "name": "Arogga",
+        "config": {
+            "url": "https://api.arogga.com/v1/auth/sms/send?f=web&b=Mobile%20Safari&v=13.0.3&os=iOS&osv=13.2.3",
+            "method": "post",
+            "body": "mobile=%2B880_MSISDN_&fcmToken=&referral=",
+            "headers": {},
+            "useProxy": true
         }
+    },
+    {
+        "Name": "SWAP",
+        "config": {
+            "url": "https://prodapi.swap.com.bd/api/v1/send-otp/login?mobile_number=880_MSISDN_",
+            "method": "post",
+            "headers": {
+                "x-authorization": "QoFN68MGTcosJxSmDf5GCgxXlNcgE1mUH9MUWuDHgs7dugjR7P2ziASzpo3frHL3"
+            },
+            "body": "",
+            "useProxy": true
+        }
+    },
+    {
+        "name": "Ghoori",
+        "config": {
+            "url": "https://ghoori.com.bd/generate_otp_no_auth?mobileNo=0_MSISDN_",
+            "method": "post",
+            "headers": {},
+            "body": "",
+            "useProxy": true
+        }
+    },
+    {
+        "name":"Unknown"
     }
 ]

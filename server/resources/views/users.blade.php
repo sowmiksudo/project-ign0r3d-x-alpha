@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-12 scrolling-pagination">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -22,38 +22,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
-                    <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->number }}</td>
-                        <td>{{ \Carbon\Carbon::parse($user->created_at)->isoFormat("LLLL") }}</td>
-                        <td>@foreach ($user->getRoleNames() as $role)
-                            {{ $loop->first ? '' : ', ' }}
-                            <span class="nice">{{ $role }}</span>
-                            @endforeach
-                        </td>
-                        @can('user verify')
-                        @if (!$user->is_verified)
-                        <td><a href="/verify/{{ $user->id }}"><button class="btn btn-sm btn-primary">VERIFY</button></a>
+                    <div>
+                        @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->number }}</td>
+                            <td>{{ \Carbon\Carbon::parse($user->created_at)->isoFormat("LLLL") }}</td>
+                            <td>@foreach ($user->getRoleNames() as $role)
+                                {{ $loop->first ? '' : ', ' }}
+                                <span class="nice">{{ $role }}</span>
+                                @endforeach
+                            </td>
+                            @can('user verify')
+                            @if (!$user->is_verified)
+                            <td><a href="/verify/{{ $user->id }}"><button class="btn btn-sm btn-primary">VERIFY</button></a>
+                                @else
+                            <td><button class="btn btn-sm btn-info">VERIFIED</button>
+                            </td>
+                            @endif
+                            @endcan
+                            @if (!$user->trashed())
+                            <td><a href="/ban/{{ $user->id }}"><button class="btn btn-sm btn-primary">BAN</button></a></td>
                             @else
-                        <td><button class="btn btn-sm btn-info">VERIFIED</button>
-                        </td>
-                        @endif
-                        @endcan
-
-                        @if (!$user->trashed())
-                        <td><a href="/ban/{{ $user->id }}"><button class="btn btn-sm btn-primary">BAN</button></a></td>
-                        @else
-                        <td><a href="/unban/{{ $user->id }}"><button class="btn btn-sm btn-warning">UNBAN</button></a>
-                        </td>
-                        @endif
-
-
-                        <td><a href="/user/{{ $user->id }}"><button class="btn btn-sm btn-primary">PROFILE</button></a>
-                        </td>
-                    </tr>
-                    @endforeach
+                            <td><a href="/unban/{{ $user->id }}"><button class="btn btn-sm btn-warning">UNBAN</button></a>
+                            </td>
+                            @endif
+                            <td><a href="/user/{{ $user->id }}"><button class="btn btn-sm btn-primary">PROFILE</button></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </div>
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
@@ -62,4 +61,20 @@
         </div>
     </div>
 </div>
+@endsection
+@section("scripts")
+<script type="text/javascript">
+    // $('ul.pagination').hide();
+    $(function() {
+        $('.scrolling-pagination').jscroll({
+            autoTrigger: true,
+            padding: 0,
+            nextSelector: '.pagination li.active + li a',
+            contentSelector: 'div.scrolling-pagination',
+            callback: function() {
+                $('ul.pagination').remove();
+            }
+        });
+    });
+</script>
 @endsection

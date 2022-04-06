@@ -38,49 +38,49 @@
                     @if (Auth::check())
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is("dashboard") ? 'active' : '' }}" href="/dashboard">
+                            <a class="nav-link {{ Route::is(" dashboard") ? 'active' : '' }}" href="/dashboard">
                                 Dashboard
                             </a>
                         </li>
                         @can('user verify')
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is("users") ? 'active' : '' }}" href="/users">
+                            <a class="nav-link {{ Route::is(" users") ? 'active' : '' }}" href="/users">
                                 Users
                             </a>
                         </li>
                         @endcan
                         @can('view bombing stat')
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is("bombings") ? 'active' : '' }}" href="/history/bombings">
+                            <a class="nav-link {{ Route::is(" bombings") ? 'active' : '' }}" href="/history/bombings">
                                 Bombings
                             </a>
                         </li>
                         @endcan
                         @can('view sms stat')
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is("messages") ? 'active' : '' }}" href="/history/messages">
+                            <a class="nav-link {{ Route::is(" messages") ? 'active' : '' }}" href="/history/messages">
                                 Messages
                             </a>
                         </li>
                         @endcan
                         @can('view sms stat')
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is("feedbacks") ? 'active' : '' }}" href="/feedbacks">
+                            <a class="nav-link {{ Route::is(" feedbacks") ? 'active' : '' }}" href="/feedbacks">
                                 Feedbacks
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is("alerts") ? 'active' : '' }}" href="/alerts">
+                            <a class="nav-link {{ Route::is(" alerts") ? 'active' : '' }}" href="/alerts">
                                 Alerts
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is("banned") ? 'active' : '' }}" href="/banned">
+                            <a class="nav-link {{ Route::is(" banned") ? 'active' : '' }}" href="/banned">
                                 Banned Words
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is("notifications") ? 'active' : '' }}" href="/notifications">
+                            <a class="nav-link {{ Route::is(" notifications") ? 'active' : '' }}" href="/notifications">
                                 Notifications
                             </a>
                         </li>
@@ -155,8 +155,10 @@
             @endauth
             @yield('content')
         </main>
-
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
+    @yield("scripts")
 </body>
 
 </html>
