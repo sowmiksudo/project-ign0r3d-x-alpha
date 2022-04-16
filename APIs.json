@@ -14,7 +14,8 @@
             "url": "https://www.shwapno.com/WebAPI/CRMActivation/Validate?Channel=W&otpCRMrequired=false&otpeCOMrequired=true&smssndcnt=8&otpBasedLogin=false&LoyaltyProvider=&MobileNO=0_MSISDN_&countryPhoneCode=%2B88",
             "method": "get",
             "body": "",
-            "headers": {}
+            "headers": {},
+            "useProxy":false
         }
     },
     {
@@ -38,7 +39,8 @@
             "body": "mobile_number=0_MSISDN_",
             "headers": {
                 "content-type": "application/x-www-form-urlencoded"
-            }
+            },
+            "useProxy":false
         }
     },
     {
@@ -131,7 +133,8 @@
             "body": "{\"phone\": \"0_MSISDN_\"}",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy":false
         }
     },
     {
@@ -259,7 +262,8 @@
             "body": "{\r\n    \"client_id\": \"562c8b61-bb1f-4198-8b30-8d637a37ded3.acma.careem.com\",\r\n    \"identifier\": \"+880_MSISDN_\",\r\n    \"type\": \"CALL\",\r\n    \"locale\": \"en\",\r\n    \"multiTimeUse\": true\r\n}",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy":true
         }
     },
     {
@@ -270,7 +274,8 @@
             "body": "{\r\n  \"operator\": \"all\",\r\n  \"msisdn\": \"880_MSISDN_\"\r\n}",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy":true
         }
     },
     {
@@ -292,7 +297,8 @@
             "body": "{\r\n    \"contact\": \"+880_MSISDN_\",\r\n    \"type\": \"phone\"\r\n}",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy":true
         }
     },
     {
@@ -303,7 +309,8 @@
             "body": "{\r\n    \"phone\": \"0_MSISDN_\",\r\n    \"country_code\": \"+880\",\r\n    \"fcm_token\": null\r\n}",
             "headers": {
                 "content-type": "application\/json"
-            }
+            },
+            "useProxy":true
         }
     },
     {
