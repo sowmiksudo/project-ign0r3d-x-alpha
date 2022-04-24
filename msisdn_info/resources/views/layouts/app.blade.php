@@ -48,7 +48,7 @@
                             <li class="nav-item">History</li>
                         </a>
                         <a href="/deposits" class="nav-link {{ Route::is("deposits") ? "active" : "" }}">
-                            <li class="nav-item">Deposit History</li>
+                            <li class="nav-item">Deposits</li>
                         </a>
                         <a href="/add" class="nav-link {{ Route::is("deposit.show") ? "active" : "" }}">
                             <li class="nav-item">Add Balance</li>
@@ -57,6 +57,9 @@
                         @hasrole("Super Admin")
                         <a href="{{ route("admin.index") }}" class="nav-link {{ Route::is("admin.index") ? "active" : "" }}">
                             <li class="nav-item">Admin</li>
+                        </a>
+                        <a href="{{ route("admin.users") }}" class="nav-link {{ Route::is("admin.users") ? "active" : "" }}">
+                            <li class="nav-item">Users</li>
                         </a>
                         <a href="{{ route("admin.requests") }}" class="nav-link {{ Route::is("admin.requests") ? "active" : "" }}">
                             <li class="nav-item">Requests</li>

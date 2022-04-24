@@ -32,6 +32,9 @@ Route::middleware('throttle:3,1')->post("/add", [DepositController::class, 'stor
 
 Route::middleware(['auth', 'isAdmin'])->prefix("admin")->name('admin.')->group(function () {
     Route::get("/", [AdminPanelController::class, 'index'])->name('index');
+    Route::get("/users", [AdminPanelController::class, 'users'])->name('users');
+    Route::get("/user/{id}", [AdminPanelController::class, 'user'])->name('user');
+    Route::post("/user/{id}/action", [AdminPanelController::class, 'user_action'])->name('user.action');
     Route::get("/requests", [AdminPanelController::class, 'requests'])->name('requests');
     Route::post("/action", [AdminPanelController::class, 'action'])->name('action');
     Route::get("/blacklists", [AdminPanelController::class, 'blacklists'])->name('blacklists');

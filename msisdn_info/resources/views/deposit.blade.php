@@ -51,6 +51,7 @@
                     <option value="100">100 INFO TOKEN</option>
                     <option value="200">200 INFO TOKEN</option>
                 </select>
+                <p class="text-muted text-sm-center">একটা টোকেন দিয়ে একটা নম্বরের ইনফো বের করতে পারবেন।</p>
                 <div class="alert alert-warning text-center">
                     উপরে দেয়া যেকোনো নম্বরে <strong id="money"></strong> টাকা <i>সেন্ড মানি</i> করবেন।
                 </div>

@@ -15,7 +15,7 @@ class HistoryController extends Controller
     public function index()
     {
         return view("history", [
-            "history"=>History::all()
+            "history"=>auth()->user()->histories
         ]);
     }
 

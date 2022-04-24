@@ -16,7 +16,7 @@ class DepositController extends Controller
     public function index()
     {
         return view("deposits", [
-            "deposits"=>Deposit::all()
+            "deposits"=>auth()->user()->deposits
         ]);
     }
 
@@ -29,7 +29,7 @@ class DepositController extends Controller
     {
         $settings = SimInfoSetting::all()->first();
         if($settings->is_accepting_deposits === 0){
-            return back()->with("error", "We are currently accepting no more payments.");
+            return back()->with("error", "টাকা ডেপোসিট করা আপাতত অফ আছে। কিছুক্ষণ পর অন করা হবে।");
         }
         return view("deposit", [
             "bkash"=>$settings->bkash_number,
@@ -62,7 +62,7 @@ class DepositController extends Controller
             "amount"=>$request->input("package"),
             "sender_number"=>$request->input("number")
         ]);
-        return back()->with("success", "Your request has been noted. Admins will check and approve if all details are correct.");
+        return back()->with("success", "রিকুএস্ট সেভ করা হয়েছে। এডমিন চেক করে এপ্রুভ করবেন। ভুল ইনফো দিলে এপ্রুভ করা হবেনা। ");
     }
 
     /**

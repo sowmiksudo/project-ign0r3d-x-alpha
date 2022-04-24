@@ -34,11 +34,11 @@ class BalanceController extends Controller
 
         $balance = auth()->user()->balance->balance;
         if ($balance < 1) {
-            return back()->with("error", "Not enough balance!");
+            return back()->with("error", "আপনার একাউন্ট এ টোকেন নেই। টোকেন কিনতে উপরে ৩ডট এ ক্লিক করে ADD MONEY তে যান।");
         }
 
         if(InfoNumberBlacklist::all()->pluck("number")->contains($request->number)){
-            return back()->with("error", "number blacklisted");
+            return back()->with("error", "এই নাম্বার ব্লাকলিস্ট করা হয়েছে।");
         }
 
         $response = Http::withOptions(["verify"=>false])->get("https://rbarinfo.azurewebsites.net/info?msisdn=" . ltrim($request->number, "0"));
@@ -47,7 +47,7 @@ class BalanceController extends Controller
 
         if (!$success) {
             return back()->with([
-                "error" => "Invalid number or wrong operator."
+                "error" => "নাম্বার ভুল অথবা রবি/এয়ারটেল অপারেটর না।"
             ]);
         }
 

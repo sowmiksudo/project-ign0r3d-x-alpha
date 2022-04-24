@@ -16,6 +16,7 @@
                 <th scope="col">Time</th>
                 <th scope="col">APPROVE</th>
                 <th scope="col">REJECT</th>
+                <th scope="col">PROFILE</th>
             </tr>
         </thead>
         <tbody class="text-center">
@@ -34,7 +35,7 @@
                         @csrf
                         <input type="hidden" name="type" value="approve">
                         <input type="hidden" name="id" value="{{ $data->id }}">
-                        <button type="submit" class="btn btn-sm btn-success">&#10004;</button>
+                        <button type="submit" class="btn btn-sm btn-success">APPROVE</button>
                     </form>
                 </td>
                 <td>
@@ -42,8 +43,14 @@
                         @csrf
                         <input type="hidden" name="type" value="reject">
                         <input type="hidden" name="id" value="{{ $data->id }}">
-                        <button type="submit" class="btn btn-sm btn-success">&#10060;</button>
+                        <button type="submit" class="btn btn-sm btn-success">REJECT</button>
                     </form>
+                </td>
+                <td>
+                    <a href="{{ route("admin.user", [ "id"=>$data->user->id
+                        ]) }}">
+                    <button class="btn btn-sm btn-success">PROFILE</button>
+                    </a>
                 </td>
             </tr>
             @empty
@@ -75,6 +82,7 @@
                 <th scope="col">Time</th>
                 <th scope="col">APPROVE</th>
                 <th scope="col">REJECT</th>
+                <th scope="col">PROFILE</th>
             </tr>
         </thead>
         <tbody class="text-center">
@@ -93,7 +101,7 @@
                         @csrf
                         <input type="hidden" name="type" value="approve">
                         <input type="hidden" name="id" value="{{ $data->id }}">
-                        <button type="submit" class="btn btn-sm btn-success">&#10004;</button>
+                        <button type="submit" class="btn btn-sm btn-success">APPROVE</button>
                     </form>
                 </td>
                 <td>
@@ -101,8 +109,13 @@
                         @csrf
                         <input type="hidden" name="type" value="reject">
                         <input type="hidden" name="id" value="{{ $data->id }}">
-                        <button type="submit" class="btn btn-sm btn-success">&#10060;</button>
+                        <button type="submit" class="btn btn-sm btn-success">REJECT</button>
                     </form>
+                </td>
+                <td>
+                    <a href="{{ route("admin.user", [ "id"=>$data->user->id
+                        ]) }}">
+                        <button class="btn btn-sm btn-success">PROFILE</button></a>
                 </td>
             </tr>
             @empty

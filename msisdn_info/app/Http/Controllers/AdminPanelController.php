@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Balance;
 use App\Models\Deposit;
 use App\Models\History;
-use App\Models\InfoNumberBlacklist;
 use Illuminate\Http\Request;
+use App\Models\InfoNumberBlacklist;
 
 class AdminPanelController extends Controller
 {
@@ -29,7 +30,7 @@ class AdminPanelController extends Controller
     {
         return view("admin.requests", [
             "pending" => Deposit::where("status", "pending")->get(),
-            "others" => Deposit::paginate(20),
+            "others" => Deposit::where("status", "!=", "pending")->paginate(50),
         ]);
     }
 
@@ -45,8 +46,8 @@ class AdminPanelController extends Controller
                 Deposit::find($request->input("id"))->update([
                     "status" => "approved"
                 ]);
-                auth()->user()->balance()->update([
-                    "balance"=> auth()->user()->balance->balance + Deposit::find($request->input("id"))->amount,
+                Deposit::find($request->input("id"))->user->balance()->update([
+                    "balance"=> Deposit::find($request->input("id"))->user->balance->balance + Deposit::find($request->input("id"))->amount,
                 ]);
                 return back()->with("success", "Approved");
                 break;
@@ -86,5 +87,33 @@ class AdminPanelController extends Controller
         return back()->with("success", "Number deleted");
     }
 
+    public function users(){
+        return view("admin.users", [
+            "users"=>Balance::orderBy("balance", "desc")->with('user')->paginate(50)
+        ]);
+    }
+
+    public function user(Request $request){
+        return view("admin.user", [
+            "user"=>User::find($request->id)
+        ]);
+    }
+
+    public function user_action(Request $request){
+        $request->validate([
+            "action"=>"required"
+        ]);
+
+        switch ($request->input("action")) {
+            case 'change_balance':
+                User::find($request->id)->balance()->update([
+                    "balance" => $request->input("balance")
+                ]);
+                return back()->with("success", "Balance updated");
+                break;
+            default:
+                break;
+        }
+    }
 
 }
