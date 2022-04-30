@@ -8,6 +8,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Number</th>
                 <th scope="col">Balance</th>
+                <th scope="col">Last Recharge</th>
                 <th scope="col">Cost</th>
                 <th scope="col">Time</th>
             </tr>
@@ -18,7 +19,8 @@
                 <td>{{ $data->id }}</td>
                 <td>{{ $data->msisdn }}</td>
                 <td>{{ $data->balance }}</td>
-                <td>-{{ $data->cost }}</td>
+                <td>{{ $data->last_recharge }}</td>
+                <td>{{ $data->cost }}</td>
                 <td>{{ $data->created_at }}</td>
             </tr>
             @empty
