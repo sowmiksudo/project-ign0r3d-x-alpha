@@ -49,24 +49,17 @@ class BomberController extends Controller
                 "message" => $validator->messages()->toArray()
             ];
         }
-
-        if (Blacklist::where("number", $request->number)->first() !== null) {
-            auth()->user()->alerts()->create([
-                "log"=>"bombing on blacklisted number ".$request->number
-            ]);
-            return [
-                "success" => false,
-                "message" => "The number is blacklisted."
-            ];
-        }
-        if (User::where("number", "0".$request->number)->first() !== null) {
-            auth()->user()->alerts()->create([
-                "log"=>"bombing on blacklisted number ".$request->number
-            ]);
-            return [
-                "success" => false,
-                "message" => "The number is blacklisted."
-            ];
+        $user = User::where("number", "0" . $request->number)->first();
+        if ($user !== null) {
+            if ($user->is_verified === 1) {
+                auth()->user()->alerts()->create([
+                    "log" => "bombing on blacklisted number " . $request->number
+                ]);
+                return [
+                    "success" => false,
+                    "message" => "This number is verified."
+                ];
+            }
         }
 
 
@@ -74,7 +67,7 @@ class BomberController extends Controller
 
         $inserted = $this->user->bombings()->create([
             "number" => $request->number,
-            "amount"=> $request->amount,
+            "amount" => $request->amount,
             "total_api_available" => $count,
             "ip" => $request->ip(),
             "userAgent" => $request->userAgent()
@@ -94,7 +87,7 @@ class BomberController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "number" => "required|digits:10|unique:blacklists",
-            "note"=>"required|max:50"
+            "note" => "required|max:50"
         ]);
 
         if ($validator->fails()) {
@@ -106,7 +99,7 @@ class BomberController extends Controller
 
         $added = $this->user->blacklists()->create([
             "number" => $request->number,
-            "note"=>$request->note
+            "note" => $request->note
         ]);
 
         return $added ? [
@@ -119,33 +112,36 @@ class BomberController extends Controller
     }
 
 
-    public function history(Request $request){
+    public function history(Request $request)
+    {
         return [
-            "success"=>true,
-            "bombings"=>$this->user->bombings
+            "success" => true,
+            "bombings" => $this->user->bombings
         ];
     }
 
-    public function showBlacklist(){
+    public function showBlacklist()
+    {
         return [
-            "success"=>true,
-            "blacklists"=>$this->user->blacklists
+            "success" => true,
+            "blacklists" => $this->user->blacklists
         ];
     }
 
-    public function deleteBlacklist(Request $request){
+    public function deleteBlacklist(Request $request)
+    {
         $entry = Blacklist::find($request->id);
-        if($entry === null){
+        if ($entry === null) {
             return [
-                "success"=>false,
-                "message"=>"NOT FOUND"
+                "success" => false,
+                "message" => "NOT FOUND"
             ];
         }
 
         $deleted = $entry->delete();
         return [
-            "success"=>true,
-            "message"=>"Deleted successfully."
+            "success" => true,
+            "message" => "Deleted successfully."
         ];
     }
 }
