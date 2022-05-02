@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(["auth","hasAdminAccess"]);
+    }
+
     public function all(){
         $bombings = Bombing::all();
         $messages = Message::all();

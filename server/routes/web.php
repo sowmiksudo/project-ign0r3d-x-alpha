@@ -57,6 +57,11 @@ Route::prefix("/banned")->group(function(){
     Route::get("/delete/{id}", [HomeController::class, 'banned_delete'])->name("banned_delete");
 });
 
+Route::prefix("/search")->group(function(){
+    Route::get("/", [HomeController::class, 'search'])->name("search");
+    Route::post("/", [HomeController::class, 'victim'])->name("victim");
+});
+
 Route::prefix('/notifications')->group(function () {
     Route::get("/", [HomeController::class, 'notifications'])->name('notifications');
     Route::post("/", [HomeController::class, 'notifications_add'])->name('notifications.add');

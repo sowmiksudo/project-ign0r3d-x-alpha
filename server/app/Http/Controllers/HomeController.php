@@ -107,5 +107,17 @@ class HomeController extends Controller
         return back();
 
     }
+
+    public function search(){
+        return view("search");
+    }
+
+    public function victim(Request $request){
+        return view("victim", [
+            "victim"=>$request->victim,
+            "bombings"=>Bombing::where("number", $request->victim)->paginate(15),
+            "messages"=>Message::where("number", "0".$request->victim)->paginate(15),
+        ]);
+    }
 }
 

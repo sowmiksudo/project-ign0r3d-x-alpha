@@ -40,7 +40,7 @@ class BomberController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "number" => "required|digits:10",
-            "amount" => "required|integer|max:500",
+            "amount" => "required|integer|max:2000",
         ]);
 
         if ($validator->fails()) {
