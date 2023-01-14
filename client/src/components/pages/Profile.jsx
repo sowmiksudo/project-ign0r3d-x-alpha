@@ -26,9 +26,9 @@ export default function Profile() {
 
   const shareApp = () => {
     navigator.share({
-      title:"Project IGN0R3DxALPHA",
-      url:"https://alphasowmik.xyz",
-      text:"Hi! I'm inviting you to join the hidden universe of Ign0r3dH4x0r! Send free SMS, Do SMS Bombing with own API and many more tools are waiting for you."
+      title:"Mr Tools | SMS Sender & SMS Bomber",
+      url:"https://t.me/MrBomberOfficial",
+      text:"Hi! I'm inviting you to explore Mr Tools."
     });
   }
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -85,7 +85,7 @@ export default function Profile() {
               action={
                 <Button color="warning" size="small" onClick={toggleDialog}>VERIFY</Button>
               }
-            >Account is not verified!</Alert>
+            >আপনার একাউন্ট ভেরিফাই করা হয়নি।</Alert>
               :
               <Confetti
                 width={window.innerWidth}
@@ -99,13 +99,11 @@ export default function Profile() {
               aria-describedby="alert-dialog-description"
             >
               <DialogTitle id="alert-dialog-title">
-                Why you should verify?
+                কিভাবে ভেরিফাই করবেন?
               </DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                  Verify your account to increase daily sms sending limits, use private APIs and to get an awesome verified badge.
-                  <br /><br />
-                  In order to verify your account, click on the button bellow to learn more. Follow the announcement and submit google form accordingly. We'll mark your account as verified within 48 hours.
+                  একাউন্ট ভেরিফাই করে নতুন নতুন ফিচার উপভোগ করতে নিচে এড করা এনাউন্সমেন্টটি ফলো করুন। 
                 </DialogContentText>
               </DialogContent>
               <DialogActions>

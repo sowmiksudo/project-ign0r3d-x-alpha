@@ -23,9 +23,9 @@ function Home() {
       {
         !user.loading && user.profile.success &&
         <Box>
-          <Typography variant="body2" align="left">THE PROJECT</Typography>
-          <Typography variant="h4" align="center">IGN0R3DxALPHA</Typography>
-          <Typography variant="body2" align="right">VERSION :: 1.0-BETA</Typography>
+          <Typography variant="body2" align="left" color="#42d4f5">SMS SENDER & BOMBER</Typography>
+          <Typography variant="h4" align="center" color="#42d4f5">MR TOOLS</Typography>
+          <Typography variant="body2" align="right" color="#42d4f5">VERSION :: 1.0-BETA</Typography>
           {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button variant="contained" onClick={e => navigate('/x-sms')}
               size="small" color="primary" sx={{ m: 3 }}>Xsms
@@ -35,8 +35,8 @@ function Home() {
             </Button>
           </Box> */}
           <Footer sx={{ mt: 10 }} />
-          <About open={open} toggleOpen={_ => setOpen(!open)} />
-          <Typography align="center" variant="body2" sx={{ mt: 2, textDecoration: 'underline' }} onClick={_ => setOpen(true)}>FROM TEAM X 1337</Typography>
+          {/* <About open={open} toggleOpen={_ => setOpen(!open)} /> */}
+          {/* <Typography align="center" variant="body2" sx={{ mt: 2, textDecoration: 'underline' }} onClick={_ => setOpen(true)}>FROM MOJIBRSM</Typography> */}
         </Box>
       }
     </Box>

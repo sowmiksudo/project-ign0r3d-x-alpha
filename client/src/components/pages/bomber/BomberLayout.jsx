@@ -10,6 +10,8 @@ import MenuItem from '@mui/material/MenuItem';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import AddLinkIcon from "@mui/icons-material/AddLink";
 import CancelIcon from '@mui/icons-material/Cancel';
+import HistoryIcon from '@mui/icons-material/History';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import HomeIcon from '@mui/icons-material/Home';
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -79,20 +81,27 @@ export default function BottomNav({ children }) {
             value="bomber"
             icon={<LocalFireDepartmentIcon />}
           />
-          {/* <BottomNavigationAction
+          <BottomNavigationAction
             component={Link}
             to="/bomber/history"
             label="History"
             value="history"
             icon={<HistoryIcon />}
-          /> */}
+          />
           <BottomNavigationAction
+            component={Link}
+            to="/bomber/dashboard"
+            label="Profile"
+            value="dashboard"
+            icon={<DashboardIcon />}
+          />
+          {/* <BottomNavigationAction
             component={Link}
             to="/bomber/api"
             label="API"
             value="api"
             icon={<AddLinkIcon />}
-          />
+          /> */}
           {/* <BottomNavigationAction
             component={Link}
             to="/bomber/blacklist"
@@ -101,13 +110,6 @@ export default function BottomNav({ children }) {
             icon={<CancelIcon />}
           /> */}
           {/* <BottomNavigationAction
-            component={Link}
-            to="/bomber/dashboard"
-            label="Profile"
-            value="dashboard"
-            icon={<DashboardIcon />}
-          /> */}
-          <BottomNavigationAction
             label="More"
             value="more"
             id="basic-menu"
@@ -116,7 +118,7 @@ export default function BottomNav({ children }) {
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
             icon={<MoreVertIcon />}
-          />
+          /> */}
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -126,9 +128,9 @@ export default function BottomNav({ children }) {
               'aria-labelledby': 'basic-button',
             }}
           >
-            <Link to="/bomber/dashboard" style={{ color: 'inherit', textDecoration: 'none' }}>
+            {/* <Link to="/bomber/dashboard" style={{ color: 'inherit', textDecoration: 'none' }}>
               <MenuItem onClick={handleClose}>Dashboard</MenuItem>
-            </Link>
+            </Link> */}
             <Link to="/bomber/history" style={{ color: 'inherit', textDecoration: 'none' }}>
               <MenuItem onClick={handleClose}>History</MenuItem>
             </Link>

@@ -23,11 +23,12 @@ class XsmsController extends Controller
 
     public function send_sms($message, $number)
     {
-        $url = "https://api.smsq.global/api/v2/SendSMS?ApiKey=R3r40YEsmn1rfuHt49kQsvVuShUT8K/pNCWlYfOa+qI=&ClientId=dc0b42d1-e973-463c-baa1-088ee1934fb5&SenderId=8804445620740&Message=$message&MobileNumbers=88$number";
+        $url = "https://google.com";
 
         $response = Http::withOptions(["verify" => false])->get($url)->json();
 
-        $success = ($response["ErrorCode"] === 0) ? true : false;
+        // $success = ($response["ErrorCode"] === 0) ? true : false;
+        $success = true;
         return $success;
     }
 
@@ -82,13 +83,14 @@ class XsmsController extends Controller
         $id = Auth::guard("api")->user()->id;
         $user = User::find($id);
         $sent_today = User::find($user->id)->messages()->whereDate('created_at', Carbon::today())->get()->count();
-        if ($user->is_verified) {
-            $limit = Setting::all()->first()->daily_limit_verified;
-        } else {
-            $limit = Setting::all()->first()->daily_limit_non_verified;
-        }
-
-        if ($sent_today >= $limit) {
+        $sent = User::find($user->id)->messages()->count();
+        // if ($user->is_verified) {
+        //     $limit = Setting::all()->first()->daily_limit_verified;
+        // } else {
+        //     $limit = Setting::all()->first()->daily_limit_non_verified;
+        // }
+        $limit = $user->limit;
+        if ($sent >= $limit) {
             return [
                 "success" => false,
                 "message" => "Daily limit reached!"
@@ -102,10 +104,12 @@ class XsmsController extends Controller
             "user_agent" => $request->userAgent()
         ]);
 
+        $user->limit = $user->limit - 1;
+        $user->save();
 
         $number = $request->number;
 
-        $message = ($user->is_verified === 1) ? $request->message : $request->message . "%0A%0ASent%20by%20IGN0R3DxALPHA";
+        $message = ($user->is_verified === 1) ? $request->message : $request->message . "%0A%0ASent%20by%20MR%20TOOLS";
 
 
         $success = $this->send_sms($message, $number);
@@ -139,17 +143,18 @@ class XsmsController extends Controller
         $messages = User::find($user->id)->messages();
         $sent_today = $messages->whereDate('created_at', Carbon::today())->get()->count();
         $all_time_count = $messages->count();
-        if ($user->is_verified) {
-            $limit = Setting::all()->first()->daily_limit_verified;
-        } else {
-            $limit = Setting::all()->first()->daily_limit_non_verified;
-        }
+        // if ($user->is_verified) {
+        //     $limit = Setting::all()->first()->daily_limit_verified;
+        // } else {
+        //     $limit = Setting::all()->first()->daily_limit_non_verified;
+        // }
+        $limit = $user->limit;
 
         return [
             "success" => true,
             "total_sent" => $all_time_count,
             "sms_sent_today" => $sent_today,
-            "sms_left_today" => $limit - $sent_today,
+            "sms_left_today" => $limit,
             "total_daily_sms" => $limit,
             "is_verified" => ($user->is_verified === 0) ? false : true,
             "profile" => $user,

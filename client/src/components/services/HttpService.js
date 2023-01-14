@@ -6,8 +6,9 @@ export default class HttpService {
     constructor(){
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
             this.url = "http://localhost:8000/api";
+            // this.url = "https://michigan-correlation-designed-obtain.trycloudflare.com/api";
         } else {
-            this.url = "https://api.alphasowmik.xyz/api";
+            this.url = "https://api.mojibrsm.com/api";
         }
     }
 

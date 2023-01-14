@@ -290,7 +290,7 @@ export default function Page({ children }) {
                 </Backdrop>
                 <AppBar position="fixed">
                     <Toolbar variant="dense" >
-                        <IconButton
+                        {/* <IconButton
                             size="large"
                             edge="start"
                             color="inherit"
@@ -298,9 +298,9 @@ export default function Page({ children }) {
                             onClick={toggleDrawer}
                         >
                             <MenuIcon />
-                        </IconButton>
+                        </IconButton> */}
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1, cursor: 'pointer' }} onClick={() => { navigate("/") }}>
-                            IGN0R3D x ALPHA
+                            MR TOOLS
                         </Typography>
                         {(!user.loading && !app.loading) && <div>
                             {(user.success && app.success) ?
@@ -342,7 +342,7 @@ export default function Page({ children }) {
                                         onClose={handleClose}
                                     >
                                         <MenuItem onClick={() => { navigate('/user/profile'); setAnchorEl(null) }}>Profile</MenuItem>
-                                        <MenuItem onClick={() => { navigate('/user'); setAnchorEl(null) }}>Dashboard</MenuItem>
+                                        {/* <MenuItem onClick={() => { navigate('/user'); setAnchorEl(null) }}>Dashboard</MenuItem> */}
                                         <MenuItem onClick={() => { navigate("/feedback"); setAnchorEl(null) }}>Feedback</MenuItem>
                                         <MenuItem onClick={() => { LogOutUser(); setAnchorEl(null) }}>Logout</MenuItem>
                                     </Menu>

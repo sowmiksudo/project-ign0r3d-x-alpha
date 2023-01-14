@@ -16,7 +16,7 @@ function Header() {
                 '<strong>F<small>IERY</small></strong> <small>F<x-small>ULL</x-small> F<x-small>EATURED</x-small></small>',
                 '<strong>F<small>IERY</small></strong> <small>F<x-small>ULL F<x-small>REEDOM</x-small></small>',
                 '<strong>F<small>IERY</small></strong> <small>M<x-small>OST A<x-small>DVANCED</x-small></small>',
-                '<strong>F<small>IERY</small></strong> <x-small>FROM</x-small><small> TEAM X 1337</small>',
+                '<strong>F<small>IERY</small></strong> <x-small>FROM</x-small><small> MR TOOLS</small>',
             ],
             typeSpeed: 30,
             backSpeed: 10,

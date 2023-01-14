@@ -54,9 +54,9 @@ function Dashboard() {
 
   const handleShare = (e) => {
     navigator.share({
-      title:"Project IGN0R3DxALPHA",
-      url:"https://alphasowmik.xyz",
-      text:"Hi! I'm inviting you to join the hidden universe of Ign0r3dH4x0r! Send free SMS, Do SMS Bombing with own API and many more tools are waiting for you."
+      title:"MR TOOLS",
+      url:"https://mojibrsm.com",
+      text:"Hi! I'm inviting you to visit this website."
     });
   }
 

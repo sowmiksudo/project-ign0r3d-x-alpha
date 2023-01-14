@@ -9,9 +9,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 function Footer(props) {
   return (
     <>
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        <Link sx={{ textDecoration: 'none', }} href="https://ign0r3dh4x0r.github.io/linktree.html">
-          MADE WITH <FavoriteIcon sx={{ pt:1.5 }} />BY IGN0R3DH4X0R
+      <Typography variant="body2" color="#42d4f5" align="center" {...props}>
+        <Link sx={{ textDecoration: 'none', }} color="#42d4f5" href="https://www.facebook.com/MoJiiB.RsM">
+          FROM Team Tiger
         </Link>
       </Typography>
       <Box sx={{
@@ -19,23 +19,23 @@ function Footer(props) {
         display: 'flex',
         justifyContent: "center"
       }}>
-        <a href="https://github.com/Ign0r3dh4x0r">
+        <a href="https://github.com/mojib-rsm">
           <IconButton sx={{
-            color: '#b5e853'
+            color: '#42f58d'
           }} aria-label="">
             <GitHubIcon />
           </IconButton>
         </a>
-        <a href="https://web.facebook.com/groups/team.x.official.community">
+        <a href="https://www.facebook.com/MoJiiB.RsM">
           <IconButton sx={{
-            color: '#b5e853'
+            color: '#42f58d'
           }} aria-label="">
             <FacebookIcon />
           </IconButton>
         </a>
-        <a href="https://t.me/teamx1337official">
+        <a href="https://t.me/MrBomberOfficial">
           <IconButton sx={{
-            color: '#b5e853'
+            color: '#42f58d'
           }} aria-label="">
             <TelegramIcon />
           </IconButton>
