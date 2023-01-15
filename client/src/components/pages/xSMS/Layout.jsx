@@ -44,21 +44,21 @@ export default function SimpleBottomNavigation({ children }) {
           />
           <BottomNavigationAction
             component={Link}
-            to="/x-sms"
+            to="/sms"
             label="XSMS"
-            value="x-sms"
+            value="sms"
             icon={<SmsIcon />}
           />
           <BottomNavigationAction
             component={Link}
-            to="/x-sms/history"
+            to="/sms/history"
             label="History"
             value="history"
             icon={<HistoryIcon />}
           />
           <BottomNavigationAction
             component={Link}
-            to="/x-sms/dashboard"
+            to="/sms/dashboard"
             label="DASHBOARD"
             value="dashboard"
             icon={<DashboardIcon />}

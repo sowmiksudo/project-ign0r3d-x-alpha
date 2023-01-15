@@ -27,7 +27,7 @@ function Home() {
           <Typography variant="h4" align="center" color="#42d4f5">MR TOOLS</Typography>
           <Typography variant="body2" align="right" color="#42d4f5">VERSION :: 1.0-BETA</Typography>
           {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button variant="contained" onClick={e => navigate('/x-sms')}
+            <Button variant="contained" onClick={e => navigate('/sms')}
               size="small" color="primary" sx={{ m: 3 }}>Xsms
             </Button>
             <Button variant="contained" onClick={e => navigate('/bomber')}

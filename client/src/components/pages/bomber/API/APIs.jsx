@@ -143,8 +143,8 @@ export default function CollapsibleTable() {
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 7, mb: 1 }}>
                 <ButtonGroup size="small" aria-label="API ACTIONS">
                     <Button key="add" onClick={_ => setAddDialogOpen(true)}>ADD API</Button>
-                    <Button key="import" onClick={import_api}>IMPORT</Button>
-                    <Button key="export" onClick={export_api}>EXPORT</Button>
+                    {/* <Button key="import" onClick={import_api}>IMPORT</Button>
+                    <Button key="export" onClick={export_api}>EXPORT</Button> */}
                     <Button key="feedback" onClick={_=>navigate("/feedback")}>FEEDBACK</Button>
                 </ButtonGroup>
             </Box>

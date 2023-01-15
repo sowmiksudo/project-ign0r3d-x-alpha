@@ -14,6 +14,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MessageIcon from '@mui/icons-material/Message';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import LanguageIcon from '@mui/icons-material/Language';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -67,9 +68,9 @@ function BottomNav() {
                     />
                     <BottomNavigationAction
                         component={Link}
-                        to="/x-sms"
+                        to="/sms"
                         label="XSMS"
-                        value="/x-sms"
+                        value="/sms"
                         icon={<SmsIcon />}
                     />
                     <BottomNavigationAction
@@ -77,7 +78,7 @@ function BottomNav() {
                         to="/bomber"
                         label="FIERY"
                         value="/bomber"
-                        icon={<LocalFireDepartmentIcon />}
+                        icon={<LanguageIcon />}
                     />
                     <BottomNavigationAction
                         component={Link}
@@ -240,7 +241,7 @@ export default function Page({ children }) {
                             {
                                 name: "Xsms",
                                 icon: <MessageIcon />,
-                                path: "/x-sms"
+                                path: "/sms"
                             },
                             {
                                 name: "Fiery Bomber",

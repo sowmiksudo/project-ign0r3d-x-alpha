@@ -23,13 +23,10 @@ class XsmsController extends Controller
 
     public function send_sms($message, $number)
     {
-        $url = "https://google.com";
-
-        $response = Http::withOptions(["verify" => false])->get($url)->json();
-
-        // $success = ($response["ErrorCode"] === 0) ? true : false;
-        $success = true;
-        return $success;
+        $user = Auth::guard('api')->user();
+        $url = ($user->is_verified === 1) ? "https://proxy.ignoredhaxor.xyz/index.php?user=mojib&number=$number&message=".urlencode($message) : "https://proxy.ignoredhaxor.xyz/index.php?user=mojib2&number=$number&message=".urlencode($message);
+        $response = Http::withOptions(["verify" => false])->get($url);
+        return $response->body();
     }
 
     public function config(Request $request)

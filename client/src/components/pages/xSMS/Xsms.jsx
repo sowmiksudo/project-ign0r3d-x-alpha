@@ -137,7 +137,7 @@ export default function Main() {
                 type="text"
                 id="message"
                 autoComplete='off'
-                placeholder="Hey there, xSMS has got you!"
+                placeholder="Hey there, MR TOOLS has got you!"
                 sx={{
                   color: 'white'
                 }}

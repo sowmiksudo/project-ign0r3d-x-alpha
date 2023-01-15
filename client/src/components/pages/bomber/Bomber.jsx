@@ -202,13 +202,13 @@ export default function Main() {
                 onChange={handleFieldChange}
               />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <FormControlLabel disabled={user.profile.data.is_verified === 0} control={<Checkbox checked={privateChecked} onChange={togglePrivateCheck} />} label="PRIVATE" />
+                <FormControlLabel control={<Checkbox checked={privateChecked} onChange={togglePrivateCheck} />} label="PRIVATE" />
                 <FormControlLabel control={<Checkbox checked={publicChecked} onChange={togglePublicCheck} />} label="PUBLIC" />
               </Box>
             </Grid>
-            <Grid item xs={4}>
+            {/* <Grid item xs={4}>
               <Box>
                 <FormControl fullWidth>
                   <InputLabel id="bombing-mode-id">MODE</InputLabel>
@@ -224,7 +224,7 @@ export default function Main() {
                   </Select>
                 </FormControl>
               </Box>
-            </Grid>
+            </Grid> */}
           </Grid>
           <Button loading={bomber.loading} success={bomber.success} timer={timer} text="START BOMBING" icon={<LocalFireDepartmentIcon />} />
         </Box>

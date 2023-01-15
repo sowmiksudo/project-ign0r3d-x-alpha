@@ -40,7 +40,7 @@ function RouteList() {
                             <Route path="profile" element={<Profile />} />
                         </Route>
                         <Route path="/feedback" element={<Feedback />} />
-                        <Route path="/x-sms">
+                        <Route path="/sms">
                             <Route index element={<Layout><Xsms /></Layout>} />
                             <Route path="history" element={<Layout><History /></Layout>} />
                             <Route path="dashboard" element={<Layout><Dashboard /></Layout>} />

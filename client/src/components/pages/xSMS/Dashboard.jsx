@@ -74,7 +74,7 @@ function Dashboard() {
         <Card sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
           <CardActionArea>
             <CardMedia sx={{ mt: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Avatar sx={{ backgroundColor: themeColor }}>{"Xowmik".charAt(0)}</Avatar>
+              <Avatar sx={{ backgroundColor: themeColor }}>{"M".charAt(0)}</Avatar>
             </CardMedia>
             <CardContent>
               <Typography variant="h5" component="div" align="center">

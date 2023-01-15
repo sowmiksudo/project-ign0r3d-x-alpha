@@ -7,7 +7,7 @@ import { useLocation } from 'react-router';
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import LanguageIcon from '@mui/icons-material/Language';
 import AddLinkIcon from "@mui/icons-material/AddLink";
 import CancelIcon from '@mui/icons-material/Cancel';
 import HistoryIcon from '@mui/icons-material/History';
@@ -79,15 +79,15 @@ export default function BottomNav({ children }) {
             to="/bomber"
             label="BOMBER"
             value="bomber"
-            icon={<LocalFireDepartmentIcon />}
+            icon={<LanguageIcon />}
           />
-          <BottomNavigationAction
+          {/* <BottomNavigationAction
             component={Link}
             to="/bomber/history"
             label="History"
             value="history"
             icon={<HistoryIcon />}
-          />
+          /> */}
           <BottomNavigationAction
             component={Link}
             to="/bomber/dashboard"
@@ -97,19 +97,12 @@ export default function BottomNav({ children }) {
           />
           {/* <BottomNavigationAction
             component={Link}
-            to="/bomber/api"
-            label="API"
-            value="api"
-            icon={<AddLinkIcon />}
-          /> */}
-          {/* <BottomNavigationAction
-            component={Link}
             to="/bomber/blacklist"
             label="BLACKLIST"
             value="blacklist"
             icon={<CancelIcon />}
           /> */}
-          {/* <BottomNavigationAction
+          <BottomNavigationAction
             label="More"
             value="more"
             id="basic-menu"
@@ -118,7 +111,7 @@ export default function BottomNav({ children }) {
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
             icon={<MoreVertIcon />}
-          /> */}
+          />
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -133,6 +126,9 @@ export default function BottomNav({ children }) {
             </Link> */}
             <Link to="/bomber/history" style={{ color: 'inherit', textDecoration: 'none' }}>
               <MenuItem onClick={handleClose}>History</MenuItem>
+            </Link>
+            <Link to="/bomber/api" style={{ color: 'inherit', textDecoration: 'none' }}>
+              <MenuItem onClick={handleClose}>API</MenuItem>
             </Link>
             {/* <MenuItem onClick={handleClose}>Logout</MenuItem> */}
           </Menu>
