@@ -13,7 +13,7 @@ import { CardActionArea, Typography, CardActions } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useSnackbar } from 'notistack';
 
-const themeColor = "#b5e853";
+const themeColor = "#42d4f5";
 function Blacklist() {
   const dispatch = useDispatch()
   const bomber = useSelector(state => state.bomber);

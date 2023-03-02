@@ -42,6 +42,14 @@ class BomberController extends Controller
             "number" => "required|digits:10",
             "amount" => "required|integer|max:2000",
         ]);
+        // $limit = ($this->user->is_verified === 1) ? 1000 : 500;
+        $limit = $this->user->bombing_limit;
+        if($request->amount > $limit){
+            return [
+                'success' => false,
+                'message' => 'Max amount is '.$limit
+            ];
+        }
 
         if ($validator->fails()) {
             return [

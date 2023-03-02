@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { green } from '@mui/material/colors';
+import { green, blue } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 
 export default function CustomButton({ loading, handleButtonClick, text, icon }) {
@@ -19,7 +19,7 @@ export default function CustomButton({ loading, handleButtonClick, text, icon })
                     <CircularProgress
                         size={24}
                         sx={{
-                            color: green[500],
+                            color: blue[500],
                             margin: 'auto',
                         }}
                     />

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Avatar, Typography } from '@mui/material';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import LocalFireDepartmentIcon from '@mui/icons-material/SmsFailed';
 import Typed from "typed.js";
 
 function Header() {

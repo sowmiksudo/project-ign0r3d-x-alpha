@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from "react-redux";
 import { LoadBombingHistoryAction } from "../../redux/actions/BomberActions";
 
-const themeColor = "#b5e853";
+const themeColor = "#42d4f5";
 
 function History() {
   const dispatch = useDispatch()

@@ -45,7 +45,7 @@ export default function SimpleBottomNavigation({ children }) {
           <BottomNavigationAction
             component={Link}
             to="/sms"
-            label="XSMS"
+            label="MR SMS"
             value="sms"
             icon={<SmsIcon />}
           />

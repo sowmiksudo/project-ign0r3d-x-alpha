@@ -7,8 +7,8 @@ function NotFound() {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box sx={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                <Typography variant="h1" color={"#b5e853"}>404</Typography>
-                <Typography color="#b5e853">
+                <Typography variant="h1" color={"#42d4f5"}>404</Typography>
+                <Typography color="#42d4f5">
                     PAGE NOT FOUND
                 </Typography>
                 <Link to="/">HOME</Link>

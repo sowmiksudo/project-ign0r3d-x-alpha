@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from "react-redux";
 import { LoadHistoryAction } from "./../../redux/actions/XsmsActions";
 
-const themeColor = "#b5e853";
+const themeColor = "#42d4f5";
 
 function History() {
   const dispatch = useDispatch()

@@ -11,33 +11,33 @@ const theme = createTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#42f58d',
+      main: '#42d4f5',
       // main: '#b12122',
-      dark: '#42f58d',
+      dark: '#42d4f5',
       light: '#000000',
     },
     secondary: {
-      main: '#42f58d',
+      main: '#42d4f5',
     },
     background: {
       default: '#151515',
       paper: '#151515',
     },
     text: {
-      primary: '#42f58d',
-      secondary: '#42f58d',
+      primary: '#42d4f5',
+      secondary: '#42d4f5',
     },
   },
   outlinedInput: {
     "&:hover .MuiInputAdornment-root .MuiSvgIcon-root": {
-      color: "#42f58d"
+      color: "#42d4f5"
     },
     "&.Mui-focused .MuiInputAdornment-root .MuiSvgIcon-root": {
-      color: "#42f58d"
+      color: "#42d4f5"
     }
   },
   '& .MuiSvgIcon-root': {
-    htmlColor: "#42f58d"
+    htmlColor: "#42d4f5"
   }
 });
 

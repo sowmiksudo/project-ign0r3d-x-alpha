@@ -15,6 +15,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import LanguageIcon from '@mui/icons-material/Language';
+import SmsFailedIcon from '@mui/icons-material/SmsFailed';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -34,7 +35,7 @@ import HowToRegIcon from '@mui/icons-material/HowToReg';
 import SmsIcon from "@mui/icons-material/Sms"
 
 
-const themeColor = '#b5e853';
+const themeColor = '#42d4f5';
 
 
 function BottomNav() {
@@ -69,16 +70,16 @@ function BottomNav() {
                     <BottomNavigationAction
                         component={Link}
                         to="/sms"
-                        label="XSMS"
+                        label="MR SMS"
                         value="/sms"
                         icon={<SmsIcon />}
                     />
                     <BottomNavigationAction
                         component={Link}
                         to="/bomber"
-                        label="FIERY"
+                        label="MR BOMBER"
                         value="/bomber"
-                        icon={<LanguageIcon />}
+                        icon={<SmsFailedIcon />}
                     />
                     <BottomNavigationAction
                         component={Link}
@@ -239,7 +240,7 @@ export default function Page({ children }) {
                                 path: '/user/profile',
                             },
                             {
-                                name: "Xsms",
+                                name: "MR SMS",
                                 icon: <MessageIcon />,
                                 path: "/sms"
                             },

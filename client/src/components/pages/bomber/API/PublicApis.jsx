@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 
 
-const themeColor = '#b5e853';
+const themeColor = '#42d4f5';
 export default function PublicApis({ apis }) {
   return (
     <Box sx={{ border:`1px solid ${themeColor}`, mb:2, borderRadius:'10px'}}>

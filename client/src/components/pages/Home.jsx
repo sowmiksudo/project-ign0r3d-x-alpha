@@ -7,7 +7,7 @@ import Footer from './../layouts/Footer';
 import About from './About';
 
 function Home() {
-  const themeColor = "#b5e853";
+  const themeColor = "#42d4f5";
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const user = useSelector(state => state.user);
@@ -23,9 +23,9 @@ function Home() {
       {
         !user.loading && user.profile.success &&
         <Box>
-          <Typography variant="body2" align="left" color="#42d4f5">SMS SENDER & BOMBER</Typography>
-          <Typography variant="h4" align="center" color="#42d4f5">MR TOOLS</Typography>
-          <Typography variant="body2" align="right" color="#42d4f5">VERSION :: 1.0-BETA</Typography>
+          <Typography variant="body2" align="left" color="#fa7fe3">SMS SENDER & BOMBER</Typography>
+          <Typography variant="h4" align="center" color="#fa7fe3">MR TOOLS</Typography>
+          {/* <Typography variant="body2" align="right" color="#fa7fe3">VERSION :: 1.0-BETA</Typography> */}
           {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button variant="contained" onClick={e => navigate('/sms')}
               size="small" color="primary" sx={{ m: 3 }}>Xsms

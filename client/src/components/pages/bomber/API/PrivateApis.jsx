@@ -16,7 +16,7 @@ import { useSnackbar } from 'notistack';
 import { DeleteApiAction } from './../../../redux/actions/BomberActions';
 import EditApi from './EditApi';
 
-const themeColor = '#b5e853';
+const themeColor = '#42d4f5';
 
 export default function PrivateApis({ apis }) {
     const dispatch = useDispatch()

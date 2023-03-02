@@ -14,7 +14,7 @@ import Confetti from 'react-confetti'
 
 
 
-const themeColor = "#b5e853";
+const themeColor = "#42d4f5";
 
 
 export default function Profile() {

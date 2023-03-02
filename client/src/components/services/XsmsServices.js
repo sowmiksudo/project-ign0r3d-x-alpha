@@ -2,7 +2,7 @@ import HttpService from './HttpService';
 
 export const fetchConfig = () => {
     const http = new HttpService();
-    const url = "x-sms/getConfig"
+    const url = "sms/getConfig"
     return http.get(url).then(data => {
         return data;    
     }).catch((error) => {
@@ -12,7 +12,7 @@ export const fetchConfig = () => {
 
 export const fetchHistory = () => {
     const http = new HttpService();
-    const url = "x-sms/getHistory"
+    const url = "sms/getHistory"
     return http.get(url).then(data => {
         return data;    
     }).catch((error) => {
@@ -22,7 +22,7 @@ export const fetchHistory = () => {
 
 export const fetchProfile = () => {
     const http = new HttpService();
-    const url = "x-sms/getProfile"
+    const url = "sms/getProfile"
     return http.get(url).then(data => {
         return data;    
     }).catch((error) => {
@@ -32,7 +32,7 @@ export const fetchProfile = () => {
 
 export const sendSms = (fields) => {
     const http = new HttpService();
-    const url = "x-sms/sendSingleSms"
+    const url = "sms/sendSingleSms"
     return http.post(fields, url).then(data => {
         return data;    
     }).catch((error) => {

@@ -13,7 +13,7 @@ import { LoadProfileAction } from '../redux/actions/ProfileActions';
 import { LoadAppAction } from '../redux/actions/AppActions';
 
 
-const themeColor = "#b5e853";
+const themeColor = "#42d4f5";
 
 function Login() {
   const navigate = useNavigate();

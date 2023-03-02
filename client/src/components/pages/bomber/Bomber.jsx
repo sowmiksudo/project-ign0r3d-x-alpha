@@ -204,7 +204,7 @@ export default function Main() {
             </Grid>
             <Grid item xs={12}>
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <FormControlLabel control={<Checkbox checked={privateChecked} onChange={togglePrivateCheck} />} label="PRIVATE" />
+                <FormControlLabel disabled={user.profile.data.is_verified === 0} control={<Checkbox checked={privateChecked} onChange={togglePrivateCheck} />} label="PRIVATE" />
                 <FormControlLabel control={<Checkbox checked={publicChecked} onChange={togglePublicCheck} />} label="PUBLIC" />
               </Box>
             </Grid>

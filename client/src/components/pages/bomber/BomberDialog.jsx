@@ -52,9 +52,12 @@ export default function AlertDialogSlide({ open, setOpen, apis, fields, mode, pr
       return headers;
     }
     let newUrl = config.url.replace("_MSISDN_", number);
-    let randProxy = proxies[Math.floor(Math.random()*proxies.length)].url
+    // let randProxy = proxies[Math.floor(Math.random()*proxies.length)].url
+    // let shouldUseProxy = config.useProxy;
+    let shouldUseProxy = false;
     let newConfig = {
-      url: config.useProxy ? randProxy + newUrl : newUrl,
+      // url: shouldUseProxy ? randProxy + newUrl : newUrl,
+      url: newUrl,
       headers: config.headers,
       data: config.body.replace("_MSISDN_", number),
       method: config.method
@@ -136,7 +139,7 @@ export default function AlertDialogSlide({ open, setOpen, apis, fields, mode, pr
         aria-describedby="alert-dialog-slide-description"
       >
         {!isDone && <LinearProgress sx={{ backgroundColor: '#151515' }} />}
-        <DialogTitle align="center"><LocalFireDepartmentIcon sx={{ pt: 1 }} /> FIERY BOMBER <LocalFireDepartmentIcon sx={{ pt: 1 }} /></DialogTitle>
+        <DialogTitle align="center"><LocalFireDepartmentIcon sx={{ pt: 1 }} /> MR BOMBER <LocalFireDepartmentIcon sx={{ pt: 1 }} /></DialogTitle>
         <DialogContent>
           <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
             <CircularProgress variant="determinate" value={(totalSent * 100) / fields.amount} />

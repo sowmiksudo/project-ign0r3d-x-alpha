@@ -9,8 +9,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 function Footer(props) {
   return (
     <>
-      <Typography variant="body2" color="#42d4f5" align="center" {...props}>
-        <Link sx={{ textDecoration: 'none', }} color="#42d4f5" href="https://www.facebook.com/MoJiiB.RsM">
+      <Typography variant="body2" color="#fa7fe3" align="center" {...props}>
+        <Link sx={{ textDecoration: 'none', }} color="#fa7fe3" href="https://www.facebook.com/MrTeamTiger/">
           FROM Team Tiger
         </Link>
       </Typography>
@@ -21,21 +21,21 @@ function Footer(props) {
       }}>
         <a href="https://github.com/mojib-rsm">
           <IconButton sx={{
-            color: '#42f58d'
+            color: '#fa7fe3'
           }} aria-label="">
             <GitHubIcon />
           </IconButton>
         </a>
         <a href="https://www.facebook.com/MoJiiB.RsM">
           <IconButton sx={{
-            color: '#42f58d'
+            color: '#fa7fe3'
           }} aria-label="">
             <FacebookIcon />
           </IconButton>
         </a>
-        <a href="https://t.me/MrBomberOfficial">
+        <a href="https://t.me/MrTools_BD">
           <IconButton sx={{
-            color: '#42f58d'
+            color: '#fa7fe3'
           }} aria-label="">
             <TelegramIcon />
           </IconButton>

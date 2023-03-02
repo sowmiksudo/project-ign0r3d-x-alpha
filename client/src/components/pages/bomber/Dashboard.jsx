@@ -21,7 +21,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
-const themeColor = '#b5e853';
+const themeColor = '#42d4f5';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -52,9 +52,9 @@ function Dashboard() {
 
   const handleShare = (e) => {
     navigator.share({
-      title:"Project IGN0R3DxALPHA",
-      url:"https://alphasowmik.xyz",
-      text:"Hi! I'm inviting you to join the hidden universe of Ign0r3dH4x0r! Send free SMS, Do SMS Bombing with own API and many more tools are waiting for you."
+      title:"MR TOOLS",
+      url:"https://tools.mojibrsm.com",
+      text:"Hi! I'm inviting you to join the hidden universe of MR Tools! Send free SMS, Do SMS Bombing with own API and many more tools are waiting for you."
     });
   }
 
@@ -83,7 +83,7 @@ function Dashboard() {
               {(bomber.profile.profile.is_verified === 1) && <Box>
                 <Divider variant="middle" sx={{ width: '100%' }} />
                 <br />
-                <Typography variant="body2" align="center">Congratulations! You are a verified user of IGN0R3DxALPHA. Share with your friends and inspire us to make more cool stuffs.</Typography>
+                <Typography variant="body2" align="center">Congratulations! You are a verified user of Mr Tools. Share with your friends and inspire us to make more cool stuffs.</Typography>
               </Box>}
             </CardContent>
           </CardActionArea>

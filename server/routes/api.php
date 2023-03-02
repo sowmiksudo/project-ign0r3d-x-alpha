@@ -31,7 +31,7 @@ Route::group(["middleware" => "CORS", "as" => "api."], function () {
         });
     });
 
-    Route::group(["prefix" => "x-sms"], function () {
+    Route::group(["prefix" => "sms"], function () {
         Route::get("getConfig", [XsmsController::class, 'config'])->name("xsms.config");
         Route::get("getHistory", [XsmsController::class, 'history'])->name("xsms.history");
         Route::get("getProfile", [XsmsController::class, 'profile'])->name("xsms.profile");

@@ -8,6 +8,7 @@ import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem';
 import LanguageIcon from '@mui/icons-material/Language';
+import SmsFailedIcon from '@mui/icons-material/SmsFailed';
 import AddLinkIcon from "@mui/icons-material/AddLink";
 import CancelIcon from '@mui/icons-material/Cancel';
 import HistoryIcon from '@mui/icons-material/History';
@@ -79,7 +80,7 @@ export default function BottomNav({ children }) {
             to="/bomber"
             label="BOMBER"
             value="bomber"
-            icon={<LanguageIcon />}
+            icon={<SmsFailedIcon />}
           />
           {/* <BottomNavigationAction
             component={Link}

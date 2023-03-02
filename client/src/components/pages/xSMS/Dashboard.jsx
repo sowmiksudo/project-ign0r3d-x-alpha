@@ -21,7 +21,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
-const themeColor = '#b5e853';
+const themeColor = '#42d4f5';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ function Dashboard() {
       </Backdrop>
 
       {!xsms.loading && xsms.profile_success && xsms.profile.profile && <Box>
-        <Typography variant="h4" align="center" sx={{ my: 1 }}>XSMS PROFILE</Typography>
+        <Typography variant="h4" align="center" sx={{ my: 1 }}>MR SMS PROFILE</Typography>
         <Card sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
           <CardActionArea>
             <CardMedia sx={{ mt: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -86,7 +86,7 @@ function Dashboard() {
               {xsms.profile.is_verified && <Box>
                 <Divider variant="middle" sx={{ width: '100%' }} />
                 <br />
-                <Typography variant="body2" align="center">Congratulations! You are a verified user of IGN0R3DxALPHA. Share with your friends and inspire us to make more cool stuffs.</Typography>
+                <Typography variant="body2" align="center">Congratulations! You are a verified user of MR TOOLS. Share with your friends and inspire us to make more cool stuffs.</Typography>
               </Box>}
             </CardContent>
           </CardActionArea>

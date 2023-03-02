@@ -65,7 +65,7 @@ function FullScreenDialog({ open }) {
       >
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
-            <Typography align="center" variant="h6">IGN0R3DxALPHA</Typography>
+            <Typography align="center" variant="h6">MR TOOLS</Typography>
           </Toolbar>
         </AppBar>
         <Box sx={{
@@ -82,23 +82,23 @@ function FullScreenDialog({ open }) {
             display: 'flex',
             justifyContent: "center"
           }}>
-            <a href="https://github.com/Ign0r3dh4x0r">
+            <a href="https://github.com/mojibrsm">
               <IconButton sx={{
-                color: '#b5e853'
+                color: '#42d4f5'
               }} aria-label="">
                 <GitHubIcon />
               </IconButton>
             </a>
             <a href="https://web.facebook.com/groups/team.x.official.community">
               <IconButton sx={{
-                color: '#b5e853'
+                color: '#42d4f5'
               }} aria-label="">
                 <FacebookIcon />
               </IconButton>
             </a>
             <a href="https://t.me/teamx1337official">
               <IconButton sx={{
-                color: '#b5e853'
+                color: '#42d4f5'
               }} aria-label="">
                 <TelegramIcon />
               </IconButton>
